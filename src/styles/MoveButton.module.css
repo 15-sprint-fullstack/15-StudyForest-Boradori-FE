@@ -1,0 +1,30 @@
+.moveButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 82px;
+  height: 48px;
+  border-radius: 15px;
+  border: 1px solid var(--gray-gray_DDDDDD, #ddd);
+  background: #fff;
+  color: var(--gray-gray_818181, #818181);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+.moveButtonLong {
+    width: 144px;
+}
+
+@media (max-width: 375px) {
+  /* 작은 폰 */
+  .moveButton {
+    width: 58px;
+    height: 40px;
+  }
+  .moveButtonLong {
+    width: 120px;
+}
+}
