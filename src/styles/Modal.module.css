@@ -1,0 +1,21 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  &.password {
+    /* 숙연님이 자유롭게 작성 */
+    background-color: #ffffff;
+  }
+
+  &.habitEdit {
+    /* 제가(승현) 작성할 부분 */
+    background-color: #ffffff;
+  }
+}
