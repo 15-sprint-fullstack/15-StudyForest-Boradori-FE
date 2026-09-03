@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from '/src/styles/MoveButton.module.css';
+import styles from '#styles/MoveButton.module.css';
 
 export function MoveButton({ type }) {
   return (
@@ -9,12 +9,12 @@ export function MoveButton({ type }) {
           홈<img src="src\assets\ic_arrow_right.svg" />
         </Link>
       ) : type === 'habit' ? (
-        <Link to="/habit" className={`${styles.moveButton} ${styles.moveButtonLong}`}>
+        <Link to="/habit" className={styles.moveButton}>
           오늘의 습관
           <img src="src\assets\ic_arrow_right.svg" />
         </Link>
       ) : (
-        <Link to="/focus" className={`${styles.moveButton} ${styles.moveButtonLong}`}>
+        <Link to="/focus" className={styles.moveButton}>
           오늘의 집중
           <img src="src\assets\ic_arrow_right.svg" />
         </Link>

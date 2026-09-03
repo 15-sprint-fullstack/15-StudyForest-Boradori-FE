@@ -1,6 +1,5 @@
-import { MoveButton } from './components/publicComponents/MoveButton';
-import { Navigation } from './components/publicComponents/Navigation';
 import { Routes, Route } from 'react-router-dom';
+import { MoveButton, Navigation } from '#publicComponents';
 
 function App() {
   return (

@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 82px;
-  height: 48px;
+  width: fit-content;
+  height: fit-content;
   border-radius: 15px;
   border: 1px solid var(--gray-gray_DDDDDD, #ddd);
   background: #fff;
@@ -13,18 +13,12 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-}
-.moveButtonLong {
-    width: 144px;
+  padding: 12px 16px;
 }
 
 @media (max-width: 375px) {
   /* 작은 폰 */
   .moveButton {
-    width: 58px;
-    height: 40px;
+    padding: 8px 10px;
   }
-  .moveButtonLong {
-    width: 120px;
-}
 }
