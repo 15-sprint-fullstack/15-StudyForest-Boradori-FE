@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import styles from "../styles/Modal.module.css";
+import styles from "#styles/Modal.module.css";
 
 function Modal({variant, isOpen, onClose, children}) {
   if (!isOpen) {
