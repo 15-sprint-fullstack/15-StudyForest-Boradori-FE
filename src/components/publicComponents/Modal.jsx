@@ -1,7 +1,7 @@
 import { createPortal } from "react-dom";
 import styles from "#styles/Modal.module.css";
 
-function Modal({variant, isOpen, onClose, children}) {
+export function Modal({variant, isOpen, onClose, children}) {
   if (!isOpen) {
     return null;
   }
@@ -16,8 +16,6 @@ function Modal({variant, isOpen, onClose, children}) {
     document.getElementById("modal-root"),
   );
 }
-
-export default Modal;
 
 // 실제 사용하실 때에는 아래거 붙여넣기 하셔서 모달 내의 요소들(text, input, button 등) 넣으시고 사용하시면 됩니다!
 
