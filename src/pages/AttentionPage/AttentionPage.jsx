@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { formatDuration } from '../../utils/formatDuration';
 
 export function AttentionPage() {
   // 이제 저 settingMinutes를 ㅣocalStorage 에 저장하면 될 듯용?
@@ -14,9 +15,14 @@ export function AttentionPage() {
   const settingDuration = settingMinutes * 60 * 1000 + settingSeconds * 1000;
   const [accumulatedTime, setAccumulatedTime] = useState(0);
   const [showPauseWarning, setShowPauseWarning] = useState(false);
+  const [point, setPoint] = useState(0); // 분리할 거임.
 
   // 시작버튼 누를 때는 타이머 맨 처음
   const handleStart = () => {
+    if (settingDuration <= 0) {
+      console.log('0보다 작음');
+      return;
+    }
     setStartTime(performance.now());
     setDuration(settingDuration);
     setAccumulatedTime(0);
@@ -35,10 +41,15 @@ export function AttentionPage() {
     // 그러고 나서 여기도 초기화 하기
     // 그냥 초기화 함수를 만드는 것이 좋을 듯 하다.
     setTotalDuration(finalAccumlated);
+
+    if (finalAccumlated >= settingDuration)
+      setPoint((prev) => prev + 3 + Math.floor(finalAccumlated / (10 * 1000)));
     setDuration(0);
     setAccumulatedTime(0);
     setIsRunning(false);
   };
+
+  // 저게 필요 시간을 다 돌았는지를 체크해야겠구나.
 
   // 정지 버튼 눌렀을 때는 축적 값 바꾸기.
   const handlePause = () => {
@@ -52,21 +63,7 @@ export function AttentionPage() {
     setIsRunning(true);
   };
 
-  // 분 / 초 와 - 값 받기
-  const calcDuration = (duration) => {
-    const isOvertime = duration < 0;
-    const absDuration = Math.abs(duration);
-    const totalSeconds = Math.round(absDuration / 1000);
-    const seconds = totalSeconds % 60;
-    const totalMinutes = Math.floor(totalSeconds / 60);
-    const minutes = totalMinutes % 60;
-
-    return { isOvertime, seconds, minutes };
-  };
-
-  // setInterval 해서 1초마다 duration 보여주기.
   useEffect(() => {
-    // running 중 아니면 저 모든 duration이 들어가지 않게 하면 됨~
     if (!isRunning) {
       return;
     }
@@ -107,11 +104,12 @@ export function AttentionPage() {
   const hasStarted = accumulatedTime > 0 || isRunning;
   const hasStopped = !hasStarted && totalDuration > 0;
 
-  const runningResult = calcDuration(duration);
-  const totalResult = calcDuration(totalDuration);
+  const runningResult = formatDuration(duration);
+  const totalResult = formatDuration(totalDuration);
 
   return (
     <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+      <span styles="fontSize : 32px;">Point : {point}</span>
       <p
         style={{ color: 'var(--text-secondary, #888)', marginBottom: '1.5rem' }}
       >
