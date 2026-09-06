@@ -12,3 +12,13 @@
   height: auto;
   display: block;
 }
+
+@media (max-width: 600px) {
+  .header {
+    width: calc(100% - 32px);
+  }
+
+  .logo {
+    width: 106px; 
+  }
+}
