@@ -1,7 +1,7 @@
 import { createPortal } from 'react-dom';
 import styles from '../styles/Modal.module.css';
 
-function Modal({ isOpen, children }) {
+function Modal({ isOpen, children, modalClassName = '' }) {
   if (!isOpen) {
     return null;
   }
@@ -9,7 +9,7 @@ function Modal({ isOpen, children }) {
   return createPortal(
     <div className={styles.overlay}>
       <div className={`${styles.modal} ${modalClassName ?? ''}`}>
-        //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기.
+        {/* //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기. */}
         {children}
       </div>
     </div>,

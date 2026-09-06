@@ -1,0 +1,93 @@
+.page {
+  min-height: 100vh;
+  background: #f6f4ef;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+.shell {
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-bottom: 73px;
+}
+
+.panel {
+  padding: 40px;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.panel h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.page button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.page button:focus-visible {
+  outline: 3px solid #578246;
+  outline-offset: 3px;
+}
+
+.page button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.topRow,
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.moveActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.habitTable {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+.habitTable th,
+.habitTable td {
+  padding: 16px;
+  text-align: center;
+}
+
+.habitTable th:first-child {
+  width: 180px;
+  text-align: left;
+}
+
+
+.emojiList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
