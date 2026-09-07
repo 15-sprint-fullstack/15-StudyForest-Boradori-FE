@@ -6,6 +6,7 @@ import {
   Navigation,
   NormalButton,
   Tag,
+  AlertBox,
 } from '#publicComponents';
 import { useEffect, useState } from 'react';
 
@@ -57,6 +58,7 @@ function App() {
       />
 
       <Tag emoji={'😃'} count={20} />
+      <AlertBox alertText={'🚨 집중이 중단되었습니다.'} />
     </div>
   );
 }
