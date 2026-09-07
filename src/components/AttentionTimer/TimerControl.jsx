@@ -5,6 +5,7 @@ export function TimerControl({
   onStop,
   onResume,
   isRunning,
+  isOvertime,
 }) {
   return (
     <div
@@ -16,8 +17,10 @@ export function TimerControl({
       }}
     >
       {!hasStarted && <button onClick={onStart}>▶ Start!</button>}
-      {isRunning && <button onClick={onPause}>일시정지</button>}
-      {!isRunning && hasStarted && <button onClick={onResume}>재개</button>}
+      {isRunning && !isOvertime && <button onClick={onPause}>일시정지</button>}
+      {!isRunning && hasStarted && !isOvertime && (
+        <button onClick={onResume}>재개</button>
+      )}
       {hasStarted && <button onClick={onStop}>정지</button>}
     </div>
   );

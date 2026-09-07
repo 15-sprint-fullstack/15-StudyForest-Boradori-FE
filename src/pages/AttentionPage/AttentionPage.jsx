@@ -6,9 +6,10 @@ import { usePoint } from '../../hooks/usePoint';
 
 export function AttentionPage() {
   const { point, awardPoint } = usePoint();
-  const { setting, timer, controls, showPauseWarning } = useAttentionTimer({
-    onStop: awardPoint,
-  });
+  const { setting, timer, controls, showPauseWarning, isOvertime } =
+    useAttentionTimer({
+      onStop: awardPoint,
+    });
 
   return (
     <div style={{ textAlign: 'center', padding: '2rem 0' }}>
@@ -29,6 +30,7 @@ export function AttentionPage() {
         {...controls}
         hasStarted={timer.hasStarted}
         isRunning={timer.isRunning}
+        isOvertime={isOvertime}
       />
 
       {showPauseWarning && (

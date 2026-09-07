@@ -9,6 +9,7 @@ export function useAttentionTimer({ onStop }) {
     const saved = sessionStorage.getItem('timer');
     return saved ? JSON.parse(saved).seconds : 0;
   });
+
   const [isRunning, setIsRunning] = useState(false);
   const [startTime, setStartTime] = useState(0);
 
@@ -17,10 +18,10 @@ export function useAttentionTimer({ onStop }) {
   const [accumulatedTime, setAccumulatedTime] = useState(0);
   const [showPauseWarning, setShowPauseWarning] = useState(false);
   const hasStarted = accumulatedTime > 0 || isRunning;
+  const isOvertime = duration < 0;
 
   const handleStart = () => {
     if (settingDuration <= 0) {
-      console.log('0보다 작음');
       return;
     }
     setStartTime(performance.now());
@@ -86,9 +87,9 @@ export function useAttentionTimer({ onStop }) {
         settingDuration - (accumulatedTime + (performance.now() - startTime)),
       );
     }, 1000);
-
+    console.log(isOvertime);
     return () => clearInterval(timer);
-  }, [isRunning, startTime, settingDuration, accumulatedTime]);
+  }, [isOvertime, isRunning, startTime, settingDuration, accumulatedTime]);
 
   // 중단 메시지
   useEffect(() => {
@@ -114,5 +115,6 @@ export function useAttentionTimer({ onStop }) {
       onResume: handleResume,
     },
     showPauseWarning,
+    isOvertime,
   };
 }
