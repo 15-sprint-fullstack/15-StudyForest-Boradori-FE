@@ -1,0 +1,28 @@
+.inputSide {
+  display: flex;
+  width: 335px;
+  height: 42px;
+  padding: 12px 20px 12px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.input {
+  color: #818181;
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+}
+
+@media (max-width: 375px) {
+  /* 작은 폰 */
+  .inputSide {
+    width: 312px;
+  }
+}
