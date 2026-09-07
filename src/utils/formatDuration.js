@@ -7,5 +7,5 @@ export function formatDuration(ms) {
   const totalMinutes = Math.floor(totalSeconds / 60);
   const minutes = totalMinutes % 60;
 
-  return { isOvertime, seconds, minutes };
+  return `${isOvertime ? '-' : ''}${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
