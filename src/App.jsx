@@ -1,13 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
 import { SearchButton } from './components/HomePage/SearchButton';
 import { MoveButton, Navigation, NomalButton } from '#publicComponents';
-import StudyDetailPage from './pages/StudyDetailPage/StudyDetailPage.jsx'; // 우리가 만든 상세 페이지를 가져와요.
+import StudyDetailPage from './pages/StudyDetailPage/StudyDetailPage.jsx'; 
 
 
 function App() {
-  const handleChildClick = () => {
-    console.log('버튼클릭');
-  };
   return (
     <div>
       <Navigation />
