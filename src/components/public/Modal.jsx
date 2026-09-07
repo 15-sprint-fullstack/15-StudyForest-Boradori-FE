@@ -9,7 +9,7 @@ export function Modal({variant, isOpen, onClose, children}) {
   return createPortal(
     <div className={styles.overlay}>
       <div className={`${styles.modal} `}>
-        //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기.
+        {/* //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기. */}
         {children}
       </div>
     </div>,

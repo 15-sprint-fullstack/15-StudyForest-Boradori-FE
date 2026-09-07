@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import logo from '../../assets/img_logo.svg';
-import Header from '../../components/Header.jsx';
-import StudyPasswordModal from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import {StudyPasswordModal} from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
 import styles from './StudyDetailPage.module.css';
+import { Navigation } from '#publicComponents';
 
-function StudyDetailPage() {
+export function StudyDetailPage() {
   //수정하기 버튼
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [modalType, setModalType] = useState('edit');
@@ -60,9 +59,7 @@ function StudyDetailPage() {
 
   return (
     <div className={styles.page}>
-      <header>
-        <Header />
-      </header>
+      <Navigation />
 
       <main className={styles.shell}>
         <article className={styles.panel}>
@@ -165,8 +162,9 @@ function StudyDetailPage() {
         </article>
       </main>
 
-      {isPasswordModalOpen && (
+      {isPasswordModalOpen && ( //모달이 열렸을 때만 전용 컴포넌트를 만듦
         <StudyPasswordModal
+          isOpen={isPasswordModalOpen}
           study={study}
           actionType={modalType}
           onClose={() => setIsPasswordModalOpen(false)}
@@ -176,4 +174,3 @@ function StudyDetailPage() {
   );
 }
 
-export default StudyDetailPage;

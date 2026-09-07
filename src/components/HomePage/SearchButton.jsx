@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import searchIcon from '../../assets/ic_search.svg';
 import styles from '#styles/SearchButton.module.css';
 
 export function SearchButton({ search }) {
@@ -12,7 +13,7 @@ export function SearchButton({ search }) {
   };
   return (
     <div className={styles.inputSide}>
-      <img src="src\assets\ic_search.svg" alt="돋보기" />
+      <img src={searchIcon} />
       <input
         type="text"
         value={inputData}

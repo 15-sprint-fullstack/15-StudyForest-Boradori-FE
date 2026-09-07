@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Modal from '../Modal.jsx';
+import { Modal } from '../public/Modal.jsx';
 
-function StudyPasswordModal({ study, actionType, onClose }) {
+export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -13,7 +13,7 @@ function StudyPasswordModal({ study, actionType, onClose }) {
   };
 
 return (
-  <Modal isOpen={true}>
+  <Modal isOpen={isOpen}>
     <div>
       <h2>
         {study.nickname}의 {study.name}
@@ -48,5 +48,3 @@ return (
   </Modal>
 );
 }
-
-export default StudyPasswordModal;
