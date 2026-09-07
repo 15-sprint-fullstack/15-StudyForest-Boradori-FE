@@ -1,24 +1,15 @@
-import { createPortal } from "react-dom";
-import styles from "#styles/Modal.module.css";
+import { createPortal } from 'react-dom';
+import styles from '#styles/Modal.module.css';
 
-<<<<<<< HEAD:src/components/Modal.jsx
-function Modal({ isOpen, children, modalClassName = '' }) {
-=======
-export function Modal({variant, isOpen, onClose, children}) {
->>>>>>> origin/develop:src/components/public/Modal.jsx
+export function Modal({ isOpen, children }) {
   if (!isOpen) {
     return null;
   }
 
   return createPortal(
     <div className={styles.overlay}>
-<<<<<<< HEAD:src/components/Modal.jsx
-      <div className={`${styles.modal} ${modalClassName ?? ''}`}>
-        {/* //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기. */}
-=======
       <div className={`${styles.modal} `}>
         //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기.
->>>>>>> origin/develop:src/components/public/Modal.jsx
         {children}
       </div>
     </div>,
