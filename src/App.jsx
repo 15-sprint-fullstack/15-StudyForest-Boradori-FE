@@ -1,7 +1,18 @@
+import { Routes, Route } from 'react-router-dom';
+import { SearchButton } from './components/HomePage/SearchButton';
+import { MoveButton, Navigation, NomalButton } from '#publicComponents';
+
 function App() {
+  const handleChildClick = () => {
+    console.log('버튼클릭');
+  };
   return (
     <div>
-      <h1>안녕하세요! 4팀 공부의 숲에 오신것을 환영합니다!</h1>
+      <Navigation />
+      <MoveButton route={'/'}>홈</MoveButton>
+      <MoveButton route={'/focus'}>오늘의 집중</MoveButton>
+      <SearchButton />
+      <NomalButton isClick={handleChildClick}>만들기</NomalButton>
     </div>
   );
 }
