@@ -1,4 +1,7 @@
 export { MoveButton } from './MoveButton';
 export { Navigation } from './Navigation';
 export { Modal } from './Modal';
-export { NomalButton } from './NomalButton';
+export { NormalButton } from './NormalButton';
+export { InputContainer } from './InputContainer';
+export { Tag } from './Tag';
+export { AlertBox } from './AlertBox';
