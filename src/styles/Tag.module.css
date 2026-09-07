@@ -1,0 +1,23 @@
+.tagContainer {
+  display: inline-flex;
+  padding: 6px 8px;
+  align-items: center;
+  gap: 5px;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.5);
+
+  & .emoji {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  & .count {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #fff;
+  }
+}

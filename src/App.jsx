@@ -5,6 +5,7 @@ import {
   MoveButton,
   Navigation,
   NormalButton,
+  Tag,
 } from '#publicComponents';
 import { useEffect, useState } from 'react';
 
@@ -54,6 +55,8 @@ function App() {
         multiline={true}
         error="에러메시지"
       />
+
+      <Tag emoji={'😃'} count={20} />
     </div>
   );
 }
