@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { Modal } from '../public/Modal.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
+import visibilityOff from '../../assets/btn_visibility_off_24px.svg'; 
+import visibilityOn from '../../assets/btn_visibility_on_24px.svg'; 
+import styles from '../../pages/StudyDetailPage/StudyPasswordModal.module.css'; // CSS가 실제 저장된 폴더에서 가져와요.
+import { Modal } from '../public/Modal.jsx';
+import { NormalButton } from '#publicComponents';
+
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');
@@ -49,46 +54,64 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
 
   return (
     <Modal isOpen={isOpen}>
-      <div>
-        <h2>
-          {study.nickname}의 {study.name}
-        </h2>
-        <button type="button" onClick={onClose}>
-          나가기
-        </button>
-      </div>
-
-      <p>권한이 필요해요!</p>
-
-      <div>
-        <label htmlFor="study-password">비밀번호</label>
-        <div>
-          <input
-            id="study-password"
-            type={isPasswordVisible ? 'text' : 'password'}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                event.preventDefault();
-                handleTestMove(); //확인버튼에 연결된 함수를 실행 추후 변경
-              }
-            }}
-            placeholder="비밀번호를 입력해 주세요"
-          />
-          <button
-            type="button"
-            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            {isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기'}
+      <div className={styles.modalContent}>
+      
+        <div className={styles.heading}>
+          {' '}
+      
+          <h2 className={styles.title}>
+            {' '}
+          
+            {study.nickname}의 {study.name}
+          </h2>
+          <button type="button" className={styles.closeButton} onClick={onClose}>
+            {' '}
+          
+            나가기
           </button>
         </div>
-      </div>
+        <p className={styles.description}>권한이 필요해요!</p>{' '}
 
-      {/* {handleTestMove}임시테스트  추후함수 변경필 */}
-      <button type="button" onClick={handleTestMove}>
-        {buttonText[actionType]}
-      </button>
+            <div className={styles.passwordField}> 
+          <label className={styles.passwordLabel} htmlFor="study-password">비밀번호</label>
+          <div className={styles.inputRow}> 
+            
+            <input
+              id="study-password"
+              className={styles.passwordInput}
+              type={isPasswordVisible ? 'text' : 'password'}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter') {
+                  event.preventDefault();
+                  handleTestMove(); //확인버튼에 연결된 함수를 실행 추후 변경
+                }
+              }}
+              placeholder="비밀번호를 입력해 주세요"
+            />
+            <button
+              type="button"
+              className={styles.visibilityButton}
+              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+            >
+             <img 
+               src={isPasswordVisible ? visibilityOn : visibilityOff}
+               alt={isPasswordVisible? '비밀번호 숨기기' : '비밀번호 보이기'}
+               width={24}
+               height={24}
+             />
+              
+            </button>
+          </div>
+        </div>
+        {/* {handleTestMove}임시테스트  추후함수 변경필 */}
+        <div className={styles.submitArea}> {/* 입력창 아래 간격과 버튼 너비를 정해요. */}
+          <NormalButton isClick={handleTestMove}> {/* 기존 실행 함수를 공용 버튼에 연결해요. */}
+            {buttonText[actionType]} {/* 모달 목적에 맞는 문구를 표시해요. */}
+          </NormalButton>
+        </div>
+      </div>
     </Modal>
   );
 }
