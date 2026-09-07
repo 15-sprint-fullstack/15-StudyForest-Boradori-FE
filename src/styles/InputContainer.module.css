@@ -1,0 +1,68 @@
+.inputContainer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+
+  & input {
+    display: flex;
+    max-width: 648px;
+    width: 100%;
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #414141;
+  }
+
+  & input ::placeholder {
+    color: #818181;
+  }
+
+  & textarea {
+    width: 100%;
+    max-width: 648px;
+    height: 98px;
+    padding: 15px 20px;
+    border-radius: 15px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #414141;
+    resize: none;
+  }
+
+  & textarea::placeholder {
+    color: #818181;
+  }
+
+  & .error {
+    border-color: #c41013;
+  }
+}
+
+.inputTitle {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  color: #414141;
+}
+
+.errorParagraph {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  color: #c41013;
+}
