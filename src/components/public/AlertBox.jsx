@@ -1,5 +1,5 @@
 import styles from '#styles/AlertBox.module.css';
 
-export function AlertBox({ alertText }) {
-  return <div className={styles.alertContainer}>{alertText}</div>;
+export function AlertBox({ children }) {
+  return <div className={styles.alertContainer}>{children}</div>;
 }

@@ -1,4 +1,5 @@
 .alertContainer {
+  width: fit-content;
   display: inline-flex;
   padding: 14px 28px;
   justify-content: center;

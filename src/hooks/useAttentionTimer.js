@@ -58,14 +58,22 @@ export function useAttentionTimer({ onStop }) {
 
   const handleMinutesChange = (e) => {
     const value = Number(e.target.value);
-    if (!Number.isNaN(value) && value >= 0) {
+    if (value < 0 || value >= 60) {
+      alert('0~59분으로 숫자를 입력해주세요.');
+      return;
+    }
+    if (!Number.isNaN(value)) {
       setSettingMinutes(value);
     }
   };
 
   const handleSecondsChange = (e) => {
     const value = Number(e.target.value);
-    if (!Number.isNaN(value) && value >= 0) {
+    if (value < 0 || value >= 60) {
+      alert('0~59초로 숫자를 입력해주세요.');
+      console.log('안된');
+      return;
+    } else if (!Number.isNaN(value)) {
       setSettingSeconds(value);
     }
   };

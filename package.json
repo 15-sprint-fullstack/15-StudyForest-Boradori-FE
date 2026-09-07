@@ -17,7 +17,8 @@
   },
   "imports": {
     "#publicComponents": "./src/components/public/index.js",
-    "#styles/*": "./src/styles/*"
+    "#styles/*": "./src/styles/*",
+    "#assets/*": "./src/assets/*"
   },
   "dependencies": {
     "react": "^19.2.8",
