@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { SearchButton } from './components/HomePage/SearchButton';
 import {
@@ -8,7 +9,6 @@ import {
   Tag,
   AlertBox,
 } from '#publicComponents';
-import { useEffect, useState } from 'react';
 
 function App() {
   const handleChildClick = () => {
