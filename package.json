@@ -16,7 +16,7 @@
     "npm": ">=11"
   },
   "imports": {
-    "#publicComponents": "./src/components/publicComponents/index.js",
+    "#publicComponents": "./src/components/public/index.js",
     "#styles/*": "./src/styles/*"
   },
   "dependencies": {

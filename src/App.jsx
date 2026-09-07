@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { MoveButton, Navigation, NomalButton, SearchButton } from '#publicComponents';
+import { SearchButton } from './components/HomePage/SearchButton';
+import { MoveButton, Navigation, NomalButton } from '#publicComponents';
 
 function App() {
   const handleChildClick = () => {
@@ -10,7 +11,7 @@ function App() {
       <Navigation />
       <MoveButton route={'/'}>홈</MoveButton>
       <MoveButton route={'/focus'}>오늘의 집중</MoveButton>
-      <SearchButton/>
+      <SearchButton />
       <NomalButton isClick={handleChildClick}>만들기</NomalButton>
     </div>
   );
