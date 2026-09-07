@@ -1,5 +1,6 @@
 /* 페이지 전체 배경과 기본 글꼴 */
 .page {
+  display: flow-root;
   min-height: 100vh;
   background: #f6f4ef;
   color: #414141;
@@ -106,28 +107,49 @@
   flex-wrap: wrap;
 }
 
-/* 태블릿 이하 화면 */
+/* 습관 기록표 영역 */
+.habitSection {
+  position: relative;
+  min-height: 511px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+/* 습관이 없을 때 표시하는 안내 문구 */
+.emptyMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 48px);
+  margin: 0;
+  text-align: center;
+  color: #818181;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
-  /* 본문 위쪽 여백 */
+  /* 태블릿 본문 위쪽 여백 */
   .shell {
     margin-top: 16px;
   }
 
-  /* 패널 안쪽 여백 */
+  /* 태블릿 패널 안쪽 여백 */
   .panel {
     padding: 24px;
   }
 }
 
-/* 모바일 화면 */
 @media (max-width: 600px) {
-  /* 본문 너비와 위쪽 여백 */
+  /* 모바일 본문 너비와 위쪽 여백 */
   .shell {
     width: calc(100% - 32px);
     margin-top: 20px;
   }
 
-  /* 패널 안쪽 여백 */
+  /* 모바일 패널 안쪽 여백 */
   .panel {
     padding: 16px;
   }
@@ -138,7 +160,7 @@
     align-items: stretch;
   }
 
-  /* 관리 버튼을 위쪽과 오른쪽에 배치 */
+  /* 관리 버튼의 순서와 오른쪽 정렬 */
   .actions {
     order: -1;
     justify-content: flex-end;
@@ -156,44 +178,18 @@
     align-items: flex-start;
   }
 
-  /* 집중 버튼을 앞쪽에 배치 */
+  /* 집중 버튼을 습관 버튼보다 앞에 배치 */
   .focusButton {
     order: -1;
   }
-}
 
-/* 습관 기록표 영역의 크기와 테두리 */
-.habitSection {
-  position: relative;
-  min-height: 511px;
-  padding: 24px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-}
-
-/* 습관이 없을 때 가운데 안내 문구 */
-.emptyMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% - 48px);
-  margin: 0;
-  text-align: center;
-  color: #818181;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* 모바일 화면 */
-@media (max-width: 600px) {
-  /* 기록표 영역의 높이와 안쪽 여백 */
+  /* 모바일 습관 기록표 높이와 여백 */
   .habitSection {
     min-height: 244px;
     padding: 16px;
   }
 
-  /* 빈 상태 안내 문구의 너비 */
+  /* 모바일 빈 상태 안내 문구 너비 */
   .emptyMessage {
     width: calc(100% - 32px);
   }

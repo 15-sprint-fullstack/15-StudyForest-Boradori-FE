@@ -21,8 +21,11 @@ function App() {
           </div>
         }
       />
-      <Route path="/study/:studyId" element={<StudyDetailPage />} />
+      <Route path="/studies/:studyId" element={<StudyDetailPage />} />
       <Route path="*" element={<p>페이지를 찾을 수 없습니다.</p>} />
+      <Route path="/studies/:studyId/habits" element={<p>오늘의 습관 임시 화면</p>} />
+      <Route path="/studies/:studyId/focus" element={<p>오늘의 집중 임시 화면</p>}/>
+      <Route path="/studies/:studyId/habits/:habitId" element={<p>스터디 수정 임시 화면</p>}/>
     </Routes>
   );
 }

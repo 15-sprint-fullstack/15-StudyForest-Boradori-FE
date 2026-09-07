@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { HabitRecordTable } from './HabitRecordTable.jsx';
 import {StudyPasswordModal} from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
 import styles from './StudyDetailPage.module.css';
-import { Navigation } from '#publicComponents';
+import { Navigation, MoveButton } from '#publicComponents';
 
 export function StudyDetailPage() {
   //수정하기 버튼
@@ -95,20 +96,25 @@ export function StudyDetailPage() {
               {study.nickname}의 {study.name}
             </h1>
             <div className={styles.moveActions}>
-              <button
-                type="button"
+              <div
                 className={styles.habitButton}
-                onClick={() => openPasswordModal('habit')}
-              >
-                오늘의 습관
-              </button>
-              <button
-                type="button"
+                onClickCapture={(event)=>{event.preventDefault()
+                  openPasswordModal('habit')
+                }}>
+                  {/* 라우트 연결보류 */}
+                <MoveButton route="/habit">오늘의 습관</MoveButton>               
+              </div>
+
+              <div
                 className={styles.focusButton}
-                onClick={() => openPasswordModal('focus')}
-              >
-                오늘의 집중
-              </button>
+                onClickCapture={(event)=>{
+                  event.preventDefault()
+                  openPasswordModal('focus')
+                }}>
+                  {/* 라우트 연결보류 */}
+                  <MoveButton route="/focus">오늘의 집중</MoveButton> 
+                
+              </div>
             </div>
           </div>
 
@@ -122,43 +128,8 @@ export function StudyDetailPage() {
             <p>{study.point}P 획득</p>
           </section>
 
-          <section className={styles.habitSection}>
-            <h2>습관 기록표</h2>
+          <HabitRecordTable habits={habits} />
 
-            {habits.length === 0 ? (
-              <p className={styles.emptyMessage}>
-                아직 습관이 없어요 <br />
-                오늘의 습관에서 습관을 생성해보세요
-              </p>
-            ) : (
-              <div className={styles.tableWrapper}>
-                <table className={styles.habitTable}>
-                  <thead>
-                    <tr>
-                      <th scope="col">습관</th>
-                      <th scope="col">월</th>
-                      <th scope="col">화</th>
-                      <th scope="col">수</th>
-                      <th scope="col">목</th>
-                      <th scope="col">금</th>
-                      <th scope="col">토</th>
-                      <th scope="col">일</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {habits.map((habit) => (
-                      <tr key={habit.id}>
-                        <th scope="row">{habit.name}</th>
-                        {habit.records.map((isCompleted, dayIndex) => (
-                          <td key={dayIndex}>{isCompleted ? '완료' : '-'}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </section>
         </article>
       </main>
 
