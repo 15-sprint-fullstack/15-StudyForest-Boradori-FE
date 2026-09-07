@@ -1,15 +1,15 @@
-import { createPortal } from 'react-dom';
-import styles from '../styles/Modal.module.css';
+import { createPortal } from "react-dom";
+import styles from "#styles/Modal.module.css";
 
-function Modal({ isOpen, children, modalClassName = '' }) {
+export function Modal({variant, isOpen, onClose, children}) {
   if (!isOpen) {
     return null;
   }
 
   return createPortal(
     <div className={styles.overlay}>
-      <div className={`${styles.modal} ${modalClassName ?? ''}`}>
-        {/* //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기. */}
+      <div className={`${styles.modal} `}>
+        //modalClassName은 각자 정하고 담당 컴포넌트 css파일에서 스타일 주기.
         {children}
       </div>
     </div>,
@@ -17,9 +17,6 @@ function Modal({ isOpen, children, modalClassName = '' }) {
   );
 }
 
-export default Modal;
-
-// 숙연님께.
 // 실제 사용하실 때에는 아래거 붙여넣기 하셔서 모달 내의 요소들(text, input, button 등) 넣으시고 사용하시면 됩니다!
 //
 // 컴포넌트 본문에는 const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false); 추가
