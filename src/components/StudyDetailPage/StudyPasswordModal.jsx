@@ -21,22 +21,17 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
     }
 
     const testPassword = '1234'; //비밀번호 test 추후 삭제예정
-    if (password !== testPassword) {
+    const isValid = password === testPassword; //비밀번호 test 추후 삭제예정
+
+    // API 연결 시 위 두 줄을 아래 코드로 교체 및 추가 작성 예정
+    // const isValid = await verifyStudyPassword(studyId, password);
+
+    if (!isValid) {
       setAlertMessage('🚨 비밀번호가 일치하지 않습니다. 다시 입력해주세요.');
       return;
     }
 
-// API 연결 시 사용할 검증 코드임니다.
-// async function handlePasswordSubmit() {
-//   const isValid = await verifyStudyPassword(studyId, password); // 서버에 비밀번호 검증을 요청
-
-//   if (!isValid) {
-//     setAlertMessage('🚨 비밀번호가 일치하지 않습니다. 다시 입력해주세요.'); // 공용 AlertBox에 오류 문구를 표시
-//     return;
-//   }
-
-//   // 검증에 성공하면 여기에서 기존 페이지 이동 코드를 실행
-// }
+    setAlertMessage('');
 
     if (actionType === 'habit') {
       onClose();
