@@ -64,8 +64,31 @@
 /* 공유·수정 등 관리 버튼 묶음 */
 .actions {
   display: flex;
+  align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.actions > button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.actions > span {
+  color: #818181;
+}
+
+.actions > span:first-of-type {
+  color: #578246;
+}
+
+.actions > button:last-child {
+  color: #818181;
 }
 
 /* 오늘의 습관·집중 이동 버튼 묶음 */
@@ -75,59 +98,46 @@
   flex-wrap: wrap;
 }
 
-/* 기록표가 넓을 때 가로 스크롤 */
-.tableWrapper {
-  overflow-x: auto;
-}
-
-/* 습관 기록표 전체 */
-.habitTable {
-  width: 100%;
-  min-width: 600px;
-  border-collapse: collapse;
-}
-
-/* 기록표의 제목 칸과 데이터 칸 */
-.habitTable th,
-.habitTable td {
-  padding: 16px;
-  text-align: center;
-}
-
-/* 습관 이름이 들어가는 첫 번째 칸 */
-.habitTable th:first-child {
-  width: 180px;
-  text-align: left;
-}
-
 /* 이모지 반응 목록 */
 .emojiList {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-}
-
-/* 습관 기록표 영역 */
-.habitSection {
   position: relative;
-  min-height: 511px;
-  padding: 24px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
 }
 
-/* 습관이 없을 때 표시하는 안내 문구 */
-.emptyMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% - 48px);
-  margin: 0;
-  text-align: center;
-  color: #818181;
+.emojiReactionButton {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+}
+
+/* 이모지 선택창 */
+.emojiPickerPanel {
+  position: absolute; /* 본문을 밀어내지 않고 위에 겹쳐 표시해요. */
+  top: calc(100% + 8px); /* 이모지 영역 아래에서 8px 띄워요. */
+  left: 0; /* 이모지 영역의 왼쪽에 맞춰요. */
+  z-index: 20; /* 본문보다 앞에 표시해요. */
+  width: 320px; /* 선택창의 기본 너비를 정해요. */
+  max-width: calc(100vw - 64px); /* 모바일에서 화면 밖으로 넘치지 않도록 너비를 제한해요. */
+}
+
+/* 이모지 추가 버튼의 모양 */
+.emojiList > .addEmojiButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #414141;
   font-size: 16px;
   font-weight: 500;
+  line-height: 19px;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -183,14 +193,4 @@
     order: -1;
   }
 
-  /* 모바일 습관 기록표 높이와 여백 */
-  .habitSection {
-    min-height: 244px;
-    padding: 16px;
-  }
-
-  /* 모바일 빈 상태 안내 문구 너비 */
-  .emptyMessage {
-    width: calc(100% - 32px);
-  }
 }

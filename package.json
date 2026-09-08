@@ -21,6 +21,7 @@
     "#assets/*": "./src/assets/*"
   },
   "dependencies": {
+    "emoji-picker-react": "^4.20.2",
     "axios": "^1.20.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
