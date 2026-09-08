@@ -1,0 +1,196 @@
+/* 페이지 전체 배경과 기본 글꼴 */
+.page {
+  display: flow-root;
+  min-height: 100vh;
+  background: #f6f4ef;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+/* 본문 너비와 바깥 여백 */
+.shell {
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-bottom: 73px;
+}
+
+/* 상세 정보를 담는 흰색 패널 */
+.panel {
+  padding: 40px;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 패널 안의 스터디 제목 */
+.panel h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* 페이지 안의 모든 버튼 기본 스타일 */
+.page button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 키보드로 선택한 버튼의 테두리 */
+.page button:focus-visible {
+  outline: 3px solid #578246;
+  outline-offset: 3px;
+}
+
+/* 비활성화된 버튼 */
+.page button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* 이모지·관리 버튼 줄과 제목·이동 버튼 줄 */
+.topRow,
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 공유·수정 등 관리 버튼 묶음 */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.actions > button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.actions > span {
+  color: #818181;
+}
+
+.actions > span:first-of-type {
+  color: #578246;
+}
+
+.actions > button:last-child {
+  color: #818181;
+}
+
+/* 오늘의 습관·집중 이동 버튼 묶음 */
+.moveActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 이모지 반응 목록 */
+.emojiList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.emojiReactionButton {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+}
+
+/* 이모지 선택창 */
+.emojiPickerPanel {
+  position: absolute; /* 본문을 밀어내지 않고 위에 겹쳐 표시해요. */
+  top: calc(100% + 8px); /* 이모지 영역 아래에서 8px 띄워요. */
+  left: 0; /* 이모지 영역의 왼쪽에 맞춰요. */
+  z-index: 20; /* 본문보다 앞에 표시해요. */
+  width: 320px; /* 선택창의 기본 너비를 정해요. */
+  max-width: calc(100vw - 64px); /* 모바일에서 화면 밖으로 넘치지 않도록 너비를 제한해요. */
+}
+
+/* 이모지 추가 버튼의 모양 */
+.emojiList > .addEmojiButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #414141;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  /* 태블릿 본문 위쪽 여백 */
+  .shell {
+    margin-top: 16px;
+  }
+
+  /* 태블릿 패널 안쪽 여백 */
+  .panel {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* 모바일 본문 너비와 위쪽 여백 */
+  .shell {
+    width: calc(100% - 32px);
+    margin-top: 20px;
+  }
+
+  /* 모바일 패널 안쪽 여백 */
+  .panel {
+    padding: 16px;
+  }
+
+  /* 이모지와 관리 버튼의 세로 배치 */
+  .topRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* 관리 버튼의 순서와 오른쪽 정렬 */
+  .actions {
+    order: -1;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* 관리 버튼 글자 크기 */
+  .actions button {
+    font-size: 12px;
+  }
+
+  /* 제목과 이동 버튼의 세로 배치 */
+  .headingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 집중 버튼을 습관 버튼보다 앞에 배치 */
+  .focusButton {
+    order: -1;
+  }
+
+}

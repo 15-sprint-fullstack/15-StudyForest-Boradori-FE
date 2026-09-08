@@ -1,7 +1,18 @@
+import { Routes, Route } from 'react-router-dom';
+import { AttentionPage } from './pages/AttentionPage/AttentionPage';
+import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
+import { TestPage } from './pages/TestPage';
+
 function App() {
   return (
     <div>
-      <h1>안녕하세요! 4팀 공부의 숲에 오신것을 환영합니다!</h1>
+      <Routes>
+        <Route path="/" element={<div>홈페이지 예시</div>} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/studies/:studyId" element={<StudyDetailPage />} />
+        <Route path="/studies/:studyId/focus" element={<AttentionPage />} />
+        <Route path="*" element={<p>페이지를 찾을 수 없습니다.</p>} />
+      </Routes>
     </div>
   );
 }
