@@ -1,76 +1,19 @@
-import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { SearchButton } from './components/HomePage/SearchButton';
+import { AttentionPage } from './pages/AttentionPage/AttentionPage';
 import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
-import {
-  InputContainer,
-  MoveButton,
-  Navigation,
-  NormalButton,
-  Tag,
-  AlertBox,
-} from '#publicComponents';
+import { TestPage } from './pages/TestPage';
 
 function App() {
-  const handleChildClick = () => {
-    console.log('버튼클릭');
-  };
-
-  const [nickname, setNickname] = useState('');
-  const [description, setDescription] = useState('');
-
-  useEffect(() => {
-    console.log(nickname);
-    console.log(description);
-  }, [nickname, description]);
-
-  const handleChange = (event) => {
-    setNickname(event.target.value);
-  };
-
-  const handletextAreaChange = (event) => {
-    setDescription(event.target.value);
-  };
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <div>
-            <Navigation />
-            <MoveButton route={'/'}>홈</MoveButton>
-            <MoveButton route={'/focus'}>오늘의 집중</MoveButton>
-            <SearchButton />
-            <NormalButton isClick={handleChildClick}>만들기</NormalButton>
-
-            <InputContainer
-              label="닉네임"
-              type="text"
-              value={nickname}
-              onChange={handleChange}
-              placeholder="닉네임을 입력해주세요"
-              error="에러메시지"
-            />
-
-            <InputContainer
-              label="소개"
-
-              value={description}
-              onChange={handletextAreaChange}
-              placeholder="소개 멘트를 작성해 주세요"
-              multiline={true}
-              error="에러메시지"
-            />
-
-            <Tag emoji={'😃'} count={20} />
-            <AlertBox alertText={'🚨 집중이 중단되었습니다.'} />
-          </div>
-        }
-      ></Route>
-
-      <Route path="/studies/:studyId" element={<StudyDetailPage />} />
-      <Route path="*" element={<p>페이지를 찾을 수 없습니다.</p>} />
-    </Routes>
+    <div>
+      <Routes>
+        <Route path="/" element={<div>홈페이지 예시</div>} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/studies/:studyId" element={<StudyDetailPage />} />
+        <Route path="/studies/:studyId/focus" element={<AttentionPage />} />
+        <Route path="*" element={<p>페이지를 찾을 수 없습니다.</p>} />
+      </Routes>
+    </div>
   );
 }
 

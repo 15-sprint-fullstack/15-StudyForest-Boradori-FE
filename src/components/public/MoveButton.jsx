@@ -5,7 +5,8 @@ import arrowIcon from '../../assets/ic_arrow_right.svg';
 export function MoveButton({ route, children }) {
   return (
     <Link to={route} className={styles.moveButton}>
-      {children}<img src={arrowIcon} />
+      {children}
+      <img src={arrowIcon} />
     </Link>
   );
 }
