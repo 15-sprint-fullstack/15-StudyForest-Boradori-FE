@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import {StudyPasswordModal} from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
 import styles from './StudyDetailPage.module.css';
-import { Navigation, MoveButton } from '#publicComponents';
+import { Navigation, MoveButton, Tag } from '#publicComponents'
+import smileIcon from '../../assets/ic_smile.svg';
 
 export function StudyDetailPage() {
   //수정하기 버튼
@@ -47,7 +48,7 @@ export function StudyDetailPage() {
     { id: 1, emoji: '👍', count: 3 },
     { id: 2, emoji: '❤️', count: 2 },
     { id: 3, emoji: '😊', count: 1 },
-  ]; // 반응 목록을 마쳐요.
+  ];
 
   async function handleShare() {
     try {
@@ -67,13 +68,18 @@ export function StudyDetailPage() {
           <div className={styles.topRow}>
             <div className={styles.emojiList}>
               {emojis.map((item) => (
-                <span key={item.id}>
-                  {item.emoji} {item.count}
-                </span>
+                <Tag 
+                  key={item.id}
+                  emoji={item.emoji}
+                  count={item.count}
+                />
               ))}
 
               {/* 이모지 목록 오른쪽 추가버튼 */}
-              <button type="button">추가</button>
+              <button type="button" className={styles.addEmojiButton}>
+                <img src={smileIcon} width={16.125} height={16.125}/>
+                <span>추가</span>
+                </button>
             </div>
 
             <div className={styles.actions}>
@@ -81,9 +87,13 @@ export function StudyDetailPage() {
                 공유하기
               </button>
 
+              <span aria-hidden="true">|</span>
+
               <button type="button" onClick={() => openPasswordModal('edit')}>
                 수정하기
               </button>
+
+              <span aria-hidden="true">|</span>
 
               <button type="button" onClick={() => openPasswordModal('delete')}>
                 스터디 삭제하기

@@ -64,8 +64,31 @@
 /* 공유·수정 등 관리 버튼 묶음 */
 .actions {
   display: flex;
+  align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+}
+
+.actions > button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+.actions > span {
+  color: #818181;
+}
+
+.actions > span:first-of-type {
+  color: #578246;
+}
+
+.actions > button:last-child {
+  color: #818181;
 }
 
 /* 오늘의 습관·집중 이동 버튼 묶음 */
@@ -105,6 +128,22 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+}
+
+/* 이모지 추가 버튼의 모양 */
+.emojiList > .addEmojiButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #414141;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  white-space: nowrap;
 }
 
 /* 습관 기록표 영역 */
