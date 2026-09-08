@@ -21,9 +21,18 @@ export const getStudies = async ({
     console.log(response.data);
     return response.data;
   } catch (error) {
-    throw new Error(error.message, '스터디 조회에 실패했습니다.', {
+    throw new Error('스터디 조회에 실패했습니다.', {
       cause: error,
     });
+  }
+};
+
+export const getStudy = async (studyId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/studies/${studyId}`);
+    return response.data;
+  } catch (error) {
+    throw new Error('단일 스터디 조회에 실패했습니다', { cause: error });
   }
 };
 
