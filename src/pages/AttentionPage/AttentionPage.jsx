@@ -1,10 +1,10 @@
+import { Toast, MoveButton } from '#publicComponents';
 import { TimeSettingInput } from '../../components/AttentionTimer/TimeSettingInput/TimeSettingInput';
 import { TimerControl } from '../../components/AttentionTimer/TimerControl/TimerControl';
 import { TimerDisplay } from '../../components/AttentionTimer/TimerDisplay/TimerDisplay';
 import { useAttentionTimer } from '../../hooks/useAttentionTimer';
 import { usePoint } from '../../hooks/usePoint';
 import styles from './AttentionPage.module.css';
-import { AlertBox, MoveButton } from '#publicComponents';
 import pointIcon from '/src/assets/ic_point.svg';
 
 export function AttentionPage() {
@@ -50,19 +50,20 @@ export function AttentionPage() {
             <TimerControl
               {...controls}
               hasStarted={timer.hasStarted}
+              isRunning={timer.isRunning}
               isOvertime={isOvertime}
             />
           </div>
         </div>
         {showPauseWarning && (
-          <AlertBox className={styles.alertContainer}>
+          <Toast className={styles.alertContainer}>
             🚨 집중이 중단되었습니다.
-          </AlertBox>
+          </Toast>
         )}
         {showGainPoint && (
-          <AlertBox className={styles.pointContainer}>
+          <Toast className={styles.pointContainer}>
             🎉 {gainPoint}포인트를 획득했습니다!
-          </AlertBox>
+          </Toast>
         )}
       </div>
     </div>
