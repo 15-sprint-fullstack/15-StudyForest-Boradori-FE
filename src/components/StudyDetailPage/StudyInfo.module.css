@@ -1,0 +1,121 @@
+/* 스터디 포인트 */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.label {
+  margin: 0;
+  color: #818181;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  min-height: 35px;
+  margin: 0;
+  padding: 6px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.3);
+  color: #414141;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  white-space: nowrap;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.description {
+  margin: 0;
+  color: #414141;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  overflow-wrap: anywhere;
+}
+
+/* 스터디 정보 전체 배치 */
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* 제목과 이동 버튼 배치 */
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  min-height: 48px;
+}
+
+/* 스터디 제목 스타일 */
+.info .title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: normal;
+  overflow-wrap: anywhere;
+}
+
+/* 오늘의 습관 / 집중 버튼 묶음 */
+.moveActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* 공용 이동 버튼 크기 조정 */
+.moveActions > div > a {
+  box-sizing: border-box;
+  width: 144px;
+  height: 48px;
+  padding: 0;
+  gap: 4px;
+}
+
+/* 모바일 화면 스타일 */
+@media (max-width: 600px) {
+  /* 제목 아래에 버튼 배치 */
+  .headingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 모바일 제목 크기 */
+  .info .title {
+    font-size: 24px;
+  }
+
+  /* 모바일 버튼 간격 */
+  .moveActions {
+    gap: 8px;
+  }
+
+  /* 모바일 버튼 크기 */
+  .moveActions > div > a {
+    width: 120px;
+    height: 40px;
+  }
+
+  /* 모바일에서는 집중 버튼을 먼저 표시 */
+  .focusButton {
+    order: -1;
+  }
+}
