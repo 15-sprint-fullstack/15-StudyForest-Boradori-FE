@@ -4,4 +4,4 @@ export { Modal } from './Modal';
 export { NormalButton } from './NormalButton';
 export { InputContainer } from './InputContainer';
 export { Tag } from './Tag';
-export { AlertBox } from './AlertBox';
+export { Toast } from './Toast';
