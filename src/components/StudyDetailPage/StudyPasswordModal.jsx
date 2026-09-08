@@ -133,7 +133,9 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
       </div>
       {alertMessage && (
         <div className={styles.toastPosition}>
-          <AlertBox alertText={alertMessage} />
+          <AlertBox className={styles.errorToast}>
+             {alertMessage}
+          </AlertBox>
         </div>
       )}
     </Modal>
