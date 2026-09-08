@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { HabitRecordTable } from './HabitRecordTable.jsx';
-import {StudyPasswordModal} from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
-import styles from './StudyDetailPage.module.css';
 import { Navigation, MoveButton, Tag } from '#publicComponents'
 import smileIcon from '../../assets/ic_smile.svg';
+import {StudyPasswordModal} from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import { HabitRecordTable } from './HabitRecordTable.jsx';
+import styles from './StudyDetailPage.module.css';
+import EmojiPicker from 'emoji-picker-react' // 리액트 이모지 선택창 라이브러리
+
 
 export function StudyDetailPage() {
   //수정하기 버튼
@@ -42,13 +44,42 @@ export function StudyDetailPage() {
     // },
   ];
 
-  //연습용
-  const emojis = [
+  //연습용 이모지 조회 샘플
+  const [emojis, setEmojis] = useState([
     // 화면에 표시할 연습용 이모지 반응 목록
     { id: 1, emoji: '👍', count: 3 },
     { id: 2, emoji: '❤️', count: 2 },
-    { id: 3, emoji: '😊', count: 1 },
-  ];
+  ]);
+  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false)
+  
+  //이모지가 있으면 횟수 증가, 없으면 새로추가
+  function handleEmojiSelect(emojiData) {
+    const selectedEmoji = emojiData.emoji;
+
+    setEmojis((currentEmojis)=>{
+      const exists = currentEmojis.some((item)=> item.emoji === selectedEmoji)
+    
+      if(exists) {
+        return currentEmojis.map((item)=>{
+          if (item.emoji === selectedEmoji) {
+            return {...item, count: item.count +1}
+          }
+          return item;
+        })
+      }
+
+      return [
+        ...currentEmojis,
+        {id: selectedEmoji, emoji: selectedEmoji, count: 1}
+      ]
+    })
+    
+    setIsEmojiPickerOpen(false)
+  }
+
+  
+
+
 
   async function handleShare() {
     try {
@@ -68,18 +99,44 @@ export function StudyDetailPage() {
           <div className={styles.topRow}>
             <div className={styles.emojiList}>
               {emojis.map((item) => (
-                <Tag 
+                <button 
                   key={item.id}
-                  emoji={item.emoji}
-                  count={item.count}
-                />
+                  type="button"
+                  className={styles.emojiReactionButton}
+                  onClick={()=> handleEmojiSelect(item)}
+                  >
+                    <Tag emoji={item.emoji} count={item.count}/>
+                  </button>
               ))}
 
-              {/* 이모지 목록 오른쪽 추가버튼 */}
-              <button type="button" className={styles.addEmojiButton}>
+              {/* 이모지 목록 오른쪽 추가버튼 열고 닫힘 기능 */}
+              <button 
+                type="button"
+                className={styles.addEmojiButton}
+                onClick={()=> setIsEmojiPickerOpen((isOpen)=> !isOpen)}>
                 <img src={smileIcon} width={16.125} height={16.125}/>
                 <span>추가</span>
                 </button>
+              
+              {isEmojiPickerOpen && (
+                <div
+                  className={styles.emojiPickerPanel}
+                  onKeyDown={(event)=> {
+                    if(event.key === 'Escape') {
+                      setIsEmojiPickerOpen(false);
+                    }
+                  }}
+                  >
+                    <EmojiPicker
+                      width={306}
+                      height={392}
+                      emojiStyle='native' //해볼 것 : apple, google, facebook, twitter, native
+                      previewConfig={{showPreview:false}} //해볼 것 : true
+                      onEmojiClick={handleEmojiSelect}
+                    />
+                  
+                </div>
+              )}
             </div>
 
             <div className={styles.actions}>

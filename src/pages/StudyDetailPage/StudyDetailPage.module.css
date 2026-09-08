@@ -128,6 +128,25 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  position: relative;
+}
+
+.emojiReactionButton {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  border-radius: 50px;
+  background: transparent;
+}
+
+/* 이모지 선택창 */
+.emojiPickerPanel {
+  position: absolute; /* 본문을 밀어내지 않고 위에 겹쳐 표시해요. */
+  top: calc(100% + 8px); /* 이모지 영역 아래에서 8px 띄워요. */
+  left: 0; /* 이모지 영역의 왼쪽에 맞춰요. */
+  z-index: 20; /* 본문보다 앞에 표시해요. */
+  width: 320px; /* 선택창의 기본 너비를 정해요. */
+  max-width: calc(100vw - 64px); /* 모바일에서 화면 밖으로 넘치지 않도록 너비를 제한해요. */
 }
 
 /* 이모지 추가 버튼의 모양 */
