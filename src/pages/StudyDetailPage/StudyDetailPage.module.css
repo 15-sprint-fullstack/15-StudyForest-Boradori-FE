@@ -1,0 +1,196 @@
+/* 페이지 전체 배경과 기본 글꼴 */
+.page {
+  display: flow-root;
+  min-height: 100vh;
+  background: #f6f4ef;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+/* 본문 너비와 바깥 여백 */
+.shell {
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-bottom: 73px;
+}
+
+/* 상세 정보를 담는 흰색 패널 */
+.panel {
+  padding: 40px;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 패널 안의 스터디 제목 */
+.panel h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* 페이지 안의 모든 버튼 기본 스타일 */
+.page button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 키보드로 선택한 버튼의 테두리 */
+.page button:focus-visible {
+  outline: 3px solid #578246;
+  outline-offset: 3px;
+}
+
+/* 비활성화된 버튼 */
+.page button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* 이모지·관리 버튼 줄과 제목·이동 버튼 줄 */
+.topRow,
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 공유·수정 등 관리 버튼 묶음 */
+.actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 오늘의 습관·집중 이동 버튼 묶음 */
+.moveActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 기록표가 넓을 때 가로 스크롤 */
+.tableWrapper {
+  overflow-x: auto;
+}
+
+/* 습관 기록표 전체 */
+.habitTable {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+}
+
+/* 기록표의 제목 칸과 데이터 칸 */
+.habitTable th,
+.habitTable td {
+  padding: 16px;
+  text-align: center;
+}
+
+/* 습관 이름이 들어가는 첫 번째 칸 */
+.habitTable th:first-child {
+  width: 180px;
+  text-align: left;
+}
+
+/* 이모지 반응 목록 */
+.emojiList {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 습관 기록표 영역 */
+.habitSection {
+  position: relative;
+  min-height: 511px;
+  padding: 24px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+
+/* 습관이 없을 때 표시하는 안내 문구 */
+.emptyMessage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 48px);
+  margin: 0;
+  text-align: center;
+  color: #818181;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  /* 태블릿 본문 위쪽 여백 */
+  .shell {
+    margin-top: 16px;
+  }
+
+  /* 태블릿 패널 안쪽 여백 */
+  .panel {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* 모바일 본문 너비와 위쪽 여백 */
+  .shell {
+    width: calc(100% - 32px);
+    margin-top: 20px;
+  }
+
+  /* 모바일 패널 안쪽 여백 */
+  .panel {
+    padding: 16px;
+  }
+
+  /* 이모지와 관리 버튼의 세로 배치 */
+  .topRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* 관리 버튼의 순서와 오른쪽 정렬 */
+  .actions {
+    order: -1;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* 관리 버튼 글자 크기 */
+  .actions button {
+    font-size: 12px;
+  }
+
+  /* 제목과 이동 버튼의 세로 배치 */
+  .headingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 집중 버튼을 습관 버튼보다 앞에 배치 */
+  .focusButton {
+    order: -1;
+  }
+
+  /* 모바일 습관 기록표 높이와 여백 */
+  .habitSection {
+    min-height: 244px;
+    padding: 16px;
+  }
+
+  /* 모바일 빈 상태 안내 문구 너비 */
+  .emptyMessage {
+    width: calc(100% - 32px);
+  }
+}

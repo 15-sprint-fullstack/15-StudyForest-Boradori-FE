@@ -1,0 +1,14 @@
+import { Navigation } from '#publicComponents';
+import StudyDetailPage from './pages/StudyDetailPage/StudyDetailPage.jsx'; // 만든 상세 화면을 불러옵니다.
+
+
+function App() {
+  return (
+    <>
+      <Navigation />
+      <StudyDetailPage />
+    </>
+  )
+}
+
+export default App; 
