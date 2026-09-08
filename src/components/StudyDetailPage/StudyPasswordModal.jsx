@@ -4,7 +4,7 @@ import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
 import styles from './StudyPasswordModal.module.css';
 import { Modal } from '../public/Modal.jsx';
-import { NormalButton, AlertBox } from '#publicComponents';
+import { NormalButton, Toast } from '#publicComponents';
 import { deleteStudies } from '../../api/studies.js';
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
@@ -132,7 +132,7 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
       </div>
       {alertMessage && (
         <div className={styles.toastPosition}>
-          <AlertBox className={styles.errorToast}>{alertMessage}</AlertBox>
+          <Toast className={styles.errorToast}>{alertMessage}</Toast>
         </div>
       )}
     </Modal>
