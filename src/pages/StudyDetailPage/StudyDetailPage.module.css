@@ -98,31 +98,6 @@
   flex-wrap: wrap;
 }
 
-/* 기록표가 넓을 때 가로 스크롤 */
-.tableWrapper {
-  overflow-x: auto;
-}
-
-/* 습관 기록표 전체 */
-.habitTable {
-  width: 100%;
-  min-width: 600px;
-  border-collapse: collapse;
-}
-
-/* 기록표의 제목 칸과 데이터 칸 */
-.habitTable th,
-.habitTable td {
-  padding: 16px;
-  text-align: center;
-}
-
-/* 습관 이름이 들어가는 첫 번째 칸 */
-.habitTable th:first-child {
-  width: 180px;
-  text-align: left;
-}
-
 /* 이모지 반응 목록 */
 .emojiList {
   display: flex;
@@ -163,30 +138,6 @@
   font-weight: 500;
   line-height: 19px;
   white-space: nowrap;
-}
-
-/* 습관 기록표 영역 */
-.habitSection {
-  position: relative;
-  min-height: 511px;
-  padding: 24px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  margin-top: 16px
-}
-
-/* 습관이 없을 때 표시하는 안내 문구 */
-.emptyMessage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% - 48px);
-  margin: 0;
-  text-align: center;
-  color: #818181;
-  font-size: 16px;
-  font-weight: 500;
 }
 
 @media (max-width: 768px) {
@@ -242,14 +193,4 @@
     order: -1;
   }
 
-  /* 모바일 습관 기록표 높이와 여백 */
-  .habitSection {
-    min-height: 244px;
-    padding: 16px;
-  }
-
-  /* 모바일 빈 상태 안내 문구 너비 */
-  .emptyMessage {
-    width: calc(100% - 32px);
-  }
 }
