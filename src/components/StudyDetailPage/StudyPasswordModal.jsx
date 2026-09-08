@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
-import styles from '../../pages/StudyDetailPage/StudyPasswordModal.module.css'; // CSS가 실제 저장된 폴더에서 가져와요.
+import styles from './StudyPasswordModal.module.css';
 import { Modal } from '../public/Modal.jsx';
 import { NormalButton, AlertBox } from '#publicComponents';
 
