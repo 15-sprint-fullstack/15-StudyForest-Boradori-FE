@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { POINT_TARGET_DURATION } from '../constants/AttentionTimer/AttentionTimer';
 
 export function usePoint() {
   const [point, setPoint] = useState(0);
+  const [gainPoint, setGainPoint] = useState(0);
+  const [showGainPoint, setShowGainPoint] = useState(false);
 
   const awardPoint = (finalAccumlated) => {
-    setPoint(
-      (prev) => prev + 3 + Math.floor(finalAccumlated / POINT_TARGET_DURATION),
-    );
+    const gained = 3 + Math.floor(finalAccumlated / POINT_TARGET_DURATION);
+    setGainPoint(gained);
+    setPoint((prev) => prev + gained);
+    setShowGainPoint(true);
   };
-  return { point, awardPoint };
+
+  useEffect(() => {
+    if (!showGainPoint) return;
+    const timer = setTimeout(() => setShowGainPoint(false), 3000);
+    return () => clearTimeout(timer);
+  }, [showGainPoint]);
+
+  return { point, awardPoint, gainPoint, showGainPoint };
 }

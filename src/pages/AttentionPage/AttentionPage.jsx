@@ -8,7 +8,7 @@ import { AlertBox, MoveButton } from '#publicComponents';
 import pointIcon from '/src/assets/ic_point.svg';
 
 export function AttentionPage() {
-  const { point, awardPoint } = usePoint();
+  const { point, awardPoint, gainPoint, showGainPoint } = usePoint();
   const { setting, timer, controls, showPauseWarning, isOvertime } =
     useAttentionTimer({
       onStop: awardPoint,
@@ -54,7 +54,16 @@ export function AttentionPage() {
             />
           </div>
         </div>
-        {showPauseWarning && <AlertBox>🚨 집중이 중단되었습니다.</AlertBox>}
+        {showPauseWarning && (
+          <AlertBox className={styles.alertContainer}>
+            🚨 집중이 중단되었습니다.
+          </AlertBox>
+        )}
+        {showGainPoint && (
+          <AlertBox className={styles.pointContainer}>
+            🎉 {gainPoint}포인트를 획득했습니다!
+          </AlertBox>
+        )}
       </div>
     </div>
   );

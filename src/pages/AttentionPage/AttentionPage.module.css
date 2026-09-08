@@ -102,3 +102,13 @@
     margin-bottom: 100px;
   }
 }
+
+.alertContainer {
+  background-color: #fde0e9;
+  color: #f50e0e;
+}
+
+.pointContainer {
+  background-color: #e1edde;
+  color: #578246;
+}
