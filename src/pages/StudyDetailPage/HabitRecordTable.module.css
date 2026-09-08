@@ -1,6 +1,9 @@
-/* 기록표가 넓을 때 가로 스크롤 */
+/* 제목 아래 남은 공간에서 표를 스크롤 */
 .tableWrapper {
-  overflow-x: auto;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
 }
 
 /* 습관 기록표 전체 */
@@ -10,11 +13,20 @@
   border-collapse: collapse;
 }
 
-/* 기록표의 제목 칸과 데이터 칸 */
+/* 제목 칸과 기록 칸의 크기 및 정렬 */
 .habitTable th,
 .habitTable td {
-  padding: 16px;
+  box-sizing: border-box;
+  height: 64px;
+  padding: 8px;
   text-align: center;
+  vertical-align: middle;
+}
+
+/* 기록 칸 안의 발바닥 이미지 */
+.recordIcon {
+  display: block;
+  margin: 0 auto;
 }
 
 /* 습관 이름이 들어가는 첫 번째 칸 */
@@ -26,11 +38,22 @@
 /* 습관 기록표 영역 */
 .habitSection {
   position: relative;
-  min-height: 511px;
+  height: 511px;
   padding: 24px;
   border: 1px solid #ddd;
   border-radius: 20px;
-  margin-top: 16px
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 습관 기록표 제목 */
+.habitSection > h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: #414141;
+  flex-shrink: 0;
 }
 
 /* 습관이 없을 때 표시하는 안내 문구 */
@@ -47,10 +70,31 @@
   font-weight: 500;
 }
 
+/* 표 맨 위의 요일 */
+.habitTable thead th {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 26px;
+  color: #818181;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #fff;
+}
+
+/* 각 행의 습관 이름 */
+.habitTable tbody th {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  color: #414141;
+  overflow-wrap: anywhere; /* 긴 단어가 칸 밖으로 넘치면 줄바꿈됨 */
+}
+
 @media (max-width: 600px) {
   /* 모바일 습관 기록표 높이와 여백 */
   .habitSection {
-    min-height: 244px;
+    height: 244px;
     padding: 16px;
   }
 

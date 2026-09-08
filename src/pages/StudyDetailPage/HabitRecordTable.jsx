@@ -17,7 +17,7 @@ export function HabitRecordTable({ habits }) {
           <table className={styles.habitTable}>
             <thead>
               <tr>
-                <th scope="col">습관</th>
+                <th scope="col" aria-label="습관 이름"></th>
                 <th scope="col">월</th>
                 <th scope="col">화</th>
                 <th scope="col">수</th>

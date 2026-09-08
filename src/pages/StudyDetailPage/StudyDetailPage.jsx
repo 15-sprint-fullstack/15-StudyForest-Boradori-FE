@@ -42,6 +42,36 @@ export function StudyDetailPage() {
       name: '물 2L 마시기',
       records: [false, false, false, false, false, false, false],
     },
+    {
+      id: 4,
+      name: '물 3L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
+    {
+      id: 5,
+      name: '물 4L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
+    {
+      id: 6,
+      name: '물 5L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
+    {
+      id: 7,
+      name: '물 6L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
+                {
+      id: 8,
+      name: '물 8L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
+                    {
+      id: 9,
+      name: '물 9L 마시기',
+      records: [false, false, false, false, false, false, false],
+    },
   ];
 
   //연습용 이모지 조회 샘플
@@ -153,14 +183,11 @@ export function StudyDetailPage() {
               </button>
             </div>
           </div>
-
           <StudyInfo
             study={study} // 스터디 정보를 전달해요.
             onOpenPasswordModal={openPasswordModal} // 모달 열기 함수를 전달해요.
           />
-          
           <HabitRecordTable habits={habits} />{' '}
-          
         </article>
       </main>
 
