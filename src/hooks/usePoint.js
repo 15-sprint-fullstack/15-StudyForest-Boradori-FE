@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { POINT_TARGET_DURATION } from '../constants/AttentionTimer/AttentionTimer';
+import { POINT_TARGET_DURATION } from '../constants/AttentionTimer';
 
 export function usePoint() {
   const [point, setPoint] = useState(0);
