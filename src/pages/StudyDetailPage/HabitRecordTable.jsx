@@ -1,0 +1,46 @@
+import styles from '../../pages/StudyDetailPage/StudyDetailPage.module.css';
+
+export function HabitRecordTable({ habits }) {
+  return (
+    <section className={styles.habitSection}>
+      <h2>습관 기록표</h2>
+
+      {habits.length === 0 ? (
+        <p className={styles.emptyMessage}>
+          아직 습관이 없어요 <br />
+          오늘의 습관에서 습관을 생성해보세요
+        </p>
+      ) : (
+        <div className={styles.tableWrapper}>
+          <table className={styles.habitTable}>
+            <thead>
+              <tr>
+                <th scope="col">습관</th>
+                <th scope="col">월</th>
+                <th scope="col">화</th>
+                <th scope="col">수</th>
+                <th scope="col">목</th>
+                <th scope="col">금</th>
+                <th scope="col">토</th>
+                <th scope="col">일</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {habits.map((habit) => (
+                <tr key={habit.id}>
+                  <th scope="row">{habit.name}</th>
+                  {habit.records.map((isCompleted, dayIndex) => (
+                    <td key={dayIndex}>
+                      {isCompleted ? '완료' : '-'}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
