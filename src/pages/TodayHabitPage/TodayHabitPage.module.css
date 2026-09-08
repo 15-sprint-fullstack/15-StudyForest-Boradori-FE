@@ -1,0 +1,9 @@
+* {font-size: 30px;}
+
+.page {
+  min-height: 100vh;
+  background: #f6f4ef;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  line-height: 1.4;
+}
