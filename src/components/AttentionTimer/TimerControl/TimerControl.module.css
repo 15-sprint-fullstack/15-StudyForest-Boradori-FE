@@ -1,0 +1,37 @@
+.timerButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 94px;
+}
+
+.mainButton {
+  width: 333px;
+  height: 60px;
+  border-radius: 50px;
+  border: 0px;
+  background: #99c08e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  color: #fff;
+  text-align: center;
+}
+
+.circleBtn {
+  width: 60px;
+  height: 60px;
+
+  background-color: #99c08e;
+  border-radius: 200px;
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

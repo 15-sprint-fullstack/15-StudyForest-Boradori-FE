@@ -1,0 +1,114 @@
+.attentionPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.attentionContainer {
+  width: calc(100vw - 24px);
+  max-width: 1168px;
+  display: inline-flex;
+  margin: 0px 24px;
+  padding: 40px;
+  margin-bottom: 65px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px;
+  background-color: #fff;
+}
+
+.attentionHeader {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+
+  & .mainHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & .moveButtonContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  & h2 {
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #414141;
+  }
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
+  & p {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #818181;
+  }
+
+  & .pointContainer {
+    display: flex;
+    padding: 8px 12px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  & span {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #414141;
+  }
+}
+
+.timerContainer {
+  display: flex;
+  width: 100%;
+
+  padding: 40px 24px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 20px;
+  border: 1px solid #dddddd;
+
+  & h3 {
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #414141;
+    margin-bottom: 100px;
+  }
+}
+
+.alertContainer {
+  background-color: #fde0e9;
+  color: #f50e0e;
+}
+
+.pointContainer {
+  background-color: #e1edde;
+  color: #578246;
+}

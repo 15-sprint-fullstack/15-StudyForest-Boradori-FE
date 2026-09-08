@@ -1,10 +1,9 @@
 .alertContainer {
+  width: fit-content;
   display: inline-flex;
   padding: 14px 28px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   border-radius: 12px;
-  background-color: #fde0e9;
-  color: #f50e0e;
 }

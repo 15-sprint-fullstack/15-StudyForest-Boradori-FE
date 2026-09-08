@@ -1,0 +1,31 @@
+.timerContainer {
+  display: flex;
+
+  justify-content: center;
+  width: 100%;
+
+  font-size: 150px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+
+  color: #414141;
+
+  & span {
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  & input {
+    width: 2ch;
+    color: #414141;
+    font-family: Pretendard;
+    font-size: 150px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    outline: none;
+    border: none;
+    text-align: right;
+  }
+}
