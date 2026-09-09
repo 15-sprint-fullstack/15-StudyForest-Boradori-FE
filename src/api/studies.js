@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../constants/ApiUrl';
 export const getStudies = async ({
   page = 1,
   limit = 6,
-  sort = 'asc',
+  sort = 'desc',
   sortBy = 'point',
   keyword = '',
 }) => {
@@ -62,10 +62,10 @@ export const createStudy = async (postData) => {
   }
 };
 
-export const updateStudy = async (id, postData) => {
+export const updateStudy = async (studyId, postData) => {
   try {
     const response = await axios.patch(
-      `${API_BASE_URL}/studies/${id}`,
+      `${API_BASE_URL}/studies/${studyId}`,
       postData,
     );
     return response.data;
@@ -74,9 +74,9 @@ export const updateStudy = async (id, postData) => {
   }
 };
 
-export const deleteStudy = async (id) => {
+export const deleteStudy = async (studyId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/studies/${id}`);
+    const response = await axios.delete(`${API_BASE_URL}/studies/${studyId}`);
     return response.data;
   } catch (error) {
     throw new Error('스터디 삭제에 실패했습니다.', { cause: error });

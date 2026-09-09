@@ -16,6 +16,7 @@ export function TestPage() {
         nickname: '이름',
         description: '설명입니다',
         password: '1234',
+        background: 'ivory',
       });
       console.log('성공!', result);
       refetch();
