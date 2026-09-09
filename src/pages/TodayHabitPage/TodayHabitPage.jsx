@@ -4,8 +4,13 @@ import { useParams } from 'react-router-dom';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
-import { Modal } from '../../components/public/Modal.jsx';
+<<<<<<< HEAD
+=======
+import { Modal } from '#publicComponents';
+>>>>>>> develop
 import styles from './TodayHabitPage.module.css';
+import { Modal } from '#publicComponents';
+import { Navigation } from '#publicComponents'
 
 function HabitItem({ habit, setDraft }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -121,8 +126,8 @@ export function TodayHabitPage() {
   const [draft, setDraft] = useState([]);
   const [now, setNow] = useState(new Date());
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
-  let { studyId } = useParams(); //const로 바꿀 것
-  studyId = '7c7cc5f9-2aa0-426c-ba50-9fef534c4449';
+  let { studyId } = useParams(); // const로 변경
+  studyId = "fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19"
 
   const toggleIsDone = (targetHabit) => {
     setHabits((prev) =>
@@ -195,9 +200,7 @@ export function TodayHabitPage() {
 
   return (
     <div className={styles.page}>
-      {/* <header>
-        <Header />
-      </header> */}
+      <Navigation />
 
       <main className={styles.shell}>
         <article className={styles.panel}>

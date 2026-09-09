@@ -1,11 +1,35 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../constants/ApiUrl';
 
-const BASE_URL = 'https://one5-studyforest-boradori-be.onrender.com';
+async function getHabitRecords(studyId) {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/studies/${studyId}/habit-records`,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
 
 async function createHabitRecord(studyId, habitId, data) {
   try {
     const response = await axios.post(
-      `${BASE_URL}/studies/${studyId}/habit-record/${habitId}`,
+      `${API_BASE_URL}/studies/${studyId}/habit-records/${habitId}`,
+      data,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+async function updateHabitRecord(habitId, data) {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/studies/habit-records/${habitId}`,
       data,
     );
     return response.data;
@@ -18,7 +42,7 @@ async function createHabitRecord(studyId, habitId, data) {
 async function deleteHabitRecord(habitRecordId) {
   try {
     const response = await axios.delete(
-      `${BASE_URL}/studies/habit-record/${habitRecordId}`,
+      `${API_BASE_URL}/studies/habit-records/${habitRecordId}`,
     );
     return response.data;
   } catch (error) {
@@ -27,4 +51,9 @@ async function deleteHabitRecord(habitRecordId) {
   }
 }
 
-export const habitRecordApi = {createHabitRecord, deleteHabitRecord};
+export const habitRecordApi = {
+  getHabitRecords,
+  createHabitRecord,
+  updateHabitRecord,
+  deleteHabitRecord,
+};
