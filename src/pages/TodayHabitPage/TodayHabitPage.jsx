@@ -4,6 +4,10 @@ import { useParams } from 'react-router-dom';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
+<<<<<<< HEAD
+=======
+import { Modal } from '#publicComponents';
+>>>>>>> develop
 import styles from './TodayHabitPage.module.css';
 import { Modal } from '#publicComponents';
 import { Navigation } from '#publicComponents'
