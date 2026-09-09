@@ -42,7 +42,9 @@ export function AttentionPage() {
         <div className={styles.attentionContainer}>
           <div className={styles.attentionHeader}>
             <div className={styles.mainHeader}>
-              <h2>{name}</h2>
+              <h2>
+                {study.nickname}의 {study.name}
+              </h2>
               <div className={styles.moveButtonContainer}>
                 <MoveButton route={'/studies/${studyId}/habit'}>
                   오늘의 습관
