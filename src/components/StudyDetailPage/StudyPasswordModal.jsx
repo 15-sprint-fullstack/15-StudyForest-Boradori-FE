@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
-import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
-import styles from './StudyPasswordModal.module.css';
-import { Modal } from '../public/Modal.jsx';
 import { NormalButton, Toast } from '#publicComponents';
 import { deleteStudies } from '../../api/studies.js';
+import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
+import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
+import { Modal } from '../public/Modal.jsx';
+import styles from './StudyPasswordModal.module.css';
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');

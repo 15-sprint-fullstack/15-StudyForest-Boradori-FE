@@ -1,13 +1,13 @@
+import EmojiPicker from 'emoji-picker-react'; // 리액트 이모지 선택창 라이브러리
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Navigation, Tag } from '#publicComponents';
 import smileIcon from '../../assets/ic_smile.svg';
+import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
 import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import { useStudy } from '../../hooks/useStudy.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import styles from './StudyDetailPage.module.css';
-import EmojiPicker from 'emoji-picker-react'; // 리액트 이모지 선택창 라이브러리
-import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
-import { useParams } from 'react-router-dom';
-import { useStudy } from '../../hooks/useStudy.js';
 
 export function StudyDetailPage() {
   //수정하기 버튼
