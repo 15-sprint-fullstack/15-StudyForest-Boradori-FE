@@ -4,7 +4,8 @@ import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
 import styles from './StudyPasswordModal.module.css';
 import { Modal } from '../public/Modal.jsx';
-import { NormalButton, AlertBox } from '#publicComponents';
+import { NormalButton, Toast } from '#publicComponents';
+import { deleteStudies } from '../../api/studies.js';
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');
@@ -14,15 +15,13 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const navigate = useNavigate();
   const { studyId } = useParams();
   //비밀번호 인증성공 후 페이지 이동 임시테스트.
-  function handleTestMove() {
+  async function handleTestMove() {
     if (password.trim() === '') {
       setAlertMessage('🚨 비밀번호를 입력해 주세요');
       return;
     }
 
-    const testPassword = '1234'; //비밀번호 test 추후 삭제예정
-    const isValid = password === testPassword; //비밀번호 test 추후 삭제예정
-
+    const isValid = password === study.password; //삭제예정
     // API 연결 시 위 두 줄을 아래 코드로 교체 및 추가 작성 예정
     // const isValid = await verifyStudyPassword(studyId, password);
 
@@ -41,12 +40,12 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
       navigate(`/studies/${studyId}/focus`); //임시집중화면으로 이동. 추후 변경
     } else if (actionType === 'edit') {
       onClose();
-      navigate(`/studies/${studyId}/habits/:habitId`); //임시수정화면으로 이동. 추후 변경
+      navigate(`/studies/${studyId}/edit`); //임시수정화면으로 이동. 추후 변경
     } else if (actionType === 'delete') {
-      //삭제되고 홈으로 이동
-      alert('삭제 버튼 동작 테스트입니다. 실제로 삭제되지는 않습니다.');
+      await deleteStudies(studyId);
       onClose();
-      navigate('/');
+      navigate('/', { replace: true });
+      //삭제되고 홈으로 이동
     }
   }
 
@@ -133,9 +132,7 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
       </div>
       {alertMessage && (
         <div className={styles.toastPosition}>
-          <AlertBox className={styles.errorToast}>
-             {alertMessage}
-          </AlertBox>
+          <Toast className={styles.errorToast}>{alertMessage}</Toast>
         </div>
       )}
     </Modal>
