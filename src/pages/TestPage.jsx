@@ -2,7 +2,7 @@ import { createStudies, updateStudies, deleteStudies } from '../api/studies';
 import { useStudies } from '../hooks/useStudies';
 
 export function TestPage() {
-  const { studiesData, isLoading, error } = useStudies({
+  const { studiesData, isLoading, error, refetch } = useStudies({
     keyword: '테',
   });
 
@@ -18,6 +18,7 @@ export function TestPage() {
         password: '1234',
       });
       console.log('성공!', result);
+      refetch();
     } catch (error) {
       console.error('실패:', error);
       console.log('원본 에러 응답:', error.cause?.response?.data);
@@ -31,6 +32,7 @@ export function TestPage() {
         name: '테스트_수정',
       });
       console.log('성공', result);
+      refetch();
     } catch (error) {
       alert(error.message);
     }
@@ -40,6 +42,7 @@ export function TestPage() {
     try {
       const result = await deleteStudies(studyId);
       console.log('성공', result);
+      refetch();
     } catch (error) {
       alert(error.message);
     }
