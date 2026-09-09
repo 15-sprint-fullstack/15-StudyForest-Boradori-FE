@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
-import Modal from '../../components/Modal.jsx';
+import { Modal } from '../../components/public/Modal.jsx';
 import styles from './TodayHabitPage.module.css';
 
 function HabitItem({ habit, setDraft }) {
@@ -162,7 +162,9 @@ export function TodayHabitPage() {
     }
 
     const newData = await habitApi.getHabits(studyId);
-    const newHabits = newData.data.list.map((habit) => {return {...habit, isDone: false}})
+    const newHabits = newData.data.list.map((habit) => {
+      return { ...habit, isDone: false };
+    });
     setHabits(newHabits);
     setDraft([]);
   };

@@ -62,12 +62,12 @@ export function StudyDetailPage() {
       name: '물 6L 마시기',
       records: [false, false, false, false, false, false, false],
     },
-                {
+    {
       id: 8,
       name: '물 8L 마시기',
       records: [false, false, false, false, false, false, false],
     },
-                    {
+    {
       id: 9,
       name: '물 9L 마시기',
       records: [false, false, false, false, false, false, false],
@@ -118,8 +118,6 @@ export function StudyDetailPage() {
 
   return (
     <div className={styles.page}>
-      <Navigation />
-
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.topRow}>
