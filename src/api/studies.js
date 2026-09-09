@@ -52,7 +52,7 @@ export async function getStudy(studyId) {
   }
 }
 
-export const createStudies = async (postData) => {
+export const createStudy = async (postData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/studies`, postData);
     return response.data;
@@ -61,7 +61,7 @@ export const createStudies = async (postData) => {
   }
 };
 
-export const updateStudies = async (id, postData) => {
+export const updateStudy = async (id, postData) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/studies/${id}`,
@@ -73,7 +73,7 @@ export const updateStudies = async (id, postData) => {
   }
 };
 
-export const deleteStudies = async (id) => {
+export const deleteStudy = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/studies/${id}`);
     return response.data;

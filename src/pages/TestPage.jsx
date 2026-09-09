@@ -1,4 +1,4 @@
-import { createStudies, updateStudies, deleteStudies } from '../api/studies';
+import { createStudy, updateStudy, deleteStudy } from '../api/studies';
 import { useStudies } from '../hooks/useStudies';
 
 export function TestPage() {
@@ -11,7 +11,7 @@ export function TestPage() {
 
   const handleTestCreate = async () => {
     try {
-      const result = await createStudies({
+      const result = await createStudy({
         name: '테스트 스터디',
         nickname: '이름',
         description: '설명입니다',
@@ -28,7 +28,7 @@ export function TestPage() {
 
   const handleUpdateStudies = async () => {
     try {
-      const result = await updateStudies(studyId, {
+      const result = await updateStudy(studyId, {
         name: '테스트_수정',
       });
       console.log('성공', result);
@@ -40,7 +40,7 @@ export function TestPage() {
 
   const handleDeleteStudy = async (studyId) => {
     try {
-      const result = await deleteStudies(studyId);
+      const result = await deleteStudy(studyId);
       console.log('성공', result);
       refetch();
     } catch (error) {
