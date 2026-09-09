@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { NormalButton, Toast, InputContainer  } from '#publicComponents';
+import { deleteStudies } from '../../api/studies.js';
 import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
-import styles from './StudyPasswordModal.module.css';
 import { Modal } from '../public/Modal.jsx';
-import { NormalButton, Toast } from '#publicComponents';
-import { deleteStudies } from '../../api/studies.js';
+import styles from './StudyPasswordModal.module.css';
+
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');
@@ -76,40 +77,31 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
         </div>
         <p className={styles.description}>권한이 필요해요!</p>{' '}
         <div className={styles.passwordField}>
-          <label className={styles.passwordLabel} htmlFor="study-password">
-            비밀번호
-          </label>
-          <div className={styles.inputRow}>
-            <input
-              id="study-password"
-              className={styles.passwordInput}
-              type={isPasswordVisible ? 'text' : 'password'}
-              value={password}
-              onChange={(event) => {
-                setPassword(event.target.value);
-                setAlertMessage('');
-              }}
-              onKeyDown={(event) => {
-                if (event.key === 'Enter') {
-                  event.preventDefault();
-                  handleTestMove(); //확인버튼에 연결된 함수를 실행 추후 변경
-                }
-              }}
-              placeholder="비밀번호를 입력해 주세요"
+          <InputContainer 
+            label="비밀번호"
+            type={isPasswordVisible ? 'text' : 'password'}
+            value={password}
+            onChange={(event)=> {
+              setPassword(event.target.value)
+              setAlertMessage('')
+            }}
+            onKeyDown={(event)=>{
+              if(event.key === 'Enter') {
+                event.preventDefault()
+                handleTestMove()
+              }
+            }}
+            placeholder="비밀번호를 입력해주세요"
+          />
+          <button
+            type='button'
+            className={styles.visibilityButton}
+            onClick={()=> setIsPasswordVisible(!isPasswordVisible)}>
+            <img
+              src={isPasswordVisible ? visibilityOn : visibilityOff}
+              width={24} height={24}
             />
-            <button
-              type="button"
-              className={styles.visibilityButton}
-              onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-            >
-              <img
-                src={isPasswordVisible ? visibilityOn : visibilityOff}
-                alt={isPasswordVisible ? '비밀번호 숨기기' : '비밀번호 보이기'}
-                width={24}
-                height={24}
-              />
-            </button>
-          </div>
+          </button>
         </div>
         {/* {handleTestMove}임시테스트  추후함수 변경필 */}
         <div className={styles.submitArea}>
