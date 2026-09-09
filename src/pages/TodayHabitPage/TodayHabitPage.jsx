@@ -1,12 +1,12 @@
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Modal } from '#publicComponents';
+import { Navigation } from '#publicComponents';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
-import { Modal } from '#publicComponents';
 import styles from './TodayHabitPage.module.css';
-import { Navigation } from '#publicComponents'
 
 function HabitItem({ habit, setDraft }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -123,7 +123,7 @@ export function TodayHabitPage() {
   const [now, setNow] = useState(new Date());
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
   let { studyId } = useParams(); // const로 변경
-  studyId = "fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19"
+  studyId = 'fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19';
 
   const toggleIsDone = (targetHabit) => {
     setHabits((prev) =>

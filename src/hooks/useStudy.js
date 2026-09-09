@@ -1,13 +1,15 @@
 //임시 훅 입니다.
 import { useState, useEffect } from 'react';
-import { getStudy } from '../api/study1.js'
+import { getStudy } from '../api/studies.js';
 
 export function useStudy(studyId) {
   const [study, setStudy] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!studyId) return;
+
     let ignore = false;
 
     const fetchStudy = async () => {
@@ -39,5 +41,9 @@ export function useStudy(studyId) {
     };
   }, [studyId]);
 
-  return { study, isLoading, error };
+  return {
+    study: studyId ? study : null,
+    isLoading: studyId ? isLoading : false,
+    error: studyId ? error : null,
+  };
 }
