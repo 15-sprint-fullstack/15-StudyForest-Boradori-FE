@@ -1,10 +1,9 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://one5-studyforest-boradori-be.onrender.com';
+import { API_BASE_URL } from '../constants/ApiUrl';
 
 async function getHabits(studyId) {
   try {
-    const response = await axios.get(`${BASE_URL}/studies/${studyId}/habits`);
+    const response = await axios.get(`${API_BASE_URL}/studies/${studyId}/habits`);
     console.log(response, response.data);
     return response.data;
   } catch (error) {
@@ -16,7 +15,7 @@ async function getHabits(studyId) {
 async function createHabit(studyId, data) {
   try {
     const response = await axios.post(
-      `${BASE_URL}/studies/${studyId}/habits`,
+      `${API_BASE_URL}/studies/${studyId}/habits`,
       data,
     );
     console.log(response, response.data);
@@ -30,7 +29,7 @@ async function createHabit(studyId, data) {
 async function updateHabit(studyId, habitId, data) {
   try {
     const response = await axios.patch(
-      `${BASE_URL}/studies/${studyId}/habits/${habitId}`,
+      `${API_BASE_URL}/studies/${studyId}/habits/${habitId}`,
       data,
     );
     console.log(response, response.data);
@@ -44,7 +43,7 @@ async function updateHabit(studyId, habitId, data) {
 async function deleteHabit(studyId, habitId) {
   try {
     const response = await axios.delete(
-      `${BASE_URL}/studies/${studyId}/habits/${habitId}`,
+      `${API_BASE_URL}/studies/${studyId}/habits/${habitId}`,
     );
     console.log(response, response.data);
     return response.data;

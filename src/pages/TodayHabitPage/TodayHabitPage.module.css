@@ -1,4 +1,6 @@
-* {font-size: 30px;}
+* {
+  font-size: 30px;
+}
 
 .page {
   min-height: 100vh;
@@ -6,4 +8,48 @@
   color: #414141;
   font-family: Pretendard, Arial, sans-serif;
   line-height: 1.4;
+}
+
+.shell {
+  padding: 50px;
+}
+
+.panel {
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+}
+
+.h1 {
+  display: inline-block;
+}
+
+.button {
+  display: inline-block;
+}
+
+.timeWrap {
+  font-size: 15px;
+}
+
+.habitList {
+  display: flex;
+  flex-direction: column;
+}
+
+.listHeadingRow {
+  display: flex;
+  justify-content: center;
+  & button {
+    font-size: 20px;
+    height: 30px;
+  }
+}
+
+ul {
+  margin: 30px auto;
 }
