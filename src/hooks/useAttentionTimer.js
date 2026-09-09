@@ -46,7 +46,9 @@ export function useAttentionTimer({ onStop }) {
   };
 
   const handlePause = () => {
-    setAccumulatedTime((prev) => prev + (performance.now() - startTime));
+    const newAccumulated = accumulatedTime + (performance.now() - startTime);
+    setAccumulatedTime(newAccumulated);
+    setDuration(settingDuration - newAccumulated);
     setIsRunning(false);
     setShowPauseWarning(true);
   };
