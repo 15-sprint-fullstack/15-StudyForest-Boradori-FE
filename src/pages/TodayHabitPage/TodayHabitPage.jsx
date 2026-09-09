@@ -7,7 +7,6 @@ import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
 import styles from './TodayHabitPage.module.css';
-import { Navigation } from '#publicComponents';
 
 function HabitItem({ habit, setDraft }) {
   const [isEditing, setIsEditing] = useState(false);
