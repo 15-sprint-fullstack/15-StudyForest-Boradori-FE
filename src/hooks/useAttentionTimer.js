@@ -11,12 +11,14 @@ export function useAttentionTimer({ onStop }) {
   });
 
   const [isRunning, setIsRunning] = useState(false);
-  const [startTime, setStartTime] = useState(0);
+  const [startTime, setStartTime] = useState(0); // 시작 / 재개 버튼 누른 시간
 
-  const [duration, setDuration] = useState(0);
-  const settingDuration = settingMinutes * 60 * 1000 + settingSeconds * 1000;
-  const [accumulatedTime, setAccumulatedTime] = useState(0);
+  const [duration, setDuration] = useState(0); // 총 소요 시간 (타이머에 보이는 시간)
+  const [accumulatedTime, setAccumulatedTime] = useState(0); // 시작 / 재개 버튼 눌렀을 당시의 구간 시간
+
   const [showPauseWarning, setShowPauseWarning] = useState(false);
+
+  const settingDuration = settingMinutes * 60 * 1000 + settingSeconds * 1000; // 타이머 설정 값
   const hasStarted = accumulatedTime > 0 || isRunning;
   const isOvertime = duration < 0;
 
@@ -79,6 +81,7 @@ export function useAttentionTimer({ onStop }) {
       setSettingSeconds(value);
     }
   };
+
   // sessionStorage 설정
   useEffect(() => {
     sessionStorage.setItem(
