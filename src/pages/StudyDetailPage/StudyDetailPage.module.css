@@ -79,8 +79,12 @@
   line-height: 19px;
 }
 
+/* 관리 버튼 사이의 구분선 */
 .actions > span {
-  color: #818181;
+  color: var(--gray-gray_818181, #818181);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .actions > span:first-of-type {
@@ -88,7 +92,7 @@
 }
 
 .actions > button:last-child {
-  color: #818181;
+  color: #818181
 }
 
 /* 오늘의 습관·집중 이동 버튼 묶음 */
