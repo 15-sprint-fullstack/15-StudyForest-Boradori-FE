@@ -43,8 +43,9 @@ export async function getStudy(studyId) {
       nickname: study.nickname,
       name: study.name,
       description: study.description,
+      background: study.background,
       point: study.point,
-      password: study.password, // 임시로 서버에서 받은 비밀번호도 모달에 전달, 삭제해야됨
+      password: study.password,
     };
   } catch (error) {
     throw new Error('스터디 조회에 실패했습니다.', {
