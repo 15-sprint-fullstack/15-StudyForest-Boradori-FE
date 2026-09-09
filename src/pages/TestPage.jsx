@@ -1,10 +1,13 @@
-import { useState, useEffect } from 'react';
 import { createStudies, updateStudies, deleteStudies } from '../api/studies';
 import { useStudies } from '../hooks/useStudies';
+
 export function TestPage() {
   const { studiesData, isLoading, error } = useStudies({
     keyword: '테',
   });
+
+  const studies = studiesData?.data ?? [];
+  const studyId = studies[0]?.id ?? '';
 
   const handleTestCreate = async () => {
     try {
@@ -23,15 +26,19 @@ export function TestPage() {
   };
 
   const handleUpdateStudies = async () => {
-    const result = await updateStudies(studyId, {
-      name: '테스트_수정',
-    });
-    console.log('성공', result);
+    try {
+      const result = await updateStudies(studyId, {
+        name: '테스트_수정',
+      });
+      console.log('성공', result);
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
-  const handleDeleteStudy = async () => {
+  const handleDeleteStudy = async (studyId) => {
     try {
-      const result = await deleteStudies('0');
+      const result = await deleteStudies(studyId);
       console.log('성공', result);
     } catch (error) {
       alert(error.message);
@@ -40,13 +47,14 @@ export function TestPage() {
 
   if (isLoading) return <p>불러오는 중...</p>;
   if (error) return <p>스터디 목록을 불러오지 못했습니다.</p>;
-  const studies = studiesData?.data ?? [];
-  const studyId = studies[0]?.id ?? '';
+
   return (
     <div>
-      <button onClick={handleTestCreate}>스터디 생성 테스트</button>
-      <button onClick={handleUpdateStudies}>스터디 수정 테스트</button>
-      <button onClick={handleDeleteStudy}>스터디 삭제 테스트</button>
+      <button onClick={() => handleTestCreate()}>스터디 생성 테스트</button>
+      <button onClick={() => handleUpdateStudies()}>스터디 수정 테스트</button>
+      <button onClick={() => handleDeleteStudy(studyId)}>
+        스터디 삭제 테스트
+      </button>
 
       <div>
         <ul>
