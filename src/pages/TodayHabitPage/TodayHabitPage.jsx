@@ -1,12 +1,12 @@
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Modal } from '#publicComponents';
+import { Navigation } from '#publicComponents';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
-import { Modal } from '#publicComponents';
 import styles from './TodayHabitPage.module.css';
-import { Navigation } from '#publicComponents'
 
 function HabitItem({ habit, setDraft }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -119,11 +119,14 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
 
 export function TodayHabitPage() {
   const [habits, setHabits] = useState([]);
+  const [todayHabitRecords, setTodayHabitRecords] = useState([]);
   const [draft, setDraft] = useState([]);
   const [now, setNow] = useState(new Date());
+  const [today, setToday] = useState(new Date().toLocaleDateString('en-CA'));
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
   let { studyId } = useParams(); // const로 변경
-  studyId = "fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19"
+  studyId = 'fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19';
+
 
   const toggleIsDone = (targetHabit) => {
     setHabits((prev) =>
@@ -168,15 +171,24 @@ export function TodayHabitPage() {
     });
     setHabits(newHabits);
     setDraft([]);
+    setIsHabitEditModalOpen(false);
   };
 
-  // 타이머 상태관리 함수
+  // 타이머 상태관리 함수(초 단위 감지) -> 리팩토링시 분리 예정
   useEffect(() => {
     const timer = setInterval(() => {
       setNow(new Date());
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // 자정이 넘어가면 habitRecord 다시 불러오기(분 단위 감지) -> 리팩토링시 분리 예정
+  useEffect(() => {
+    const dateChecker = setInterval(()=>{
+      setToday(new Date().toLocaleDateString('en-CA'))}
+    , 1000*60);
+    return ()=>{clearInterval(dateChecker)}
+  }, [])
 
   // 스터디 암호 입력시 습관 목록 불러오는 함수
   useEffect(() => {
@@ -191,8 +203,24 @@ export function TodayHabitPage() {
         console.error(error);
       }
     };
+    const loadTodayHabitRecords = async () => {
+      try {
+        const habitRecordData = await habitRecordApi.getHabitRecords(
+          studyId,
+          today,
+          today,
+        );
+        const initialHabitRecords = habitRecordData;
+        setTodayHabitRecords(initialHabitRecords);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     loadHabits();
-  }, [studyId]);
+    loadTodayHabitRecords();
+  }, [studyId, today]);
+
+
 
   return (
     <div className={styles.page}>
