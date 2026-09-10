@@ -68,7 +68,7 @@ export function AttentionPage() {
             {!timer.hasStarted ? (
               <TimeSettingInput {...setting} />
             ) : (
-              <TimerDisplay duration={timer.duration} />
+              <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
             <TimerControl

@@ -9,3 +9,11 @@
   line-height: normal;
   color: #414141;
 }
+
+.isTimeRunningOut {
+  color: #f50e0e;
+}
+
+.isOvertime {
+  color: #818181;
+}
