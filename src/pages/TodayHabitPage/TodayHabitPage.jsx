@@ -2,13 +2,59 @@ import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Modal } from '#publicComponents';
-import { Navigation } from '#publicComponents';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
 import styles from './TodayHabitPage.module.css';
 
-function HabitItem({ habit, setDraft }) {
+// 오늘의 습관 목록을 보여주는 컴포넌트
+function HabitItem({ studyId, today, habit, habitRecords }) {
+  const checkedHabitIds = habitRecords.map((habitRecord) => {
+    return habitRecord.habitId;
+  });
+
+  const [isChecked, setIsChecked] = useState(
+    checkedHabitIds.includes(habit.id),
+  );
+
+  const toggleIsChecked = async (targetHabit) => {
+    try {
+      if (isChecked) {
+        console.log(`완료한 습관목록에 "${targetHabit.name}"이(가) 있습니다.`);
+        await habitRecordApi.deleteHabitRecord(studyId, habit.id, today, today);
+        setIsChecked(false);
+        console.log(
+          `완료한 습관목록에서 "${targetHabit.name}"을(를) 제거하였습니다.`,
+        );
+        return;
+      }
+
+      if (!isChecked) {
+        console.log(`완료한 습관목록에 "${targetHabit.name}"이(가) 없습니다.`);
+        await habitRecordApi.createHabitRecord(studyId, habit.id);
+        setIsChecked(true);
+        console.log(
+          `완료한 습관목록에 "${targetHabit.name}"을(를) 추가하였습니다.`,
+        );
+        return;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <li
+      className={isChecked ? styles.isChecked : undefined}
+      onClick={() => toggleIsChecked(habit)}
+    >
+      {habit.name}
+    </li>
+  );
+}
+
+// 습관 목록 수정 화면에서 임시 습관 목록을 보여주는 컴포넌트
+function DraftHabitItem({ habit, setDraft }) {
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState('');
   const handleInputChange = (event) => {
@@ -19,7 +65,9 @@ function HabitItem({ habit, setDraft }) {
     if (event.key === 'Enter') {
       setDraft((prev) =>
         prev.map((habit) =>
-          habit.id === targetHabit.id ? { ...habit, name: inputValue } : habit,
+          habit.id === targetHabit.id
+            ? { ...habit, name: event.target.value }
+            : habit,
         ),
       );
       setIsEditing(false);
@@ -63,6 +111,7 @@ function HabitItem({ habit, setDraft }) {
   );
 }
 
+// 습관 수정 모달 내부
 function ModalContent({ draft, setDraft, onClose, onSave }) {
   const [isAdding, setIsAdding] = useState(false);
   const [inputValue, setInputValue] = useState('');
@@ -90,7 +139,9 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
     <>
       <ul>
         {draft.map((habit) => {
-          return <HabitItem key={habit.id} habit={habit} setDraft={setDraft} />;
+          return (
+            <DraftHabitItem key={habit.id} habit={habit} setDraft={setDraft} />
+          );
         })}
       </ul>
       {isAdding ? (
@@ -117,61 +168,59 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
   );
 }
 
+// 최상위 컴포넌트
 export function TodayHabitPage() {
   const [habits, setHabits] = useState([]);
-  const [todayHabitRecords, setTodayHabitRecords] = useState([]);
+  const [habitRecords, setHabitRecords] = useState([]);
   const [draft, setDraft] = useState([]);
   const [now, setNow] = useState(new Date());
   const [today, setToday] = useState(new Date().toLocaleDateString('en-CA'));
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
-  let { studyId } = useParams(); // const로 변경
-  studyId = 'fd1cd21e-c0c5-470f-bbbf-848a2ca2ca19';
+  const { studyId } = useParams();
 
-
-  const toggleIsDone = (targetHabit) => {
-    setHabits((prev) =>
-      prev.map((habit) =>
-        habit.id === targetHabit.id
-          ? { ...habit, isDone: !habit.isDone }
-          : habit,
-      ),
-    );
-  };
-  // 모달 내에서 습관 추가, 수정, 삭제 및 수정 완료 버튼으로 제출하는 함수
+  // 수정 완료 버튼 누르면 API 요청을 보내는 함수
   const handleSubmitEdit = async (draft) => {
-    const existingIds = habits.map((habit) => habit.id);
-    for (const tempHabit of draft) {
-      if (!existingIds.includes(tempHabit.id)) {
-        await habitApi.createHabit(studyId, {
-          name: tempHabit.name,
-        });
+    try {
+      const existingIds = habits.map((habit) => habit.id);
+      for (const tempHabit of draft) {
+        // 임시 목록의 아이디가 기존 목록에 없으면 => 습관 생성
+        if (!existingIds.includes(tempHabit.id)) {
+          await habitApi.createHabit(studyId, {
+            name: tempHabit.name,
+          });
+        }
+        // 임시 목록의 아이디가 기존 목록에 있지만 습관명이 다르면 => 습관명 수정, 습관 기록명도 수정
+        const matchingHabit = habits.find((habit) => habit.id === tempHabit.id);
+        if (
+          existingIds.includes(tempHabit.id) &&
+          matchingHabit.name !== tempHabit.name
+        ) {
+          await habitApi.updateHabit(studyId, matchingHabit.id, {
+            name: tempHabit.name,
+          });
+          await habitRecordApi.updateHabitRecord(matchingHabit.id, {
+            name: tempHabit.name,
+          });
+        }
       }
 
-      const matchingHabit = habits.find((habit) => habit.id === tempHabit.id);
-      if (
-        existingIds.includes(tempHabit.id) &&
-        matchingHabit.name !== tempHabit.name
-      ) {
-        await habitApi.updateHabit(studyId, matchingHabit.id, {
-          name: tempHabit.name,
-        });
+      // 기존 목록에는 아이디가 있지만 수정 목록에 없으면 => 습관 삭제
+      const draftIds = draft.map((tempHabit) => tempHabit.id);
+      for (const habit of habits) {
+        if (!draftIds.includes(habit.id)) {
+          await habitApi.deleteHabit(studyId, habit.id);
+        }
       }
+
+      // 제출 완료 후 새로운 습관 목록을 받아 표시, 수정 목록은 빈 배열로 초기화
+      const newData = await habitApi.getHabits(studyId);
+      const newHabits = newData.data.list;
+      setHabits(newHabits);
+      setDraft([]);
+      setIsHabitEditModalOpen(false);
+    } catch (error) {
+      console.error(error);
     }
-
-    const draftIds = draft.map((tempHabit) => tempHabit.id);
-    for (const habit of habits) {
-      if (!draftIds.includes(habit.id)) {
-        await habitApi.deleteHabit(studyId, habit.id);
-      }
-    }
-
-    const newData = await habitApi.getHabits(studyId);
-    const newHabits = newData.data.list.map((habit) => {
-      return { ...habit, isDone: false };
-    });
-    setHabits(newHabits);
-    setDraft([]);
-    setIsHabitEditModalOpen(false);
   };
 
   // 타이머 상태관리 함수(초 단위 감지) -> 리팩토링시 분리 예정
@@ -184,48 +233,46 @@ export function TodayHabitPage() {
 
   // 자정이 넘어가면 habitRecord 다시 불러오기(분 단위 감지) -> 리팩토링시 분리 예정
   useEffect(() => {
-    const dateChecker = setInterval(()=>{
-      setToday(new Date().toLocaleDateString('en-CA'))}
-    , 1000*60);
-    return ()=>{clearInterval(dateChecker)}
-  }, [])
+    const dateChecker = setInterval(() => {
+      setToday(new Date().toLocaleDateString('en-CA'));
+    }, 1000 * 60);
+    return () => {
+      clearInterval(dateChecker);
+    };
+  }, []);
 
   // 스터디 암호 입력시 습관 목록 불러오는 함수
   useEffect(() => {
     const loadHabits = async () => {
       try {
         const habitData = await habitApi.getHabits(studyId);
-        const initialHabits = habitData.data.list.map((habits) => {
-          return { ...habits, isDone: false };
-        });
+        const initialHabits = habitData.data.list;
+        console.log('initialHabits', initialHabits);
         setHabits(initialHabits);
       } catch (error) {
         console.error(error);
       }
     };
-    const loadTodayHabitRecords = async () => {
+    const loadHabitRecords = async () => {
       try {
         const habitRecordData = await habitRecordApi.getHabitRecords(
           studyId,
           today,
           today,
         );
-        const initialHabitRecords = habitRecordData;
-        setTodayHabitRecords(initialHabitRecords);
+        const initialHabitRecords = habitRecordData.data;
+        console.log('initialHabitRecords', initialHabitRecords);
+        setHabitRecords(initialHabitRecords);
       } catch (error) {
         console.error(error);
       }
     };
     loadHabits();
-    loadTodayHabitRecords();
+    loadHabitRecords();
   }, [studyId, today]);
-
-
 
   return (
     <div className={styles.page}>
-      <Navigation />
-
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.headingRow}>
@@ -264,13 +311,13 @@ export function TodayHabitPage() {
                 <ul>
                   {habits.map((habit) => {
                     return (
-                      <li
-                        key={habit.id}
-                        className={habit.isDone ? styles.isDone : styles['']}
-                        onClick={() => toggleIsDone(habit)}
-                      >
-                        {habit.name}
-                      </li>
+                      <HabitItem
+                        key={`${habit.id}@${today}`} // 키 값으로 `@${today}`를 추가한 이유: 자정이 지나면 key값이 바뀌면 isChecked 상태를 초기화시키는 간단한 방법(Claude 아이디어)
+                        today={today}
+                        habit={habit}
+                        habitRecords={habitRecords}
+                        studyId={studyId}
+                      />
                     );
                   })}
                 </ul>
