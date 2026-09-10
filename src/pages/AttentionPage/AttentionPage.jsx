@@ -9,6 +9,7 @@ import { usePoint } from '../../hooks/usePoint';
 import { useStudy } from '../../hooks/useStudy';
 import styles from './AttentionPage.module.css';
 import pointIcon from '/src/assets/ic_point.svg';
+import timerIcon from '/src/assets/ic_timer.svg';
 
 export function AttentionPage() {
   const { studyId } = useParams();
@@ -56,7 +57,7 @@ export function AttentionPage() {
             </div>
             <div className={styles.headerContent}>
               <p>현재까지 획득한 포인트</p>
-              <div>
+              <div className={styles.pointContainer}>
                 <img src={pointIcon} alt="포인트_아이콘" />
                 <span>{point}P 획득</span>
               </div>
@@ -65,10 +66,20 @@ export function AttentionPage() {
 
           <div className={styles.timerContainer}>
             <h3>오늘의 집중</h3>
+            <div
+              className={`${styles.timeSetting} ${timer.hasStarted ? styles.timeSettingVisible : ''}`}
+              aria-hidden={!timer.hasStarted}
+            >
+              <img src={timerIcon} alt="타이머_아이콘" />
+              {setting.minutes}:{setting.seconds}
+            </div>
             {!timer.hasStarted ? (
               <TimeSettingInput {...setting} />
             ) : (
-              <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
+                <TimerDisplay
+                  duration={timer.duration}
+                  isOvertime={isOvertime}
+                />
             )}
 
             <TimerControl
@@ -85,7 +96,7 @@ export function AttentionPage() {
           </Toast>
         )}
         {showGainPoint && (
-          <Toast className={styles.pointContainer}>
+          <Toast className={styles.gainPointContainer}>
             🎉 {gainPoint}포인트를 획득했습니다!
           </Toast>
         )}

@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { updateStudy } from '../api/studies';
-import { POINT_TARGET_DURATION } from '../constants/AttentionTimer';
+import {
+  LEAST_ACCUMLATED_TIME,
+  POINT_TARGET_DURATION,
+} from '../constants/AttentionTimer';
 
 export function usePoint(studyId, currentPoint, onPointChange) {
   const [gainPoint, setGainPoint] = useState(0);
   const [showGainPoint, setShowGainPoint] = useState(false);
 
   const awardPoint = async (finalAccumlated) => {
-    if (finalAccumlated < 1 * 60 * 1000) {
-      console.log('시간 안지남');
+    if (finalAccumlated < LEAST_ACCUMLATED_TIME) {
       return;
     }
     const gained = 3 + Math.floor(finalAccumlated / POINT_TARGET_DURATION);
