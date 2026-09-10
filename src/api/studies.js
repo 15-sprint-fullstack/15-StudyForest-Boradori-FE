@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../constants/ApiUrl';
 export const getStudies = async ({
   page = 1,
   limit = 6,
-  sort = 'asc',
+  sort = 'desc',
   sortBy = 'point',
   keyword = '',
 }) => {
@@ -21,6 +21,7 @@ export const getStudies = async ({
     console.log(response.data);
     return response.data;
   } catch (error) {
+    console.log(error);
     throw new Error('스터디 조회에 실패했습니다.', {
       cause: error,
     });
@@ -42,8 +43,9 @@ export async function getStudy(studyId) {
       nickname: study.nickname,
       name: study.name,
       description: study.description,
+      background: study.background,
       point: study.point,
-      password: study.password, // 임시로 서버에서 받은 비밀번호도 모달에 전달, 삭제해야됨
+      password: study.password,
     };
   } catch (error) {
     throw new Error('스터디 조회에 실패했습니다.', {
@@ -52,7 +54,7 @@ export async function getStudy(studyId) {
   }
 }
 
-export const createStudies = async (postData) => {
+export const createStudy = async (postData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/studies`, postData);
     return response.data;
@@ -61,10 +63,10 @@ export const createStudies = async (postData) => {
   }
 };
 
-export const updateStudies = async (id, postData) => {
+export const updateStudy = async (studyId, postData) => {
   try {
     const response = await axios.patch(
-      `${API_BASE_URL}/studies/${id}`,
+      `${API_BASE_URL}/studies/${studyId}`,
       postData,
     );
     return response.data;
@@ -73,9 +75,9 @@ export const updateStudies = async (id, postData) => {
   }
 };
 
-export const deleteStudies = async (id) => {
+export const deleteStudy = async (studyId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/studies/${id}`);
+    const response = await axios.delete(`${API_BASE_URL}/studies/${studyId}`);
     return response.data;
   } catch (error) {
     throw new Error('스터디 삭제에 실패했습니다.', { cause: error });

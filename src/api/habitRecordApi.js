@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../constants/ApiUrl';
 
-async function getHabitRecords(studyId) {
+async function getHabitRecords(studyId, startDate, endDate) {
   try {
     const response = await axios.get(
       `${API_BASE_URL}/studies/${studyId}/habit-records`,
+      { params: { startDate: startDate, endDate: endDate } },
     );
     return response.data;
   } catch (error) {
@@ -13,11 +14,10 @@ async function getHabitRecords(studyId) {
   }
 }
 
-async function createHabitRecord(studyId, habitId, data) {
+async function createHabitRecord(studyId, habitId) {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/studies/${studyId}/habit-records/${habitId}`,
-      data,
     );
     return response.data;
   } catch (error) {
