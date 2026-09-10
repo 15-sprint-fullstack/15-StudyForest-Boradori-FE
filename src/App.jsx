@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
+import { Navigation } from '#publicComponents';
 import { AttentionPage } from './pages/AttentionPage/AttentionPage';
 import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
 import { TestPage } from './pages/TestPage';
-import { Navigation } from '#publicComponents';
 import { TodayHabitPage } from './pages/TodayHabitPage/TodayHabitPage';
 
 function App() {

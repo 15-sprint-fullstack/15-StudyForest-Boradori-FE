@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getStudies } from '../api/studies';
 
 export function useStudies({
   page = 1,
   limit = 6,
-  sort = 'asc',
+  sort = 'desc',
   sortBy = 'point',
   keyword = '',
 }) {
@@ -12,29 +12,30 @@ export function useStudies({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchStudies = async () => {
-      setIsLoading(true);
-      setError(null);
-      try {
-        const result = await getStudies({
-          page,
-          limit,
-          sort,
-          sortBy,
-          keyword,
-        });
-        setStudiesData(result);
-      } catch (error) {
-        console.error(error);
-        setError(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchStudies();
+  const fetchStudies = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const result = await getStudies({
+        page,
+        limit,
+        sort,
+        sortBy,
+        keyword,
+      });
+      setStudiesData(result);
+    } catch (error) {
+      console.error(error);
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }, [keyword, limit, page, sort, sortBy]);
 
-  return { studiesData, isLoading, error };
+  useEffect(() => {
+    // eslint-disable-next-line
+    fetchStudies();
+  }, [fetchStudies]);
+
+  return { studiesData, isLoading, error, refetch: fetchStudies };
 }

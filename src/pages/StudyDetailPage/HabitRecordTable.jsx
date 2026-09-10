@@ -1,6 +1,6 @@
-import styles from './HabitRecordTable.module.css'; // 습관 기록표 전용 스타일을 불러와요.
-import completeIcon from '../../assets/stickers/sticker-light-green-100-03.svg'
 import emptyIcon from '../../assets/stickers/sticker-inactive.svg';
+import completeIcon from '../../assets/stickers/sticker-light-green-100-03.svg';
+import styles from './HabitRecordTable.module.css'; // 습관 기록표 전용 스타일을 불러와요.
 
 export function HabitRecordTable({ habits }) {
   return (
@@ -35,10 +35,10 @@ export function HabitRecordTable({ habits }) {
                   {habit.records.map((isCompleted, dayIndex) => (
                     <td key={dayIndex}>
                       <img
-                         className={styles.recordIcon}
-                         src={isCompleted ? completeIcon : emptyIcon}
-                         width={36}
-                         height={36}
+                        className={styles.recordIcon}
+                        src={isCompleted ? completeIcon : emptyIcon}
+                        width={36}
+                        height={36}
                       />
                     </td>
                   ))}
