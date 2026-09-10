@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { NormalButton, Toast, InputContainer  } from '#publicComponents';
-import { deleteStudies } from '../../api/studies.js';
+import { NormalButton, Toast } from '#publicComponents';
+import { deleteStudy } from '../../api/studies.js';
 import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
 import { Modal } from '../public/Modal.jsx';
 import styles from './StudyPasswordModal.module.css';
-
 
 export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
   const [password, setPassword] = useState('');
@@ -43,7 +42,7 @@ export function StudyPasswordModal({ isOpen, study, actionType, onClose }) {
       onClose();
       navigate(`/studies/${studyId}/edit`); //임시수정화면으로 이동. 추후 변경
     } else if (actionType === 'delete') {
-      await deleteStudies(studyId);
+      await deleteStudy(studyId);
       onClose();
       navigate('/', { replace: true });
       //삭제되고 홈으로 이동
