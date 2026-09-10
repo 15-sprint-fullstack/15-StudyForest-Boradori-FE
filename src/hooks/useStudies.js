@@ -4,7 +4,7 @@ import { getStudies } from '../api/studies';
 export function useStudies({
   page = 1,
   limit = 6,
-  sort = 'asc',
+  sort = 'desc',
   sortBy = 'point',
   keyword = '',
 }) {
