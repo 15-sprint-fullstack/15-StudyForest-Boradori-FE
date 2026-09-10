@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { MAX_OVERTIME } from '../constants/AttentionTimer';
 
 export function useAttentionTimer({ onStop }) {
   const [settingMinutes, setSettingMinutes] = useState(() => {
@@ -95,14 +96,36 @@ export function useAttentionTimer({ onStop }) {
     if (!isRunning) {
       return;
     }
+
+    const maxAccumlated = settingDuration + MAX_OVERTIME;
+
     const timer = setInterval(() => {
+      const elapsed = accumulatedTime + (performance.now() - startTime);
+
+      if (elapsed >= maxAccumlated) {
+        clearInterval(timer);
+
+        setIsRunning(false);
+        setDuration(0);
+        setAccumulatedTime(0);
+
+        onStop?.(maxAccumlated);
+        return;
+      }
       setDuration(
         settingDuration - (accumulatedTime + (performance.now() - startTime)),
       );
     }, 1000);
     console.log(isOvertime);
     return () => clearInterval(timer);
-  }, [isOvertime, isRunning, startTime, settingDuration, accumulatedTime]);
+  }, [
+    isOvertime,
+    isRunning,
+    startTime,
+    settingDuration,
+    accumulatedTime,
+    onStop,
+  ]);
 
   // 중단 메시지
   useEffect(() => {

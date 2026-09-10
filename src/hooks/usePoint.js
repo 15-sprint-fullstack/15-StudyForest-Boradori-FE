@@ -7,6 +7,10 @@ export function usePoint(studyId, currentPoint, onPointChange) {
   const [showGainPoint, setShowGainPoint] = useState(false);
 
   const awardPoint = async (finalAccumlated) => {
+    if (finalAccumlated < 1 * 60 * 1000) {
+      console.log('시간 안지남');
+      return;
+    }
     const gained = 3 + Math.floor(finalAccumlated / POINT_TARGET_DURATION);
     const newPoint = currentPoint + gained;
 
