@@ -65,7 +65,7 @@
   & .pointContainer {
     display: flex;
     padding: 8px 12px;
-    flex-direction: column;
+    margin-bottom: 20px;
     align-items: flex-start;
     gap: 8px;
     border-radius: 50px;
@@ -99,8 +99,32 @@
     font-weight: 800;
     line-height: normal;
     color: #414141;
-    margin-bottom: 100px;
   }
+}
+
+.timeSetting {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s;
+  display: flex;
+  padding: 6px 8px;
+  width: fit-content;
+  align-items: flex-start;
+  margin-bottom: 45px;
+  gap: 4px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: #414141;
+}
+
+.timeSettingVisible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .alertContainer {
@@ -108,7 +132,15 @@
   color: #f50e0e;
 }
 
-.pointContainer {
+.gainPointContainer {
   background-color: #e1edde;
   color: #578246;
+}
+
+@media (max-width: 600px) {
+  .attentionHeader > .mainHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
 }
