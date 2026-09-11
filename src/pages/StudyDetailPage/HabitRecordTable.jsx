@@ -30,16 +30,18 @@ export function HabitRecordTable({ habits }) {
 
             <tbody>
               {habits.map((habit) => (
-                <tr key={habit.id}>
+                <tr key={habit.rowKey}>
                   <th scope="row">{habit.name}</th>
                   {habit.records.map((isCompleted, dayIndex) => (
                     <td key={dayIndex}>
-                      <img
-                        className={styles.recordIcon}
-                        src={isCompleted ? completeIcon : emptyIcon}
-                        width={36}
-                        height={36}
-                      />
+                      {isCompleted !== null && (
+                        <img
+                          className={styles.recordIcon}
+                          src={isCompleted ? completeIcon : emptyIcon}
+                          width={36}
+                          height={36}
+                        />
+                      )}
                     </td>
                   ))}
                 </tr>

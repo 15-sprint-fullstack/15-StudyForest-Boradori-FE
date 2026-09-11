@@ -1,10 +1,11 @@
 import EmojiPicker from 'emoji-picker-react'; // 리액트 이모지 선택창 라이브러리
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Navigation, Tag } from '#publicComponents';
+import { Tag } from '#publicComponents';
 import smileIcon from '../../assets/ic_smile.svg';
 import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
 import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import { useHabitRecords } from '../../hooks/useHabitRecords.js';
 import { useStudy } from '../../hooks/useStudy.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import styles from './StudyDetailPage.module.css';
@@ -24,54 +25,12 @@ export function StudyDetailPage() {
   const { studyId } = useParams();
   const { study, isLoading, error } = useStudy(studyId);
 
-  // 기록표에 표시할 연습용 습관 목록 (DB연결하고 나면 지우겠습니다.)
-  const habits = [
-    {
-      id: 1,
-      name: '책 10쪽 읽기',
-      records: [true, false, true, false, false, false, false],
-    },
-    {
-      id: 2,
-      name: '스트레칭',
-      records: [true, true, false, false, false, false, false],
-    },
-    {
-      id: 3,
-      name: '물 2L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 4,
-      name: '물 3L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 5,
-      name: '물 4L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 6,
-      name: '물 5L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 7,
-      name: '물 6L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 8,
-      name: '물 8L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 9,
-      name: '물 9L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-  ];
+  //습관기록
+  const {
+    habits,
+    isLoading: isHabitLoading,
+    error: habitError,
+  } = useHabitRecords(studyId);
 
   //연습용 이모지 조회 샘플
   const [emojis, setEmojis] = useState([
@@ -195,7 +154,15 @@ export function StudyDetailPage() {
             study={study} // 스터디 정보를 전달해요.
             onOpenPasswordModal={openPasswordModal} // 모달 열기 함수를 전달해요.
           />
-          <HabitRecordTable habits={habits} />{' '}
+
+          {/* 조회 중, 실패, 성공을 구분해서 표시 */}
+          {isHabitLoading ? (
+            <p role="status">습관 기록을 불러오는 중이예요</p>
+          ) : habitError ? (
+            <p>습관 기록을 불러오지 못했습니다 {habitError.message}</p>
+          ) : (
+            <HabitRecordTable habits={habits} />
+          )}
         </article>
       </main>
 
