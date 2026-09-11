@@ -35,8 +35,8 @@ export function getCurrentWeek(now = new Date()) {
   }
 
   return {
-    dates, //
-    startDate: `${dates[0]}T00:00:00.000`, // 한국시간기준
-    endDate: `${dates[6]}T23:59:59.999`, // 한국시간기준
+    dates, // 월요일부터 일요일까지의 날짜 목록
+    startDate: dates[0], // 시작일을 YYYY-MM-DD 형식으로 전달
+    endDate: dates[6], // 종료일을 YYYY-MM-DD 형식으로 전달
   };
 }
