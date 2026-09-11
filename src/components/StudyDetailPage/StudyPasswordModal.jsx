@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { NormalButton, Toast } from '#publicComponents';
+import { NormalButton, Toast, InputContainer } from '#publicComponents';
 import { deleteStudy } from '../../api/studies.js';
 import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
 import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
