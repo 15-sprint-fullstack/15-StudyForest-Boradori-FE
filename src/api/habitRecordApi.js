@@ -39,10 +39,11 @@ async function updateHabitRecord(habitId, data) {
   }
 }
 
-async function deleteHabitRecord(habitRecordId) {
+async function deleteHabitRecord(studyId, habitId, startDate, endDate) {
   try {
     const response = await axios.delete(
-      `${API_BASE_URL}/studies/habit-records/${habitRecordId}`,
+      `${API_BASE_URL}/studies/${studyId}/habit-records/${habitId}`,
+      { params: { startDate: startDate, endDate: endDate } },
     );
     return response.data;
   } catch (error) {

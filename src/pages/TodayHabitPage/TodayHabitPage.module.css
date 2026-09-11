@@ -53,3 +53,7 @@
 ul {
   margin: 30px auto;
 }
+
+.isChecked {
+  border: solid green 1px;
+}
