@@ -35,8 +35,8 @@ export function getCurrentWeek(now = new Date()) {
   }
 
   return {
-    dates, // 화면의 월~일 칸은 KST 날짜를 그대로 사용
-    startDate: new Date(`${dates[0]}T00:00:00.000+09:00`).toISOString(), // KST 월요일 0시를 UTC로 변환
-    endDate: new Date(`${dates[6]}T23:59:59.999+09:00`).toISOString(), // KST 일요일 마지막 시각을 UTC로 변환
+    dates, //
+    startDate: `${dates[0]}T00:00:00.000`, // 한국시간기준
+    endDate: `${dates[6]}T23:59:59.999`, // 한국시간기준
   };
 }
