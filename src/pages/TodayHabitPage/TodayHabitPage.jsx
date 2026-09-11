@@ -16,8 +16,11 @@ function HabitItem({ studyId, today, habit, habitRecords }) {
   const [isChecked, setIsChecked] = useState(
     checkedHabitIds.includes(habit.id),
   );
+  const [isCreatingHabitRecord, setIsCreatingHabitRecord] = useState(false);
 
   const toggleIsChecked = async (targetHabit) => {
+    if (isCreatingHabitRecord) return;
+    setIsCreatingHabitRecord(true);
     try {
       if (isChecked) {
         console.log(`완료한 습관목록에 "${targetHabit.name}"이(가) 있습니다.`);
@@ -40,6 +43,8 @@ function HabitItem({ studyId, today, habit, habitRecords }) {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsCreatingHabitRecord(false);
     }
   };
 
@@ -172,10 +177,11 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
 export function TodayHabitPage() {
   const [habits, setHabits] = useState([]);
   const [habitRecords, setHabitRecords] = useState([]);
-  const [draft, setDraft] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [now, setNow] = useState(new Date());
   const [today, setToday] = useState(new Date().toLocaleDateString('en-CA'));
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
+  const [draft, setDraft] = useState([]);
   const { studyId } = useParams();
 
   // 수정 완료 버튼 누르면 API 요청을 보내는 함수
@@ -267,8 +273,12 @@ export function TodayHabitPage() {
         console.error(error);
       }
     };
-    loadHabits();
-    loadHabitRecords();
+    const loadAll = async () => {
+      setIsLoaded(false);
+      await Promise.all([loadHabits(), loadHabitRecords()]);
+      setIsLoaded(true);
+    };
+    loadAll();
   }, [studyId, today]);
 
   return (
@@ -303,7 +313,9 @@ export function TodayHabitPage() {
                 </button>
               </div>
 
-              {habits.length === 0 ? (
+              {!isLoaded ? (
+                <p>불러오는 중...</p>
+              ) : habits.length === 0 ? (
                 <p>
                   아직 습관이 없어요 <br /> 목록 수정을 눌러 습관을 생성해보세요
                 </p>
