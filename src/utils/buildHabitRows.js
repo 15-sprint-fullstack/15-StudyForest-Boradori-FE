@@ -19,7 +19,9 @@ export function buildHabitRows(habits, habitRecords, dates) {
 
   const activeRows = sortedHabits.map((habit) => {
     const matchedRecords = habitRecords.filter(
-      (record) => record.habitId === habit.id,
+      (record) =>
+        record.habitId === habit.id || // 현재 습관의 기록을 가져와요.
+        (record.habitId === null && record.habitName === habit.name), // 같은 이름의 삭제된 기록도 합쳐요.
     );
 
     return {
@@ -40,26 +42,30 @@ export function buildHabitRows(habits, habitRecords, dates) {
     ),
   ];
 
-  const deletedRows = deletedNames.map((habitName) => {
-    const matchedRecords = deletedRecords.filter(
-      (record) => record.habitName === habitName,
-    );
+  const deletedRows = deletedNames
+    .filter((habitName) => !habits.some((habit) => habit.name === habitName)) // 현재 습관과 같은 이름은 별도 행으로 만들지 않아요.
+    .map((habitName) => {
+      const matchedRecords = deletedRecords.filter(
+        (record) => record.habitName === habitName,
+      );
 
-    const completedDates = matchedRecords.map((record) =>
-      getKoreaDate(record.createdAt),
-    );
+      const completedDates = matchedRecords.map((record) =>
+        getKoreaDate(record.createdAt),
+      );
 
-    const lastCheckedDate = [...completedDates].sort().at(-1);
+      const lastCheckedDate = [...completedDates].sort().at(-1);
 
-    return {
-      rowKey: `deleted-${habitName}`,
-      name: habitName,
-      sortDate: Math.min(
-        ...matchedRecords.map((record) => new Date(record.createdAt).getTime()),
-      ),
-      records: makeWeeklyRecords(matchedRecords, dates, lastCheckedDate),
-    };
-  });
+      return {
+        rowKey: `deleted-${habitName}`,
+        name: habitName,
+        sortDate: Math.min(
+          ...matchedRecords.map((record) =>
+            new Date(record.createdAt).getTime(),
+          ),
+        ),
+        records: makeWeeklyRecords(matchedRecords, dates, lastCheckedDate),
+      };
+    });
 
   return [...activeRows, ...deletedRows].sort((a, b) => {
     const difference =
