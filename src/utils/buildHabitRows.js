@@ -20,8 +20,8 @@ export function buildHabitRows(habits, habitRecords, dates) {
   const activeRows = sortedHabits.map((habit) => {
     const matchedRecords = habitRecords.filter(
       (record) =>
-        record.habitId === habit.id || // 현재 습관의 기록을 가져와요.
-        (record.habitId === null && record.habitName === habit.name), // 같은 이름의 삭제된 기록도 합쳐요.
+        record.habitId === habit.id ||
+        (record.habitId === null && record.habitName === habit.name),
     );
 
     return {
@@ -43,7 +43,7 @@ export function buildHabitRows(habits, habitRecords, dates) {
   ];
 
   const deletedRows = deletedNames
-    .filter((habitName) => !habits.some((habit) => habit.name === habitName)) // 현재 습관과 같은 이름은 별도 행으로 만들지 않아요.
+    .filter((habitName) => !habits.some((habit) => habit.name === habitName))
     .map((habitName) => {
       const matchedRecords = deletedRecords.filter(
         (record) => record.habitName === habitName,
@@ -70,6 +70,7 @@ export function buildHabitRows(habits, habitRecords, dates) {
   return [...activeRows, ...deletedRows].sort((a, b) => {
     const difference =
       new Date(a.sortDate).getTime() - new Date(b.sortDate).getTime();
+
     return difference || a.rowKey.localeCompare(b.rowKey);
   });
 }

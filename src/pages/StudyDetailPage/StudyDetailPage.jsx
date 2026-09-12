@@ -34,9 +34,8 @@ export function StudyDetailPage() {
 
   //연습용 이모지 조회 샘플
   const [emojis, setEmojis] = useState([
-    // 화면에 표시할 연습용 이모지 반응 목록
-    { id: 1, emoji: '👍', count: 3 },
-    { id: 2, emoji: '❤️', count: 2 },
+    { id: 1, emoji: '👍', count: 3, isSelected: false }, // 아직 선택하지 않은 상태
+    { id: 2, emoji: '❤️', count: 2, isSelected: false }, // 아직 선택하지 않은 상태
   ]);
   const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
 
@@ -47,19 +46,31 @@ export function StudyDetailPage() {
     setEmojis((currentEmojis) => {
       const exists = currentEmojis.some((item) => item.emoji === selectedEmoji);
 
-      if (exists) {
-        return currentEmojis.map((item) => {
-          if (item.emoji === selectedEmoji) {
-            return { ...item, count: item.count + 1 };
-          }
-          return item;
-        });
+      if (!exists) {
+        return [
+          ...currentEmojis,
+          {
+            id: selectedEmoji,
+            emoji: selectedEmoji,
+            count: 1,
+            isSelected: true,
+          },
+        ];
       }
 
-      return [
-        ...currentEmojis,
-        { id: selectedEmoji, emoji: selectedEmoji, count: 1 },
-      ];
+      return currentEmojis
+        .map((item) => {
+          if (item.emoji !== selectedEmoji) return item;
+
+          const nextSelected = !item.isSelected;
+
+          return {
+            ...item,
+            isSelected: nextSelected,
+            count: Math.max(0, item.count + (nextSelected ? 1 : -1)),
+          };
+        })
+        .filter((item) => item.count > 0);
     });
 
     setIsEmojiPickerOpen(false);
@@ -96,6 +107,7 @@ export function StudyDetailPage() {
                   key={item.id}
                   type="button"
                   className={styles.emojiReactionButton}
+                  aria-pressed={item.isSelected}
                   onClick={() => handleEmojiSelect(item)}
                 >
                   <Tag emoji={item.emoji} count={item.count} />
