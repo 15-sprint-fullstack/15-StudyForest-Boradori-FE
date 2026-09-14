@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Modal } from '#publicComponents';
 import { InputContainer } from '#publicComponents';
 import { Toast } from '#publicComponents';
+import { getStudy } from '../../api/studies.js';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
 import trashIcon from '../../assets/btn_determinate.png';
@@ -66,29 +67,27 @@ function DraftHabitItem({ habit, draft, setDraft }) {
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const validateAndEdit = (inputValue, targetHabit) => {
-      const trimmed = inputValue.trim();
-      if (!trimmed) {
-        setErrorMessage('습관명을 입력해주세요.');
-        return;
-      }
-      const isDuplicate = draft
-        .filter((habit) => habit.id !== targetHabit.id)
-        .map((habit) => habit.name)
-        .includes(trimmed);
-      if (isDuplicate) {
-        setErrorMessage('이미 있는 습관명입니다.');
-        return;
-      }
-      setDraft((prev) =>
-        prev.map((habit) =>
-          habit.id === targetHabit.id
-            ? { ...habit, name: trimmed }
-            : habit,
-        ),
-      );
-      setErrorMessage('');
-      setIsEditing(false);
+    const trimmed = inputValue.trim();
+    if (!trimmed) {
+      setErrorMessage('습관명을 입력해주세요.');
+      return;
     }
+    const isDuplicate = draft
+      .filter((habit) => habit.id !== targetHabit.id)
+      .map((habit) => habit.name)
+      .includes(trimmed);
+    if (isDuplicate) {
+      setErrorMessage('이미 있는 습관명입니다.');
+      return;
+    }
+    setDraft((prev) =>
+      prev.map((habit) =>
+        habit.id === targetHabit.id ? { ...habit, name: trimmed } : habit,
+      ),
+    );
+    setErrorMessage('');
+    setIsEditing(false);
+  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -126,7 +125,9 @@ function DraftHabitItem({ habit, draft, setDraft }) {
             onKeyDown={(event) => handleInputKeyDown(event, habit)}
             onBlur={() => handleInputBlur(habit)}
           />
-          {errorMessage && <Toast className={styles.errorText}>{errorMessage}</Toast>}
+          {errorMessage && (
+            <Toast className={styles.errorText}>{errorMessage}</Toast>
+          )}
           <img src={trashIcon} onClick={() => handleDelete(habit)} alt="삭제" />
         </>
       ) : (
@@ -186,19 +187,23 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
 
   return (
     <div className={styles.habitEditModal}>
-      {draft.length === 0 ? (<p>+ 버튼을 눌러 습관을 추가해보세요!</p>) : (<ul className={styles.draftList}>
-        {draft.map((habit) => {
-          return (
-            <DraftHabitItem
-              key={habit.id}
-              habit={habit}
-              draft={draft}
-              setDraft={setDraft}
-            />
-          );
-        })}
-      </ul>)}
-      
+      {draft.length === 0 ? (
+        <p>+ 버튼을 눌러 습관을 추가해보세요!</p>
+      ) : (
+        <ul className={styles.draftList}>
+          {draft.map((habit) => {
+            return (
+              <DraftHabitItem
+                key={habit.id}
+                habit={habit}
+                draft={draft}
+                setDraft={setDraft}
+              />
+            );
+          })}
+        </ul>
+      )}
+
       {isAdding ? (
         <>
           <input
@@ -211,19 +216,22 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
             <Toast className={styles.errorText}>{errorMessage}</Toast>
           )}
         </>
-      ) : (<>
-        <button
-          type="button"
-          disabled={isFull}
-          onClick={
-            () => {
-            setIsAdding(true);
-          }}
-        >
-          +
-        </button>
-        {isFull ? <Toast className={styles.noticeText}>습관이 가득 찼습니다!</Toast>:(null)}
-      </>)}
+      ) : (
+        <>
+          <button
+            type="button"
+            disabled={isFull}
+            onClick={() => {
+              setIsAdding(true);
+            }}
+          >
+            +
+          </button>
+          {isFull ? (
+            <Toast className={styles.noticeText}>습관이 가득 찼습니다!</Toast>
+          ) : null}
+        </>
+      )}
 
       <button onClick={onClose}>취소</button>
       <button onClick={onSave}>수정 완료</button>
@@ -233,6 +241,8 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
 
 // 최상위 컴포넌트
 export function TodayHabitPage() {
+  const { studyId } = useParams();
+  const [study, setStudy] = useState({});
   const [habits, setHabits] = useState([]);
   const [habitRecords, setHabitRecords] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -240,7 +250,6 @@ export function TodayHabitPage() {
   const [today, setToday] = useState(new Date().toLocaleDateString('en-CA'));
   const [isHabitEditModalOpen, setIsHabitEditModalOpen] = useState(false);
   const [draft, setDraft] = useState([]);
-  const { studyId } = useParams();
 
   // 수정 완료 버튼 누르면 API 요청을 보내는 함수
   const handleSubmitEdit = async (draft) => {
@@ -281,7 +290,9 @@ export function TodayHabitPage() {
       // 제출 완료 후 새로운 습관 목록을 받아 표시, 수정 목록은 빈 배열로 초기화
       const newData = await habitApi.getHabits(studyId);
       const newHabits = newData.data.list;
-      const sortedNewHabits = newHabits.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+      const sortedNewHabits = newHabits.sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+      );
       setHabits(sortedNewHabits);
       setDraft([]);
       setIsHabitEditModalOpen(false);
@@ -310,11 +321,22 @@ export function TodayHabitPage() {
 
   // 스터디 암호 입력시 습관 목록 불러오는 함수
   useEffect(() => {
+    const loadStudy = async () => {
+      try {
+        const study = await getStudy(studyId);
+        setStudy(study);
+        console.log('닉네임:', study.nickname, '스터디명:', study.name);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     const loadHabits = async () => {
       try {
         const habitData = await habitApi.getHabits(studyId);
         const initialHabits = habitData.data.list;
-        const sortedHabits = initialHabits.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        const sortedHabits = initialHabits.sort(
+          (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
+        );
         console.log('습관 목록:', sortedHabits);
         setHabits(sortedHabits);
       } catch (error) {
@@ -336,7 +358,7 @@ export function TodayHabitPage() {
     };
     const loadAll = async () => {
       setIsLoaded(false);
-      await Promise.all([loadHabits(), loadHabitRecords()]);
+      await Promise.all([loadStudy(), loadHabits(), loadHabitRecords()]);
       setIsLoaded(true);
     };
     loadAll();
@@ -347,7 +369,13 @@ export function TodayHabitPage() {
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.headingRow}>
-            <h1>연우의 개발공장</h1>
+            {isLoaded ? (
+              <h1>
+                {study.nickname}의 {study.name}
+              </h1>
+            ) : (
+              <p>불러오는 중...</p>
+            )}
             <div className={styles.actions}>
               <button type="button">오늘의 집중</button>
               <button type="button">홈</button>
