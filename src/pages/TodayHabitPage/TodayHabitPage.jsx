@@ -1,12 +1,12 @@
 import { nanoid } from 'nanoid';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Modal } from '#publicComponents';
+import { Modal, MoveButton, NormalButton } from '#publicComponents';
 import { InputContainer } from '#publicComponents';
 import { Toast } from '#publicComponents';
-import { getStudy } from '../../api/studies.js';
 import { habitApi } from '../../api/habitApi.js';
 import { habitRecordApi } from '../../api/habitRecordApi.js';
+import { getStudy } from '../../api/studies.js';
 import trashIcon from '../../assets/btn_determinate.png';
 import styles from './TodayHabitPage.module.css';
 
@@ -218,7 +218,7 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
         </>
       ) : (
         <>
-          <button
+          <button className={styles.addButton}
             type="button"
             disabled={isFull}
             onClick={() => {
@@ -233,8 +233,8 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
         </>
       )}
 
-      <button onClick={onClose}>취소</button>
-      <button onClick={onSave}>수정 완료</button>
+      <NormalButton className={styles.cancelButton} isClick={onClose}>취소</NormalButton>
+      <NormalButton className={styles.SubmitButton} isClick={onSave}>수정 완료</NormalButton>
     </div>
   );
 }
@@ -377,8 +377,8 @@ export function TodayHabitPage() {
               <p>불러오는 중...</p>
             )}
             <div className={styles.actions}>
-              <button type="button">오늘의 집중</button>
-              <button type="button">홈</button>
+              <MoveButton route={`/studies/${studyId}/focus`} type="button">오늘의 집중</MoveButton>
+              <MoveButton route={"/"} type="button">홈</MoveButton>
             </div>
           </div>
 
