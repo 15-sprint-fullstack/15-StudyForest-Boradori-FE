@@ -72,6 +72,10 @@ function DraftHabitItem({ habit, draft, setDraft }) {
       setErrorMessage('습관명을 입력해주세요.');
       return;
     }
+    if (trimmed.length > 20) {
+      setErrorMessage('습관명은 최대 20자로 입력해주세요.');
+      return;
+    }
     const isDuplicate = draft
       .filter((habit) => habit.id !== targetHabit.id)
       .map((habit) => habit.name)
@@ -121,6 +125,7 @@ function DraftHabitItem({ habit, draft, setDraft }) {
         <>
           <InputContainer
             value={inputValue}
+            className={styles.editInput}
             onChange={handleInputChange}
             onKeyDown={(event) => handleInputKeyDown(event, habit)}
             onBlur={() => handleInputBlur(habit)}
@@ -132,7 +137,7 @@ function DraftHabitItem({ habit, draft, setDraft }) {
         </>
       ) : (
         <>
-          <span onClick={handleSpanClick}>{habit.name}</span>
+          <span className={styles.draftSpan} onClick={handleSpanClick}>{habit.name}</span>
           <img src={trashIcon} onClick={() => handleDelete(habit)} alt="삭제" />
         </>
       )}
@@ -156,6 +161,10 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
     const trimmed = inputValue.trim();
     if (!trimmed) {
       setErrorMessage('습관명을 입력해주세요.');
+      return;
+    }
+    if (trimmed.length > 20) {
+      setErrorMessage('습관명은 최대 20자로 입력해주세요.');
       return;
     }
     const isDuplicate = draft.map((habit) => habit.name).includes(trimmed);
@@ -188,7 +197,8 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
   return (
     <div className={styles.habitEditModal}>
       {draft.length === 0 ? (
-        <p>+ 버튼을 눌러 습관을 추가해보세요!</p>
+        <p className={styles.editInfo}>(+) 버튼을 눌러 습관을 추가해보세요!<br/>
+        습관을 모두 수정했다면 수정완료를 눌러 제출해주세요.</p>
       ) : (
         <ul className={styles.draftList}>
           {draft.map((habit) => {
@@ -206,7 +216,8 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
 
       {isAdding ? (
         <>
-          <input
+          <InputContainer
+            placeholder={'여기에 추가할 습관을 입력하세요.(입력 후 엔터)'}
             value={inputValue}
             onBlur={handleInputBlur}
             onChange={handleInputChange}
@@ -234,7 +245,7 @@ function ModalContent({ draft, setDraft, onClose, onSave }) {
       )}
 
       <NormalButton className={styles.cancelButton} isClick={onClose}>취소</NormalButton>
-      <NormalButton className={styles.SubmitButton} isClick={onSave}>수정 완료</NormalButton>
+      <NormalButton className={styles.submitButton} isClick={onSave}>수정 완료</NormalButton>
     </div>
   );
 }
