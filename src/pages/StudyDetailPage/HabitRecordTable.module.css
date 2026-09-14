@@ -91,7 +91,7 @@
   overflow-wrap: anywhere; /* 긴 단어가 칸 밖으로 넘치면 줄바꿈됨 */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 375px) {
   /* 모바일 습관 기록표 높이와 여백 */
   .habitSection {
     height: 244px;

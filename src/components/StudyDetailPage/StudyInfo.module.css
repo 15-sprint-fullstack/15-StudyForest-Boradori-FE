@@ -91,7 +91,7 @@
 }
 
 /* 모바일 화면 스타일 */
-@media (max-width: 600px) {
+@media (max-width: 375px) {
   /* 제목 아래에 버튼 배치 */
   .headingRow {
     flex-direction: column;
