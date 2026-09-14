@@ -9,3 +9,23 @@
   line-height: normal;
   color: #414141;
 }
+
+.isTimeRunningOut {
+  color: #f50e0e;
+}
+
+.isOvertime {
+  color: #818181;
+}
+
+@media (max-width: 768px) {
+  .timerDisplay {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .timerDisplay {
+    font-size: 80px;
+  }
+}
