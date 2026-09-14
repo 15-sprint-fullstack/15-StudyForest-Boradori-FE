@@ -115,15 +115,14 @@
   }
 }
 
-@media (max-width: 600px) {
-  /* 모바일 본문 너비와 위쪽 여백 */
+@media (max-width: 375.98px) {
   .shell {
     width: calc(100% - 32px);
     margin-top: 20px;
   }
 
-  /* 모바일 패널 안쪽 여백 */
   .panel {
+    min-height: 866px; /* Figma 모바일 패널 높이 */
     padding: 16px;
   }
 
