@@ -29,3 +29,23 @@
     text-align: right;
   }
 }
+
+@media (max-width: 768px) {
+  .timerContainer {
+    font-size: 120px;
+
+    & input {
+      font-size: 120px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .timerContainer {
+    font-size: 80px;
+
+    & input {
+      font-size: 80px;
+    }
+  }
+}
