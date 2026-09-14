@@ -46,16 +46,14 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid #eee;
 }
 
 .headingRow h1 {
   margin: 0;
   color: #414141;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.35;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: normal;
 }
 
 .actions {
@@ -112,14 +110,20 @@
   border-radius: 50px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   background: rgba(255, 255, 255, 0.3);
+  color: var(--black-black_414141, #414141);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .habitList {
   width: min(100%, 720px), max(100%);
-  margin: 32px auto 0;
-  padding: 32px;
+  margin: 24px auto 0;
+  padding: 40px 24px;
   border: 1px solid #eee;
-  border-radius: 16px;
+  border-radius: 20px;
 }
 
 .listHeadingRow {
@@ -133,19 +137,22 @@
 .listHeadingRow h2 {
   margin: 0;
   color: #414141;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
 }
 
 .listHeadingRow button {
   position: absolute;
-  right: 0;
-  padding: 6px 0;
+  right: 40px;
   border: 0;
   background: transparent;
   color: #818181;
-  font-size: 13px;
+  font-size: 14px;
+  font-style: normal;
   font-weight: 500;
+  line-height: normal;
 }
 
 .habitList > p {
@@ -190,11 +197,13 @@
   min-width: 0;
   padding: 0 16px;
   overflow: hidden;
-  border-radius: 10px;
-  background: #f1f1f1;
+  border-radius: 20px;
+  background: #eeeeee;
   color: #818181;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
   text-overflow: ellipsis;
   white-space: nowrap;
   cursor: pointer;
@@ -269,8 +278,8 @@
   display: flex;
   min-width: 300px;
   max-width: 648px;
-    width: 100%;
-    padding: 12px 20px;
+  width: 100%;
+  padding: 12px 20px;
   justify-content: center;
   align-items: center;
   flex: 1;
@@ -338,7 +347,7 @@
   width: 100%;
   height: 50px;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 16px;
   font-size: 16px;
 }
 
@@ -360,7 +369,6 @@
   margin: 0;
   font-size: 13px;
   text-align: center;
-
 }
 
 .errorText {
@@ -372,14 +380,14 @@
   color: #818181;
 }
 
-/* 모달루트? */
 :global(#modal-root) h3 {
   margin: 0 0 20px;
   color: #414141;
   font-family: Pretendard, Arial, sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 1.4;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
   text-align: center;
 }
 
@@ -418,7 +426,7 @@
   }
 
   .headingRow h1 {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .actions {
@@ -437,12 +445,6 @@
     font-size: 12px;
   }
 
-  .timeBadge {
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 34px;
-    font-size: 12px;
-  }
 
   .habitList {
     margin-top: 24px;
