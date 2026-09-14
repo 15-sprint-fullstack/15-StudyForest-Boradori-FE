@@ -46,12 +46,10 @@ export function AttentionPage() {
                 {study.nickname}의 {study.name}
               </h2>
               <div className={styles.moveButtonContainer}>
-                <MoveButton route={'/studies/${studyId}/habit'}>
+                <MoveButton route={`/studies/${studyId}/habits`}>
                   오늘의 습관
                 </MoveButton>
-                <MoveButton route={'/studies/${studyId}/habitRecord'}>
-                  홈
-                </MoveButton>
+                <MoveButton route={`/studies/${studyId}`}>홈</MoveButton>
               </div>
             </div>
             <div className={styles.headerContent}>
