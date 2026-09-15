@@ -37,11 +37,11 @@ export function StudyDetailPage() {
     isLoading: isEmojiLoading,
     error: emojiError,
     toggleEmoji,
-  } = useEmojis(studyId)
+  } = useEmojis(studyId);
 
   // 클릭한 이모지를 서버 요청 함수에 전달
   function handleEmojiSelect(emojiData) {
-    toggleEmoji(emojiData.emoji)
+    toggleEmoji(emojiData.emoji);
   }
 
   async function handleShare() {
@@ -69,17 +69,25 @@ export function StudyDetailPage() {
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.topRow}>
-            {/* 이모지 조회 중 -> 실패 -> 성공 순서로 표시 */}
-            {isEmojiLoading ? (
-              <p>이모지를 불러오는 중이예요</p>
-            ) : emojiError ? (
-              <p>이모지를 불러오지 못했어요</p>
-            ) : (
-              <StudyEmojiReactions
-                emojis={emojis}
-                onEmojiSelect={handleEmojiSelect}
-              />
-            )}
+            {/* 목록과 오류 안내를 함께 표시 */}
+            <div className={styles.emojiArea}>
+              {isEmojiLoading ? (
+                <p role="status">이모지를 불러오는 중이에요.</p>
+              ) : (
+                <StudyEmojiReactions
+                  emojis={emojis} // 요청 실패 시에도 기존 목록 유지
+                  onEmojiSelect={handleEmojiSelect} // 기존 선택·취소 함수
+                />
+              )}
+
+              {/* 오류가 생겨도 목록을 숨기지 않고 안내만 추가 */}
+              {emojiError && (
+                <p className={styles.emojiError} role="alert">
+                  {emojiError.response?.data?.message ??
+                    '이모지 요청을 처리하지 못했어요. 잠시 후 다시 시도해 주세요.'}
+                </p>
+              )}
+            </div>
 
             <div className={styles.actions}>
               <button type="button" onClick={handleShare}>
