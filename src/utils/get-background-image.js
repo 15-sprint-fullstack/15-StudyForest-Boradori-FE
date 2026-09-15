@@ -11,7 +11,7 @@ import background8 from './../assets/background8.jpg';
 // 단색 1~4
 
 export function getBackgroundImage(backgroundId) {
-  switch (backgroundId) {
+  switch (Number(backgroundId)) {
     case 1:
       return background1;
     case 2:

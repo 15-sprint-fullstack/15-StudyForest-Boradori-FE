@@ -1,19 +1,173 @@
-.List .menu_bar {
-  margin: 20px 0px;
-  display: flex;
-  gap: 10px;
+.section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 32px;
+  border-radius: 20px;
+  background: #fff;
 }
 
-.List .menu_bar select {
-  background-color: rgb(236, 236, 236);
-  border: none;
-  border-radius: 5px;
-
-  padding: 10px 20px;
+.title {
+  margin-bottom: 16px;
   font-size: 18px;
+  font-weight: 700;
+  color: #414141;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.searchBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 335px;
+  max-width: 100%;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  background: #fff;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #414141;
+  font-size: 16px;
+}
+
+.searchInput::placeholder {
+  color: #818181;
+}
+
+.sortWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sortButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-width: 130px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #818181;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.serachInput {
-  flex: 1;
+.sortArrow {
+  transform: rotate(90deg);
+  transition: transform 0.15s ease;
+  opacity: 0.6;
+}
+
+.sortArrowOpen {
+  transform: rotate(-90deg);
+}
+
+.sortOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+}
+
+.sortMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 130px;
+  padding: 6px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.sortMenuItem {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+  color: #818181;
+  font-size: 14px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sortMenuItem:hover {
+  background: #f3f6f2;
+}
+
+.sortMenuItemActive {
+  color: #578246;
+  font-weight: 600;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.list > * {
+  flex: 0 1 calc((100% - 40px) / 3);
+}
+
+.empty {
+  padding: 60px 0;
+  text-align: center;
+  color: #818181;
+}
+
+.moreButton {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  background: #fff;
+  color: #414141;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .list > * {
+    flex: 0 1 calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 375px) {
+  .list > * {
+    flex: 0 1 100%;
+  }
+
+  .toolbar {
+    flex-wrap: wrap;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
 }

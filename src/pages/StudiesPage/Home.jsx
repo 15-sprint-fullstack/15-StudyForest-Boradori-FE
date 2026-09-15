@@ -1,16 +1,16 @@
-import { useState, useContext } from 'react';
-import { StudyStateContext } from '../../App';
-
 import { Navigation } from '#publicComponents';
+import RecentStudyList from '../../components/HomePage/RecentStudyList';
 import StudyList from '../../components/HomePage/StudyList';
+import style from './Home.module.css';
 
 const Home = () => {
-  const data = useContext(StudyStateContext);
-
   return (
     <div>
       <Navigation />
-      <StudyList data={data} />
+      <div className={style.page}>
+        <RecentStudyList />
+        <StudyList />
+      </div>
     </div>
   );
 };

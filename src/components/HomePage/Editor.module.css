@@ -53,6 +53,7 @@
 .submit button {
   width: 100%;
   max-width: 100%;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {

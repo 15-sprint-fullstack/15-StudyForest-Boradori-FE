@@ -30,16 +30,17 @@ const getStringedDate = (targetDate) => {
   return `${year}-${month}-${date}`;
 };
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ initData, onSubmit }) => {
   const [input, setInput] = useState({
-    nickname: '',
-    name: '',
-    description: '',
-    point: 0,
-    background: 1,
-    password: '',
-    passwordCheck: '',
-    createdAt: new Date(),
+    id: initData?.id,
+    nickname: initData?.nickname ?? '',
+    name: initData?.name ?? '',
+    description: initData?.description ?? '',
+    point: initData?.point ?? 0,
+    background: initData?.background ?? 1,
+    password: initData?.password ?? '',
+    passwordCheck: initData?.password ?? '',
+    createdAt: initData?.createdAt ? new Date(initData.createdAt) : new Date(),
   });
   const [errors, setErrors] = useState({});
 
@@ -73,10 +74,10 @@ const Editor = ({ onSubmit }) => {
     if (!input.description.trim()) {
       nextErrors.description = '소개 멘트를 작성해 주세요';
     }
-    if (!input.password) {
+    if (!input.password.trim()) {
       nextErrors.password = '비밀번호를 입력해 주세요';
     }
-    if (!input.passwordCheck) {
+    if (!input.passwordCheck.trim()) {
       nextErrors.passwordCheck = '비밀번호를 다시 한 번 입력해 주세요';
     } else if (input.password !== input.passwordCheck) {
       nextErrors.passwordCheck = '비밀번호가 일치하지 않습니다';
@@ -93,12 +94,13 @@ const Editor = ({ onSubmit }) => {
 
     const createdAtStr = getStringedDate(input.createdAt); // 'YYYY-MM-DD'
     onSubmit({
+      id: input.id,
       nickname: input.nickname,
       name: input.name,
       description: input.description,
       point: input.point,
       background: input.background,
-      password: input.password,
+      password: input.password.trim(),
       createdAt: `${createdAtStr}T09:00:00.000Z`,
     });
   };
@@ -106,7 +108,9 @@ const Editor = ({ onSubmit }) => {
   return (
     <div className={style.page}>
       <div className={style.card}>
-        <h2 className={style.cardTitle}>스터디 만들기</h2>
+        <h2 className={style.cardTitle}>
+          {initData ? '스터디 수정하기' : '스터디 만들기'}
+        </h2>
 
         <div className={style.form}>
           <InputContainer
@@ -177,7 +181,10 @@ const Editor = ({ onSubmit }) => {
         </div>
 
         <div className={style.submit}>
-          <NormalButton isClick={onClickSubmitButton} children={'만들기'} />
+          <NormalButton
+            isClick={onClickSubmitButton}
+            children={initData ? '수정하기' : '만들기'}
+          />
         </div>
       </div>
     </div>

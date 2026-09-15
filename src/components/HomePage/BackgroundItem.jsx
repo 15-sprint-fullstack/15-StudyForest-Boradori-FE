@@ -1,4 +1,4 @@
-import stickerSelected from '../../assets/stickers/sticker-empty.svg';
+import stickerSelected from '../../assets/stickers/sticker-check.svg';
 import { getBackgroundImage } from '../../utils/get-background-image';
 import style from './BackgroundItem.module.css';
 

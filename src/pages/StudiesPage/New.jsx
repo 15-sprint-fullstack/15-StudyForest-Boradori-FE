@@ -1,15 +1,19 @@
-import { Navigation } from '#publicComponents';
-import Editor from '../../components/HomePage/Editor';
-import { useContext } from 'react';
-import { StudyDispatchContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import { Navigation } from '#publicComponents';
+import { createStudy } from '../../api/studies';
+import Editor from '../../components/HomePage/Editor';
 
 const New = () => {
-  const { onCreate } = useContext(StudyDispatchContext);
   const nav = useNavigate();
 
-  const onSubmit = (input) => {
-    onCreate(input);
+  const onSubmit = async (input) => {
+    await createStudy({
+      nickname: input.nickname,
+      name: input.name,
+      description: input.description,
+      background: String(input.background),
+      password: input.password,
+    });
     nav('/', { replace: true });
   };
 

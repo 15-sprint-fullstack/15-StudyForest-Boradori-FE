@@ -1,7 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import pointIcon from '../../assets/ic_point.svg';
 import { getBackgroundImage } from '../../utils/get-background-image';
 import style from './StudyCard.module.css';
-import TestButton from './TestButton';
-import { useNavigate } from 'react-router-dom';
+
+const NICKNAME_COLOR = {
+  1: '#578246',
+  2: '#C18E1B',
+  3: '#418099',
+  4: '#BC3C6A',
+};
+const DEFAULT_NICKNAME_COLOR = '#578246';
+
+const getDayCount = (createdAt) => {
+  const created = new Date(createdAt);
+  const now = new Date();
+  const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+  return diffDays + 1;
+};
 
 const StudyCard = ({
   id,
@@ -11,25 +26,55 @@ const StudyCard = ({
   point,
   background,
   createdAt,
+  emojis = [],
 }) => {
   const nav = useNavigate();
+  const backgroundId = Number(background);
+  const isPhoto = backgroundId > 4;
+  const nicknameColor = isPhoto
+    ? undefined
+    : (NICKNAME_COLOR[backgroundId] ?? DEFAULT_NICKNAME_COLOR);
+
   return (
-    <div className={style.Card}>
-      <div onClick={() => nav(`/studies/${id}`)} className={style.img_section}>
-        <img src={getBackgroundImage(background)} />
-      </div>
-      <div onClick={() => nav(`/studies/${id}`)} className={style.info_section}>
-        <div className="created_date">
-          {new Date(createdAt).toLocaleDateString()}
+    <div
+      className={`${style.card} ${isPhoto ? style.photoCard : ''}`}
+      style={{
+        backgroundImage: isPhoto
+          ? `linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6)), url(${getBackgroundImage(background)})`
+          : `url(${getBackgroundImage(background)})`,
+      }}
+      onClick={() => nav(`/studies/${id}`)}
+    >
+      <div className={style.head}>
+        <div className={style.titleGroup}>
+          <p className={style.title}>
+            <span
+              className={style.nickname}
+              style={nicknameColor ? { color: nicknameColor } : undefined}
+            >
+              {nickname}
+            </span>
+            의 {name}
+          </p>
+          <p className={style.day}>{getDayCount(createdAt)}일째 진행 중</p>
         </div>
-        <div className={style[`img_section_${background}`]}>{nickname}</div>
-        <div className="name">{name}</div>
-        <div className="description">{description}</div>
-        <div className="point">포인트:{point}</div>
+        <span className={style.point}>
+          <img src={pointIcon} width={14} height={14} />
+          {point}P 획득
+        </span>
       </div>
-      <div className={style.button_section}>
-        <TestButton onClick={() => nav(`/edit/${id}`)} text={'수정'} />
-      </div>
+
+      <p className={style.description}>{description}</p>
+
+      {emojis.length > 0 && (
+        <div className={style.emojiList}>
+          {emojis.map((item) => (
+            <span key={item.emojiType} className={style.emojiItem}>
+              {item.emojiType} {item.count}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
