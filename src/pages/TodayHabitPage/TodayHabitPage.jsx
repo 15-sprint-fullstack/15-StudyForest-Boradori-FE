@@ -64,7 +64,15 @@ function HabitItem({ studyId, today, habit, habitRecords }) {
 }
 
 // 습관 목록 수정 화면에서 임시 습관 목록을 보여주는 컴포넌트
-function DraftHabitItem({ habit, draft, setDraft, isSubmitting, editingId, setEditingId, disabled }) {
+function DraftHabitItem({
+  habit,
+  draft,
+  setDraft,
+  isSubmitting,
+  editingId,
+  setEditingId,
+  disabled,
+}) {
   const isEditing = editingId === habit.id;
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -101,7 +109,6 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting, editingId, setEd
   };
 
   const handleInputKeyDown = (event, targetHabit) => {
-  
     if (event.key === 'Escape') {
       setErrorMessage('');
       setInputValue('');
@@ -141,12 +148,26 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting, editingId, setEd
           {errorMessage && (
             <Toast className={styles.errorText}>{errorMessage}</Toast>
           )}
-          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`${habit.name} 삭제하기`} />
+          <img
+            src={trashIcon}
+            onClick={() => handleDelete(habit)}
+            alt={`${habit.name} 삭제하기`}
+          />
         </>
       ) : (
         <>
-          <span className={styles.draftSpan} onClick={handleSpanClick} aria-label="눌러서 수정하기">{habit.name}</span>
-          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`${habit.name} 삭제하기`} />
+          <span
+            className={styles.draftSpan}
+            onClick={handleSpanClick}
+            aria-label="눌러서 수정하기"
+          >
+            {habit.name}
+          </span>
+          <img
+            src={trashIcon}
+            onClick={() => handleDelete(habit)}
+            alt={`${habit.name} 삭제하기`}
+          />
         </>
       )}
     </li>
@@ -206,10 +227,15 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
   };
 
   return (
-    <div className={`${styles.habitEditModal} ${isSubmitting ? styles.disabled : ''}`}>
+    <div
+      className={`${styles.habitEditModal} ${isSubmitting ? styles.disabled : ''}`}
+    >
       {draft.length === 0 ? (
-        <p className={styles.editInfo}>(+) 버튼을 눌러 습관을 추가해보세요!<br/>
-        습관을 모두 수정했다면 수정완료를 눌러 제출해주세요.</p>
+        <p className={styles.editInfo}>
+          (+) 버튼을 눌러 습관을 추가해보세요!
+          <br />
+          습관을 모두 수정했다면 수정완료를 눌러 제출해주세요.
+        </p>
       ) : (
         <ul className={styles.draftList}>
           {draft.map((habit) => {
@@ -222,7 +248,11 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
                 isSubmitting={isSubmitting}
                 editingId={editingId}
                 setEditingId={setEditingId}
-                disabled={isSubmitting || isAdding || (editingId !== null && editingId !== habit.id)}
+                disabled={
+                  isSubmitting ||
+                  isAdding ||
+                  (editingId !== null && editingId !== habit.id)
+                }
               />
             );
           })}
@@ -246,7 +276,8 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
         </>
       ) : (
         <>
-          <button className={styles.addButton}
+          <button
+            className={styles.addButton}
             type="button"
             aria-label="습관 추가하기"
             disabled={isFull || isSubmitting || editingId !== null}
@@ -262,8 +293,20 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
         </>
       )}
 
-      <NormalButton className={styles.cancelButton} isClick={onClose} disabled={isSubmitting}>취소</NormalButton>
-      <NormalButton className={styles.submitButton} isClick={onSave} disabled={isSubmitting}>수정 완료</NormalButton>
+      <NormalButton
+        className={styles.cancelButton}
+        isClick={onClose}
+        disabled={isSubmitting}
+      >
+        취소
+      </NormalButton>
+      <NormalButton
+        className={styles.submitButton}
+        isClick={onSave}
+        disabled={isSubmitting}
+      >
+        수정 완료
+      </NormalButton>
     </div>
   );
 }
@@ -296,12 +339,6 @@ export function TodayHabitPage() {
       }
 
       for (const tempHabit of draft) {
-        // 임시 목록의 아이디가 기존 목록에 없으면 => 습관 생성
-        if (!existingIds.includes(tempHabit.id)) {
-          await habitApi.createHabit(studyId, {
-            name: tempHabit.name,
-          });
-        }
         // 임시 목록의 아이디가 기존 목록에 있지만 습관명이 다르면 => 습관명 수정, 습관 기록명도 수정
         const matchingHabit = habits.find((habit) => habit.id === tempHabit.id);
         if (
@@ -317,6 +354,12 @@ export function TodayHabitPage() {
             }),
           ]);
         }
+        // 임시 목록의 아이디가 기존 목록에 없으면 => 습관 생성
+        if (!existingIds.includes(tempHabit.id)) {
+          await habitApi.createHabit(studyId, {
+            name: tempHabit.name,
+          });
+        }
       }
 
       // 제출 완료 후 새로운 습관 목록을 받아 표시, 수정 목록은 빈 배열로 초기화
@@ -331,7 +374,7 @@ export function TodayHabitPage() {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
@@ -405,14 +448,20 @@ export function TodayHabitPage() {
           <div className={styles.headingRow}>
             {isLoaded ? (
               <h1>
-                {study ? (`${study.nickname}의 ${study.name}`) : ("해당하는 스터디가 없습니다. 💦")}
+                {study
+                  ? `${study.nickname}의 ${study.name}`
+                  : '해당하는 스터디가 없습니다. 💦'}
               </h1>
             ) : (
               <p>불러오는 중...</p>
             )}
             <div className={styles.actions}>
-              <MoveButton route={`/studies/${studyId}/focus`} type="button">오늘의 집중</MoveButton>
-              <MoveButton route={"/"} type="button">홈</MoveButton>
+              <MoveButton route={`/studies/${studyId}/focus`} type="button">
+                오늘의 집중
+              </MoveButton>
+              <MoveButton route={'/'} type="button">
+                홈
+              </MoveButton>
             </div>
           </div>
 
