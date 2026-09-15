@@ -153,9 +153,8 @@ export function StudyDetailPage() {
             onOpenPasswordModal={openPasswordModal} // 모달 열기 함수를 전달해요.
           />
 
-          {(actionError || (!isModalOpen && accessError)) && (
-            <p role="alert">{actionError || accessError}</p>
-          )}
+          {(actionError || (!isModalOpen && accessError)) &&
+            alert(actionError || accessError)}
           {/* 조회 중, 실패, 성공을 구분해서 표시 */}
           {isHabitLoading ? (
             <p role="status">습관 기록을 불러오는 중이예요</p>

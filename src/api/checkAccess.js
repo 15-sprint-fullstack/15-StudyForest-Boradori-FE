@@ -6,7 +6,7 @@ import { API_BASE_URL, TEST_BASE_URL } from '../constants/ApiUrl';
 export async function checkAccess(studyId) {
   try {
     const response = await axios.get(
-      `${TEST_BASE_URL}/studies/${studyId}/access`,
+      `${API_BASE_URL}/studies/${studyId}/access`,
       {
         withCredentials: true,
       },
@@ -27,7 +27,7 @@ export async function checkAccess(studyId) {
 export async function verifyPassword(studyId, password) {
   try {
     const response = await axios.post(
-      `${TEST_BASE_URL}/studies/${studyId}/access`,
+      `${API_BASE_URL}/studies/${studyId}/access`,
       { password },
       { withCredentials: true },
     );
@@ -40,7 +40,7 @@ export async function verifyPassword(studyId, password) {
 
 export function reportStudyActivity(studyId) {
   return axios.post(
-    `${TEST_BASE_URL}/studies/${studyId}/access/activity`,
+    `${API_BASE_URL}/studies/${studyId}/access/activity`,
     {},
     {
       withCredentials: true,
