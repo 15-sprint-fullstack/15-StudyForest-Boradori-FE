@@ -7,6 +7,7 @@ import { TimerDisplay } from '../../components/AttentionTimer/TimerDisplay/Timer
 import { useAttentionTimer } from '../../hooks/useAttentionTimer';
 import { usePoint } from '../../hooks/usePoint';
 import { useStudy } from '../../hooks/useStudy';
+import { useStudyActivity } from '../../hooks/useStudyActivity';
 import styles from './AttentionPage.module.css';
 import pointIcon from '/src/assets/ic_point.svg';
 import timerIcon from '/src/assets/ic_timer.svg';
@@ -27,6 +28,8 @@ export function AttentionPage() {
     useAttentionTimer({
       onStop: awardPoint,
     });
+
+  const activityError = useStudyActivity(studyId, timer.isRunning);
 
   if (error) {
     return <div>스터디 정보를 불러오지 못했습니다.</div>;
@@ -77,6 +80,9 @@ export function AttentionPage() {
               <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
+            {activityError && timer.hasStarted && (
+              <p role="status">{activityError}</p>
+            )}
             <TimerControl
               {...controls}
               hasStarted={timer.hasStarted}

@@ -68,6 +68,7 @@ export const updateStudy = async (studyId, postData) => {
     const response = await axios.patch(
       `${API_BASE_URL}/studies/${studyId}`,
       postData,
+      { withCredentials: true },
     );
     return response.data;
   } catch (error) {
@@ -77,7 +78,9 @@ export const updateStudy = async (studyId, postData) => {
 
 export const deleteStudy = async (studyId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/studies/${studyId}`);
+    const response = await axios.delete(`${API_BASE_URL}/studies/${studyId}`, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     throw new Error('스터디 삭제에 실패했습니다.', { cause: error });

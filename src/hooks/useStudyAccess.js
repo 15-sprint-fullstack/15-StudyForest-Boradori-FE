@@ -27,14 +27,14 @@ export function useStudyAccess(studyId) {
 
       // 인증 되어 있다하면 이동하게 하기
       if (hasAccess) {
-        onSuccess();
+        await onSuccess();
         return;
       }
 
       // 차후에 있을 비밀번호 로그인 관련해서 성공하면 pendingAction 실행하게 넣어두기
       pendingAction.current = onSuccess;
       setIsModalOpen(true);
-    } catch (error) {
+    } catch {
       setAccessError('인증 상태를 확인하지 못했습니다');
     } finally {
       setIsAccessLoading(false);
@@ -56,9 +56,8 @@ export function useStudyAccess(studyId) {
       }
 
       const action = pendingAction.current;
-      pendingAction.current = null;
-      setIsModalOpen(false);
-      action?.();
+      closeModal();
+      await action?.();
     } catch (error) {
       setAccessError(
         error.response?.data?.message ?? '비밀번호 검증에 실패했습니다',

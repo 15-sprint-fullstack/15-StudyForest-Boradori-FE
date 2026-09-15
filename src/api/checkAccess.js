@@ -37,3 +37,20 @@ export async function verifyPassword(studyId, password) {
     throw new Error('비밀번호 인증에 실패했습니다.', { cause: error });
   }
 }
+
+export function reportStudyActivity(studyId) {
+  return axios.post(
+    `${TEST_BASE_URL}/studies/${studyId}/access/activity`,
+    {},
+    {
+      withCredentials: true,
+    },
+  );
+}
+
+export function isStudyAccessRequired(error) {
+  const response = error.response ?? error.cause?.response;
+  return (
+    response?.status === 403 && response.data?.code === 'STUDY_ACCESS_REQUIRED'
+  );
+}

@@ -1,21 +1,22 @@
 import { useState } from 'react';
-import { StudyEmojiReactions } from '../../components/StudyDetailPage/StudyEmojiReactions.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Navigation, Tag } from '#publicComponents';
-import smileIcon from '../../assets/ic_smile.svg';
+import { deleteStudy } from '../../api/studies.js';
+import { StudyEmojiReactions } from '../../components/StudyDetailPage/StudyEmojiReactions.jsx';
 import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
 import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
 import { useHabitRecords } from '../../hooks/useHabitRecords.js';
 import { useStudy } from '../../hooks/useStudy.js';
+import { useStudyAccess } from '../../hooks/useStudyAccess.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import styles from './StudyDetailPage.module.css';
-import { useStudyAccess } from '../../hooks/useStudyAccess.js';
 
 export function StudyDetailPage() {
+  const { studyId } = useParams();
+
   //수정하기 버튼
-  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [modalType, setModalType] = useState('edit');
   const [isDeleting, setIsDeleting] = useState(false); //삭제하기
+  const [actionError, setActionError] = useState('');
   const navigate = useNavigate();
   const {
     isModalOpen,
@@ -27,12 +28,28 @@ export function StudyDetailPage() {
   } = useStudyAccess(studyId);
 
   function openPasswordModal(type) {
+    if (isAccessLoading || isDeleting) return;
     setModalType(type);
-    setIsPasswordModalOpen(true);
+    setActionError('');
+    requireAccess(async () => {
+      if (type === 'delete') {
+        setIsDeleting(true);
+        try {
+          await deleteStudy(studyId);
+          navigate('/', { replace: true });
+        } catch (error) {
+          setActionError(error.message);
+        } finally {
+          setIsDeleting(false);
+        }
+        return;
+      }
+      const path = type === 'habit' ? 'habits' : type;
+      navigate(`/studies/${studyId}/${path}`);
+    });
   }
 
   //스터디 조회
-  const { studyId } = useParams();
   const { study, isLoading, error } = useStudy(studyId);
 
   //습관기록
@@ -92,14 +109,6 @@ export function StudyDetailPage() {
     }
   }
 
-  // 인증 관련 함수
-  function handleEnter(type) {
-    const path = type === 'habit' ? 'habits' : 'focus';
-    requireAccess(() => {
-      navigate(`/studies/${studyId}/${path}`);
-    });
-  }
-
   //훅 실행 후 데이터를 표시할 준비체크
   if (isLoading) {
     return <p role="status">스터디를 불러오는 중이예요.</p>;
@@ -144,6 +153,9 @@ export function StudyDetailPage() {
             onOpenPasswordModal={openPasswordModal} // 모달 열기 함수를 전달해요.
           />
 
+          {(actionError || (!isModalOpen && accessError)) && (
+            <p role="alert">{actionError || accessError}</p>
+          )}
           {/* 조회 중, 실패, 성공을 구분해서 표시 */}
           {isHabitLoading ? (
             <p role="status">습관 기록을 불러오는 중이예요</p>
@@ -155,12 +167,15 @@ export function StudyDetailPage() {
         </article>
       </main>
 
-      {isPasswordModalOpen && ( //모달이 열렸을 때만 전용 컴포넌트를 만듦
+      {isModalOpen && ( //모달이 열렸을 때만 전용 컴포넌트를 만듦
         <StudyPasswordModal
-          isOpen={isPasswordModalOpen}
+          isOpen={isModalOpen}
           study={study}
           actionType={modalType}
-          onClose={() => setIsPasswordModalOpen(false)}
+          onClose={closeModal}
+          onSubmit={authPassword}
+          isLoading={isAccessLoading}
+          error={accessError}
         />
       )}
     </div>
