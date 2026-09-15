@@ -1,6 +1,6 @@
 import EmojiPicker from 'emoji-picker-react'; // 리액트 이모지 선택창 라이브러리
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Navigation, Tag } from '#publicComponents';
 import smileIcon from '../../assets/ic_smile.svg';
 import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
@@ -8,12 +8,22 @@ import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswo
 import { useStudy } from '../../hooks/useStudy.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import styles from './StudyDetailPage.module.css';
+import { useStudyAccess } from '../../hooks/useStudyAccess.js';
 
 export function StudyDetailPage() {
   //수정하기 버튼
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [modalType, setModalType] = useState('edit');
   const [isDeleting, setIsDeleting] = useState(false); //삭제하기
+  const navigate = useNavigate();
+  const {
+    isModalOpen,
+    isAccessLoading,
+    accessError,
+    requireAccess,
+    authPassword,
+    closeModal,
+  } = useStudyAccess(studyId);
 
   function openPasswordModal(type) {
     setModalType(type);
@@ -113,6 +123,14 @@ export function StudyDetailPage() {
     } catch {
       alert('링크를 복사하지 못했습니다. 주소창에서 복사해주세요');
     }
+  }
+
+  // 인증 관련 함수
+  function handleEnter(type) {
+    const path = type === 'habit' ? 'habits' : 'focus';
+    requireAccess(() => {
+      navigate(`/studies/${studyId}/${path}`);
+    });
   }
 
   //훅 실행 후 데이터를 표시할 준비체크

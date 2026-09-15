@@ -14,7 +14,6 @@ import timerIcon from '/src/assets/ic_timer.svg';
 export function AttentionPage() {
   const { studyId } = useParams();
   const { study, isLoading, error } = useStudy(studyId);
-
   const [pagePoint, setPagePoint] = useState(null);
 
   const point = pagePoint ?? study?.point;
@@ -76,10 +75,7 @@ export function AttentionPage() {
             {!timer.hasStarted ? (
               <TimeSettingInput {...setting} />
             ) : (
-                <TimerDisplay
-                  duration={timer.duration}
-                  isOvertime={isOvertime}
-                />
+              <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
             <TimerControl
