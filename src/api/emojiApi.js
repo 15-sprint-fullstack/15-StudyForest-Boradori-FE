@@ -13,7 +13,7 @@ async function getEmojis(studyId) {
 //이모지 새로 생성 시 만들어지거나 개수 +1
 async function addEmoji(studyId, emojiType) {
   const response = await axios.post(
-    `${API_BASE_URL}/studise/${studyId}/emojis`,
+    `${API_BASE_URL}/studies/${studyId}/emojis`,
     {emojiType}, 
   )
   return response.data.data
