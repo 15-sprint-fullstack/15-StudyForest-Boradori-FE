@@ -283,6 +283,7 @@ export function TodayHabitPage() {
 
   // 수정 완료 버튼 누르면 API 요청을 보내는 함수
   const handleSubmitEdit = async (draft) => {
+    if (isSubmitting) return;
     setIsSubmitting(true);
     try {
       const existingIds = habits.map((habit) => habit.id);
