@@ -69,15 +69,13 @@ export function AttentionPage() {
               aria-hidden={!timer.hasStarted}
             >
               <img src={timerIcon} alt="타이머_아이콘" />
-              {setting.minutes}:{setting.seconds}
+              {String(setting.minutes).padStart(2, '0')}:
+              {String(setting.seconds).padStart(2, '0')}
             </div>
             {!timer.hasStarted ? (
               <TimeSettingInput {...setting} />
             ) : (
-                <TimerDisplay
-                  duration={timer.duration}
-                  isOvertime={isOvertime}
-                />
+              <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
             <TimerControl

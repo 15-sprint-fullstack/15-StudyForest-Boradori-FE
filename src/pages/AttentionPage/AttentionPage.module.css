@@ -3,12 +3,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 53.5px;
 }
 
 .attentionContainer {
-  width: calc(100vw - 24px);
-  max-width: 1168px;
-  display: inline-flex;
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  display: flex;
   margin: 0px 24px;
   padding: 40px;
   margin-bottom: 65px;
@@ -27,19 +28,26 @@
   gap: 16px;
 
   & .mainHeader {
+    gap: 16px;
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
   }
 
   & .moveButtonContainer {
+    flex-shrink: 0;
+    flex-wrap: wrap;
     display: flex;
     align-items: flex-start;
     gap: 16px;
   }
 
   & h2 {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
     font-size: 32px;
     font-style: normal;
     font-weight: 800;
@@ -137,10 +145,35 @@
   color: #578246;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .attentionHeader > .mainHeader {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+  }
+}
+
+@media (max-width: 375px) {
+  .attentionContainer {
+    width: calc(100% - 32px);
+    margin-inline: 16px;
+    padding: 16px;
+  }
+
+  .attentionHeader h2 {
+    font-size: 24px;
+  }
+
+  .headerContent p {
+    font-size: 16px;
+  }
+
+  .timerContainer {
+    padding: 24px 16px;
+  }
+
+  .timeSetting {
+    margin-top: 6px;
+    margin-bottom: 7px;
   }
 }
