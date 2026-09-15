@@ -64,8 +64,8 @@ function HabitItem({ studyId, today, habit, habitRecords }) {
 }
 
 // 습관 목록 수정 화면에서 임시 습관 목록을 보여주는 컴포넌트
-function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
-  const [isEditing, setIsEditing] = useState(false);
+function DraftHabitItem({ habit, draft, setDraft, isSubmitting, editingId, setEditingId, disabled }) {
+  const isEditing = editingId === habit.id;
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const validateAndEdit = (inputValue, targetHabit) => {
@@ -93,7 +93,7 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
       ),
     );
     setErrorMessage('');
-    setIsEditing(false);
+    setEditingId(null);
   };
 
   const handleInputChange = (event) => {
@@ -105,7 +105,7 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
     if (event.key === 'Escape') {
       setErrorMessage('');
       setInputValue('');
-      setIsEditing(false);
+      setEditingId(null);
       return;
     }
     if (event.key === 'Enter' && !event.nativeEvent.isComposing) {
@@ -121,8 +121,8 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
   };
 
   const handleSpanClick = () => {
-    if (isSubmitting) return;
-    setIsEditing(true);
+    if (disabled) return;
+    setEditingId(habit.id);
     setInputValue(habit.name);
   };
   return (
@@ -141,12 +141,12 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
           {errorMessage && (
             <Toast className={styles.errorText}>{errorMessage}</Toast>
           )}
-          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`$habit.name 삭제하기`} />
+          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`${habit.name} 삭제하기`} />
         </>
       ) : (
         <>
           <span className={styles.draftSpan} onClick={handleSpanClick} aria-label="눌러서 수정하기">{habit.name}</span>
-          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`$habit.name 삭제하기`} />
+          <img src={trashIcon} onClick={() => handleDelete(habit)} alt={`${habit.name} 삭제하기`} />
         </>
       )}
     </li>
@@ -156,6 +156,7 @@ function DraftHabitItem({ habit, draft, setDraft, isSubmitting }) {
 // 습관 수정 모달 내부
 function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
   const [isAdding, setIsAdding] = useState(false);
+  const [editingId, setEditingId] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const MAX_HABITS = 18;
@@ -219,6 +220,9 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
                 draft={draft}
                 setDraft={setDraft}
                 isSubmitting={isSubmitting}
+                editingId={editingId}
+                setEditingId={setEditingId}
+                disabled={isSubmitting || isAdding || (editingId !== null && editingId !== habit.id)}
               />
             );
           })}
@@ -245,7 +249,7 @@ function ModalContent({ draft, setDraft, onClose, onSave, isSubmitting }) {
           <button className={styles.addButton}
             type="button"
             aria-label="습관 추가하기"
-            disabled={isFull || isSubmitting}
+            disabled={isFull || isSubmitting || editingId !== null}
             onClick={() => {
               setIsAdding(true);
             }}
