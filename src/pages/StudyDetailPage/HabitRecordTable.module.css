@@ -4,7 +4,7 @@
   min-height: 0;
   min-width: 0;
   overflow-x: hidden; /* 데스크톱·태블릿 가로 스크롤 제거 */
-  overflow-y: auto;   /* 습관이 많을 때 세로 스크롤만 허용 */
+  overflow-y: auto; /* 습관이 많을 때 세로 스크롤만 허용 */
 }
 
 /* 습관 기록표 전체 */

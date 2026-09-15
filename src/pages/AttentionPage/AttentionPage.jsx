@@ -47,12 +47,10 @@ export function AttentionPage() {
                 {study.nickname}의 {study.name}
               </h2>
               <div className={styles.moveButtonContainer}>
-                <MoveButton route={'/studies/${studyId}/habit'}>
+                <MoveButton route={`/studies/${studyId}/habits`}>
                   오늘의 습관
                 </MoveButton>
-                <MoveButton route={'/studies/${studyId}/habitRecord'}>
-                  홈
-                </MoveButton>
+                <MoveButton route={`/studies/${studyId}`}>홈</MoveButton>
               </div>
             </div>
             <div className={styles.headerContent}>
@@ -71,15 +69,13 @@ export function AttentionPage() {
               aria-hidden={!timer.hasStarted}
             >
               <img src={timerIcon} alt="타이머_아이콘" />
-              {setting.minutes}:{setting.seconds}
+              {String(setting.minutes).padStart(2, '0')}:
+              {String(setting.seconds).padStart(2, '0')}
             </div>
             {!timer.hasStarted ? (
               <TimeSettingInput {...setting} />
             ) : (
-                <TimerDisplay
-                  duration={timer.duration}
-                  isOvertime={isOvertime}
-                />
+              <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
             <TimerControl
