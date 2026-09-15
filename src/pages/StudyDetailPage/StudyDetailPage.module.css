@@ -92,7 +92,7 @@
 }
 
 .actions > button:last-child {
-  color: #818181
+  color: #818181;
 }
 
 /* 오늘의 습관·집중 이동 버튼 묶음 */
@@ -101,7 +101,6 @@
   gap: 16px;
   flex-wrap: wrap;
 }
-
 
 @media (max-width: 768px) {
   /* 태블릿 본문 위쪽 여백 */
@@ -154,5 +153,4 @@
   .focusButton {
     order: -1;
   }
-
 }
