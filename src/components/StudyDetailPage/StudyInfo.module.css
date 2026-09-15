@@ -19,7 +19,7 @@
   align-items: center;
   gap: 4px;
   box-sizing: border-box;
-  min-height: 35px;
+  min-height: 31px;
   margin: 0;
   padding: 6px 12px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -91,30 +91,38 @@
 }
 
 /* 모바일 화면 스타일 */
-@media (max-width: 600px) {
-  /* 제목 아래에 버튼 배치 */
+@media (max-width: 375.98px) {
   .headingRow {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  /* 모바일 제목 크기 */
   .info .title {
     font-size: 24px;
   }
 
-  /* 모바일 버튼 간격 */
+  .label {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 26px;
+  }
+
+  .badge {
+    min-height: 35px;
+  }
+
   .moveActions {
     gap: 8px;
   }
 
-  /* 모바일 버튼 크기 */
   .moveActions > div > a {
     width: 120px;
     height: 40px;
   }
 
-  /* 모바일에서는 집중 버튼을 먼저 표시 */
   .focusButton {
     order: -1;
   }

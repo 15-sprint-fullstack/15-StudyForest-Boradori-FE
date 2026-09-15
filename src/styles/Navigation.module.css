@@ -33,8 +33,9 @@
 @media (max-width: 768px) {
   /* 테블릿 */
   .navBody {
+    width: calc(100% - 48px);
     max-width: 696px;
-    margin: 21px 24px;
+    margin: 21px auto;
     padding: 0;
   }
   .makeStudyButton {
