@@ -7,7 +7,9 @@
   font-size: 150px;
   font-style: normal;
   font-weight: 800;
-  line-height: normal;
+  line-height: 1;
+  height: 1em;
+  font-variant-numeric: tabular-nums;
 
   color: #414141;
 
@@ -18,34 +20,27 @@
 
   & input {
     width: 2ch;
-    color: #414141;
-    font-family: Pretendard;
-    font-size: 150px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    background: transparent;
     outline: none;
     border: none;
-    text-align: right;
+    text-align: center;
   }
 }
 
 @media (max-width: 768px) {
   .timerContainer {
     font-size: 120px;
-
-    & input {
-      font-size: 120px;
-    }
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 375px) {
   .timerContainer {
     font-size: 80px;
-
-    & input {
-      font-size: 80px;
-    }
   }
 }

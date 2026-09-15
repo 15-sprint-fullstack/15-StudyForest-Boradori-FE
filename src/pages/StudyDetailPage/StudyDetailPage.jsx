@@ -1,10 +1,11 @@
-import EmojiPicker from 'emoji-picker-react'; // 리액트 이모지 선택창 라이브러리
 import { useState } from 'react';
+import { StudyEmojiReactions } from '../../components/StudyDetailPage/StudyEmojiReactions.jsx';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Navigation, Tag } from '#publicComponents';
 import smileIcon from '../../assets/ic_smile.svg';
 import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
 import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import { useHabitRecords } from '../../hooks/useHabitRecords.js';
 import { useStudy } from '../../hooks/useStudy.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
 import styles from './StudyDetailPage.module.css';
@@ -34,62 +35,18 @@ export function StudyDetailPage() {
   const { studyId } = useParams();
   const { study, isLoading, error } = useStudy(studyId);
 
-  // 기록표에 표시할 연습용 습관 목록 (DB연결하고 나면 지우겠습니다.)
-  const habits = [
-    {
-      id: 1,
-      name: '책 10쪽 읽기',
-      records: [true, false, true, false, false, false, false],
-    },
-    {
-      id: 2,
-      name: '스트레칭',
-      records: [true, true, false, false, false, false, false],
-    },
-    {
-      id: 3,
-      name: '물 2L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 4,
-      name: '물 3L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 5,
-      name: '물 4L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 6,
-      name: '물 5L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 7,
-      name: '물 6L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 8,
-      name: '물 8L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-    {
-      id: 9,
-      name: '물 9L 마시기',
-      records: [false, false, false, false, false, false, false],
-    },
-  ];
+  //습관기록
+  const {
+    habits,
+    isLoading: isHabitLoading,
+    error: habitError,
+  } = useHabitRecords(studyId);
 
   //연습용 이모지 조회 샘플
   const [emojis, setEmojis] = useState([
-    // 화면에 표시할 연습용 이모지 반응 목록
-    { id: 1, emoji: '👍', count: 3 },
-    { id: 2, emoji: '❤️', count: 2 },
+    { id: 1, emoji: '👍', count: 3, isSelected: false }, // 아직 선택하지 않은 상태
+    { id: 2, emoji: '❤️', count: 2, isSelected: false }, // 아직 선택하지 않은 상태
   ]);
-  const [isEmojiPickerOpen, setIsEmojiPickerOpen] = useState(false);
 
   //이모지가 있으면 횟수 증가, 없으면 새로추가
   function handleEmojiSelect(emojiData) {
@@ -98,22 +55,32 @@ export function StudyDetailPage() {
     setEmojis((currentEmojis) => {
       const exists = currentEmojis.some((item) => item.emoji === selectedEmoji);
 
-      if (exists) {
-        return currentEmojis.map((item) => {
-          if (item.emoji === selectedEmoji) {
-            return { ...item, count: item.count + 1 };
-          }
-          return item;
-        });
+      if (!exists) {
+        return [
+          ...currentEmojis,
+          {
+            id: selectedEmoji,
+            emoji: selectedEmoji,
+            count: 1,
+            isSelected: true,
+          },
+        ];
       }
 
-      return [
-        ...currentEmojis,
-        { id: selectedEmoji, emoji: selectedEmoji, count: 1 },
-      ];
-    });
+      return currentEmojis
+        .map((item) => {
+          if (item.emoji !== selectedEmoji) return item;
 
-    setIsEmojiPickerOpen(false);
+          const nextSelected = !item.isSelected;
+
+          return {
+            ...item,
+            isSelected: nextSelected,
+            count: Math.max(0, item.count + (nextSelected ? 1 : -1)),
+          };
+        })
+        .filter((item) => item.count > 0);
+    });
   }
 
   async function handleShare() {
@@ -149,47 +116,10 @@ export function StudyDetailPage() {
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.topRow}>
-            <div className={styles.emojiList}>
-              {emojis.map((item) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  className={styles.emojiReactionButton}
-                  onClick={() => handleEmojiSelect(item)}
-                >
-                  <Tag emoji={item.emoji} count={item.count} />
-                </button>
-              ))}
-
-              {/* 이모지 목록 오른쪽 추가버튼 열고 닫힘 기능 */}
-              <button
-                type="button"
-                className={styles.addEmojiButton}
-                onClick={() => setIsEmojiPickerOpen((isOpen) => !isOpen)}
-              >
-                <img src={smileIcon} width={16.125} height={16.125} />
-                <span>추가</span>
-              </button>
-
-              {isEmojiPickerOpen && (
-                <div
-                  className={styles.emojiPickerPanel}
-                  onKeyDown={(event) => {
-                    if (event.key === 'Escape') {
-                      setIsEmojiPickerOpen(false);
-                    }
-                  }}
-                >
-                  <EmojiPicker
-                    width={306}
-                    height={392}
-                    emojiStyle="native" //해볼 것 : apple, google, facebook, twitter, native
-                    previewConfig={{ showPreview: false }} //해볼 것 : true
-                    onEmojiClick={handleEmojiSelect}
-                  />
-                </div>
-              )}
-            </div>
+            <StudyEmojiReactions
+              emojis={emojis}
+              onEmojiSelect={handleEmojiSelect} // 기존 선택·취소 함수
+            />
 
             <div className={styles.actions}>
               <button type="button" onClick={handleShare}>
@@ -213,7 +143,15 @@ export function StudyDetailPage() {
             study={study} // 스터디 정보를 전달해요.
             onOpenPasswordModal={openPasswordModal} // 모달 열기 함수를 전달해요.
           />
-          <HabitRecordTable habits={habits} />{' '}
+
+          {/* 조회 중, 실패, 성공을 구분해서 표시 */}
+          {isHabitLoading ? (
+            <p role="status">습관 기록을 불러오는 중이예요</p>
+          ) : habitError ? (
+            <p>습관 기록을 불러오지 못했습니다 {habitError.message}</p>
+          ) : (
+            <HabitRecordTable habits={habits} />
+          )}
         </article>
       </main>
 

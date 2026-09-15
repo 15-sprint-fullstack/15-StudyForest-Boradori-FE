@@ -3,24 +3,28 @@
   flex: 1;
   min-height: 0;
   min-width: 0;
-  overflow: auto;
+  overflow-x: hidden; /* 데스크톱·태블릿 가로 스크롤 제거 */
+  overflow-y: auto; /* 습관이 많을 때 세로 스크롤만 허용 */
 }
 
 /* 습관 기록표 전체 */
 .habitTable {
   width: 100%;
-  min-width: 600px;
+  min-width: 1072px;
+  table-layout: fixed;
   border-collapse: collapse;
+  background: #ffffff;
 }
 
 /* 제목 칸과 기록 칸의 크기 및 정렬 */
 .habitTable th,
 .habitTable td {
   box-sizing: border-box;
-  height: 64px;
-  padding: 8px;
   text-align: center;
   vertical-align: middle;
+  background: #ffffff;
+  height: 64px;
+  padding: 8px;
 }
 
 /* 기록 칸 안의 발바닥 이미지 */
@@ -72,6 +76,8 @@
 
 /* 표 맨 위의 요일 */
 .habitTable thead th {
+  height: 26px; /* Figma 요일 행 높이 */
+  padding: 0 8px;
   font-size: 18px;
   font-weight: 400;
   line-height: 26px;
@@ -84,6 +90,7 @@
 
 /* 각 행의 습관 이름 */
 .habitTable tbody th {
+  padding: 0 24px; /* 데스크톱·태블릿 좌우 여백 */
   font-size: 18px;
   font-weight: 700;
   line-height: 26px;
@@ -91,14 +98,45 @@
   overflow-wrap: anywhere; /* 긴 단어가 칸 밖으로 넘치면 줄바꿈됨 */
 }
 
-@media (max-width: 600px) {
-  /* 모바일 습관 기록표 높이와 여백 */
-  .habitSection {
-    height: 244px;
-    padding: 16px;
+@media (max-width: 375.98px) {
+  .habitTable tbody th {
+    padding: 0 16px; /* 모바일 좌우 여백 */
   }
 
-  /* 모바일 빈 상태 안내 문구 너비 */
+  .habitSection {
+    height: 450px; /* Figma 모바일 기록표 높이 */
+    padding: 16px;
+    margin-top: 0;
+    gap: 3px;
+  }
+
+  .tableWrapper {
+    -webkit-overflow-scrolling: touch; /* 손가락으로 부드럽게 이동 */
+    scrollbar-width: none; /* Firefox 스크롤바 숨김 */
+    -ms-overflow-style: none;
+  }
+
+  .tableWrapper::-webkit-scrollbar {
+    display: none; /* Chrome, Safari 스크롤바 숨김 */
+  }
+
+  .habitTable {
+    min-width: 570px; /* 습관명 122px + 요일 64px × 7 */
+  }
+
+  .habitTable th:first-child {
+    width: 122px; /* Figma 모바일 습관명 열 */
+  }
+
+  .habitSection > h2 {
+    font-size: 18px;
+  }
+
+  .habitTable thead th,
+  .habitTable tbody th {
+    font-size: 14px;
+  }
+
   .emptyMessage {
     width: calc(100% - 32px);
   }
