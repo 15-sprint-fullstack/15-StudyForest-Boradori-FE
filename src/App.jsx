@@ -2,17 +2,17 @@ import { Routes, Route } from 'react-router-dom';
 import { Navigation } from '#publicComponents';
 import { StudyAccessGuard } from './components/Access/StudyAccessGuard.jsx';
 import { AttentionPage } from './pages/AttentionPage/AttentionPage';
+import Edit from './pages/StudiesPage/Edit';
+import Home from './pages/StudiesPage/Home';
+import New from './pages/StudiesPage/New';
 import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
 import { TestPage } from './pages/TestPage';
 import { TodayHabitPage } from './pages/TodayHabitPage/TodayHabitPage';
 
-import Home from './pages/StudiesPage/Home';
-import New from './pages/StudiesPage/New';
-import Edit from './pages/StudiesPage/Edit';
-
 function App() {
   return (
     <div>
+      <Navigation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/makestudy" element={<New />} />

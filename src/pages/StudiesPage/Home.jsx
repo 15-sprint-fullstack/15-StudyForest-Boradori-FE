@@ -6,7 +6,6 @@ import style from './Home.module.css';
 const Home = () => {
   return (
     <div>
-      <Navigation />
       <div className={style.page}>
         <RecentStudyList />
         <StudyList />

@@ -38,7 +38,6 @@ const Edit = () => {
 
   return (
     <div>
-      <Navigation />
       {curStudyItem && <Editor initData={curStudyItem} onSubmit={onSubmit} />}
     </div>
   );

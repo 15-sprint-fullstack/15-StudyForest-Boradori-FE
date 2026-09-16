@@ -52,7 +52,7 @@ export function AttentionPage() {
                 <MoveButton route={`/studies/${studyId}/habits`}>
                   오늘의 습관
                 </MoveButton>
-                <MoveButton route={`/studies/${studyId}`}>홈</MoveButton>
+                <MoveButton route={`/`}>홈</MoveButton>
               </div>
             </div>
             <div className={styles.headerContent}>

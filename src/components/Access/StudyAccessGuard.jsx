@@ -1,11 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  Link,
-  Navigate,
-  Outlet,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useParams } from 'react-router-dom';
 import { checkAccess } from '../../api/checkAccess.js';
 
 export function StudyAccessGuard() {
@@ -17,7 +11,6 @@ export function StudyAccessGuard() {
 
 function AccessCheck({ studyId }) {
   const [status, setStatus] = useState('loading');
-  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,7 +28,7 @@ function AccessCheck({ studyId }) {
     return () => {
       cancelled = true;
     };
-  }, [studyId, attempt]);
+  }, [studyId]);
 
   if (status === 'loading') {
     return <p role="status">접근 권한을 확인하고 있어요.</p>;
