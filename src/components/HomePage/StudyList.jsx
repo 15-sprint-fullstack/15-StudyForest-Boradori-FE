@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { emojiApi } from '../../api/emojiApi';
 import arrowIcon from '../../assets/ic_arrow_right.svg';
 import searchIcon from '../../assets/ic_search.svg';
 import { useStudies } from '../../hooks/useStudies';
@@ -58,15 +59,35 @@ const StudyList = () => {
     (option) => option.value === sortType,
   )?.label;
 
-  const [renderedStudiesData, setRenderedStudiesData] = useState(studiesData);
-  if (studiesData !== renderedStudiesData) {
-    setRenderedStudiesData(studiesData);
-    if (studiesData) {
-      setAllStudies((prev) =>
-        page === 1 ? studiesData.data : [...prev, ...studiesData.data],
+  useEffect(() => {
+    if (!studiesData) return;
+    let ignore = false;
+
+    const fetchEmojisForStudies = async () => {
+      const emojiResults = await Promise.allSettled(
+        studiesData.data.map((study) => emojiApi.getEmojis(study.id)),
       );
-    }
-  }
+      const studiesWithEmojis = studiesData.data.map((study, index) => ({
+        ...study,
+        emojis:
+          emojiResults[index].status === 'fulfilled'
+            ? emojiResults[index].value
+            : [],
+      }));
+
+      if (!ignore) {
+        setAllStudies((prev) =>
+          page === 1 ? studiesWithEmojis : [...prev, ...studiesWithEmojis],
+        );
+      }
+    };
+
+    fetchEmojisForStudies();
+
+    return () => {
+      ignore = true;
+    };
+  }, [studiesData, page]);
 
   const hasMore = studiesData ? page < studiesData.totalPages : false;
 
