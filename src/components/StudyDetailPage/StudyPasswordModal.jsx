@@ -72,17 +72,6 @@ export function StudyPasswordModal({
             }}
             placeholder="비밀번호를 입력해주세요"
           />
-          <button
-            type="button"
-            className={styles.visibilityButton}
-            onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-          >
-            <img
-              src={isPasswordVisible ? visibilityOn : visibilityOff}
-              width={24}
-              height={24}
-            />
-          </button>
         </div>
         <div className={styles.submitArea}>
           {' '}

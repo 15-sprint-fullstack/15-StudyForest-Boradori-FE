@@ -6,7 +6,7 @@ import {
   useLocation,
   useParams,
 } from 'react-router-dom';
-import { checkAccess } from '../api/checkAccess.js';
+import { checkAccess } from '../../api/checkAccess.js';
 
 export function StudyAccessGuard() {
   const { studyId } = useParams();
@@ -47,21 +47,8 @@ function AccessCheck({ studyId }) {
   }
 
   if (status === 'error') {
-    return (
-      <div>
-        <p role="alert">접근 권한을 확인하지 못했습니다. 다시 시도해 주세요.</p>
-        <button
-          type="button"
-          onClick={() => {
-            setStatus('loading');
-            setAttempt((current) => current + 1);
-          }}
-        >
-          다시 시도
-        </button>
-        <Link to={`/studies/${studyId}`}>스터디로 돌아가기</Link>
-      </div>
-    );
+    alert('서버와 연결이 원활하지 않습니다. 다시 시도해주세요.');
+    return <Navigate to={`/studies/${studyId}`} replace />;
   }
 
   return <Outlet />;

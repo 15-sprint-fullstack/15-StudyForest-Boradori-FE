@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Navigation } from '#publicComponents';
-import { StudyAccessGuard } from './components/StudyAccessGuard.jsx';
+import { StudyAccessGuard } from './components/Access/StudyAccessGuard.jsx';
 import { AttentionPage } from './pages/AttentionPage/AttentionPage';
 import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
 import { TestPage } from './pages/TestPage';

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL, TEST_BASE_URL } from '../constants/ApiUrl';
+import { API_BASE_URL } from '../constants/ApiUrl';
 
 // studies 가져와서 실행함. 음. 다른 곳들도 이거 들고와서 하면 되려나?
 
@@ -38,6 +38,7 @@ export async function verifyPassword(studyId, password) {
   }
 }
 
+// activity 관련
 export function reportStudyActivity(studyId) {
   return axios.post(
     `${API_BASE_URL}/studies/${studyId}/access/activity`,
@@ -48,6 +49,7 @@ export function reportStudyActivity(studyId) {
   );
 }
 
+// access 가 따로 필요한지 체크
 export function isStudyAccessRequired(error) {
   const response = error.response ?? error.cause?.response;
   return (
