@@ -1,4 +1,3 @@
-import { Navigation } from '#publicComponents';
 import RecentStudyList from '../../components/HomePage/RecentStudyList';
 import StudyList from '../../components/HomePage/StudyList';
 import style from './Home.module.css';
