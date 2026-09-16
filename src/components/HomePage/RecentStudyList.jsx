@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { emojiApi } from '../../api/emojiApi';
 import { getStudy } from '../../api/studies';
 import { getRecentStudyIds } from '../../utils/recent-studies';
 import style from './RecentStudyList.module.css';
@@ -32,7 +33,19 @@ const RecentStudyList = () => {
         .filter((result) => result.status === 'fulfilled')
         .map((result) => result.value)
         .slice(0, DISPLAY_COUNT);
-      setRecentStudies(studies);
+
+      const emojiResults = await Promise.allSettled(
+        studies.map((study) => emojiApi.getEmojis(study.id)),
+      );
+      const studiesWithEmojis = studies.map((study, index) => ({
+        ...study,
+        emojis:
+          emojiResults[index].status === 'fulfilled'
+            ? emojiResults[index].value
+            : [],
+      }));
+
+      setRecentStudies(studiesWithEmojis);
       setIsLoading(false);
     };
 
