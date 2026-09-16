@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { NormalButton, Toast, InputContainer } from '#publicComponents';
-import visibilityOff from '../../assets/btn_visibility_off_24px.svg';
-import visibilityOn from '../../assets/btn_visibility_on_24px.svg';
 import { Modal } from '../public/Modal.jsx';
 import styles from './StudyPasswordModal.module.css';
 

@@ -14,10 +14,7 @@ export async function checkAccess(studyId) {
     console.log(response);
     return true;
   } catch (error) {
-    if (
-      error.response?.status === 403 &&
-      error.response?.data?.code === 'STUDY_ACCESS_REQUIRED'
-    ) {
+    if (isStudyAccessRequired(error)) {
       return false;
     }
     throw error;
