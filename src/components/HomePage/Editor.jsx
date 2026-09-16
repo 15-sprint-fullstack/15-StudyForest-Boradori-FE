@@ -101,7 +101,7 @@ const Editor = ({ initData, onSubmit }) => {
       point: input.point,
       background: input.background,
       password: input.password.trim(),
-      createdAt: `${createdAtStr}T09:00:00.000Z`,
+      createdAt: `${createdAtStr}T00:00:00+09:00`,
     });
   };
 

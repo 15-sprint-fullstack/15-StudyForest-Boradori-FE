@@ -10,11 +10,19 @@ const NICKNAME_COLOR = {
   4: '#BC3C6A',
 };
 const DEFAULT_NICKNAME_COLOR = '#578246';
+const MAX_EMOJI_COUNT = 3;
+
+const getKstDateString = (date) =>
+  new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(date);
 
 const getDayCount = (createdAt) => {
-  const created = new Date(createdAt);
-  const now = new Date();
-  const diffDays = Math.floor((now - created) / (1000 * 60 * 60 * 24));
+  const createdDate = new Date(
+    `${getKstDateString(new Date(createdAt))}T00:00:00+09:00`,
+  );
+  const todayDate = new Date(`${getKstDateString(new Date())}T00:00:00+09:00`);
+  const diffDays = Math.round(
+    (todayDate - createdDate) / (1000 * 60 * 60 * 24),
+  );
   return diffDays + 1;
 };
 
@@ -68,7 +76,7 @@ const StudyCard = ({
 
       {emojis.length > 0 && (
         <div className={style.emojiList}>
-          {emojis.map((item) => (
+          {emojis.slice(0, MAX_EMOJI_COUNT).map((item) => (
             <span key={item.emojiType} className={style.emojiItem}>
               {item.emojiType} {item.count}
             </span>
