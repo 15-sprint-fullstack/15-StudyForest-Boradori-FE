@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import pointIcon from '../../assets/ic_point.svg';
 import { getBackgroundImage } from '../../utils/get-background-image';
 import style from './StudyCard.module.css';
+import { Tag } from '#publicComponents';
 
 const NICKNAME_COLOR = {
   1: '#578246',
@@ -77,9 +78,11 @@ const StudyCard = ({
       {emojis.length > 0 && (
         <div className={style.emojiList}>
           {emojis.slice(0, MAX_EMOJI_COUNT).map((item) => (
-            <span key={item.emojiType} className={style.emojiItem}>
-              {item.emojiType} {item.count}
-            </span>
+            <Tag
+              key={item.emojiType}
+              emoji={item.emojiType}
+              count={item.count}
+            />
           ))}
         </div>
       )}
