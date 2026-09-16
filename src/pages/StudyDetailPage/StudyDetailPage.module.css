@@ -154,3 +154,19 @@
     order: -1;
   }
 }
+
+/* 이모지 목록과 안내 문구를 위아래로 배치 */
+.emojiArea {
+  display: flex; 
+  flex-direction: column; /* 목록 아래에 안내 표시 */
+  gap: 8px; 
+  min-width: 0; /* 좁은 화면에서 너비가 줄어들 수 있도록 설정 */
+}
+
+/* 이모지 영역에만 적용되는 오류 안ㄴ */
+.emojiError {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b42318; /* 오류 안내 색상 */
+}
