@@ -16,12 +16,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/makestudy" element={<New />} />
-        <Route path="/studies/:id/edit" element={<Edit />} />
+
         <Route path="/test" element={<TestPage />} />
         <Route path="/studies/:studyId" element={<StudyDetailPage />} />
 
         {/* 해당 부분은 인증 가능한 쪽만 들어갈 수 있기 때문에 인증 파트  */}
         <Route element={<StudyAccessGuard />}>
+          <Route path="/studies/:id/edit" element={<Edit />} />
           <Route path="/studies/:studyId/habits" element={<TodayHabitPage />} />
           <Route path="/studies/:studyId/focus" element={<AttentionPage />} />
         </Route>
