@@ -1,7 +1,4 @@
-* {
-  font-size: 30px;
-}
-
+/* TodayHabitPage.jsx와 함께 사용하는 데스크톱 우선 스타일입니다. */
 .page {
   min-height: 100vh;
   background: #f6f4ef;
@@ -11,49 +8,465 @@
 }
 
 .shell {
-  padding: 50px;
+  width: min(100% - 96px, 1200px);
+  margin: 40px auto 0;
+  padding-bottom: 72px;
 }
 
 .panel {
-  border: 1px solid black;
-  padding: 10px;
+  padding: 40px;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.page button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.habitEditModal input:focus-visible {
+  outline: transparent;
+}
+.editInput {
+  gap: 0;
 }
 
 .headingRow {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+  gap: 24px;
 }
 
-.h1 {
-  display: inline-block;
+.headingRow h1 {
+  margin: 0;
+  color: #414141;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: normal;
 }
 
-.button {
-  display: inline-block;
+.actions {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  color: #818181;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.actions img {
+  width: 16px;
+  height: 16px;
 }
 
 .timeWrap {
-  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 16px;
+  color: #818181;
+  font-size: 14px;
+}
+
+.timeLabel {
+  color: var(--gray-gray_818181, #818181);
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.timeBadge {
+  display: flex;
+  padding: 8px 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  border-radius: 50px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.3);
+  color: var(--black-black_414141, #414141);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .habitList {
-  display: flex;
-  flex-direction: column;
+  width: min(100%, 720px), max(100%);
+  margin: 24px auto 0;
+  padding: 40px 24px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
 }
 
 .listHeadingRow {
+  position: relative;
   display: flex;
+  align-items: center;
   justify-content: center;
-  & button {
-    font-size: 20px;
-    height: 30px;
+  min-height: 32px;
+}
+
+.listHeadingRow h2 {
+  margin: 0;
+  color: #414141;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+}
+
+.listHeadingRow button {
+  position: absolute;
+  right: 40px;
+  border: 0;
+  background: transparent;
+  color: #818181;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.habitList > p {
+  margin: 32px 0 0;
+  color: #818181;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.habitList > ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(100%, 400px);
+  max-height: 342px;
+  margin: 24px auto 0;
+  padding: 0 6px 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-color: #d7d7d7 transparent;
+  scrollbar-width: thin;
+}
+
+.habitList > ul::-webkit-scrollbar,
+.draftList::-webkit-scrollbar {
+  width: 20px;
+}
+
+.habitList > ul::-webkit-scrollbar-thumb,
+.draftList::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: #d7d7d7;
+}
+
+.habitList > ul li {
+  display: flex;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 16px;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #eeeeee;
+  color: #818181;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.habitList > ul li:hover {
+  background: #e8e8e8;
+}
+
+.habitList > ul li.isChecked {
+  background: #99c08e;
+  color: #fff;
+}
+
+/* 모달 부분 */
+.habitEditModal {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 480px);
+  min-width: 480px;
+  column-gap: 12px;
+  row-gap: 16px;
+  &.disabled {
+    opacity: 0.7;
   }
 }
 
-ul {
-  margin: 30px auto;
+.habitEditModal > p,
+.habitEditModal > ul,
+.habitEditModal > input,
+.habitEditModal > :not(button) {
+  grid-column: 1 / -1;
 }
 
-.isChecked {
-  border: solid green 1px;
+.habitEditModal > p {
+  display: grid;
+  min-height: 160px;
+  margin: 0;
+  place-items: center;
+  color: #818181;
+  font-size: 15px;
+  text-align: center;
+}
+
+.editInfo {
+  line-height: 2;
+}
+
+.draftList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: min(100%, 400px);
+  max-height: 376px;
+  margin: 0 auto;
+  padding: 0 6px 0 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  list-style: none;
+  scrollbar-color: #d7d7d7 transparent;
+  scrollbar-width: thin;
+}
+
+.draftList li {
+  display: flex;
+  align-items: center;
+  flex: 0 0 50px;
+  gap: 10px;
+}
+
+.draftList li > span {
+  display: flex;
+  min-width: 300px;
+  max-width: 648px;
+  width: 100%;
+  padding: 12px 20px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #eeeeee;
+  color: #818181;
+  font-size: 16px;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* .habitEditModal > input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  color: #414141;
+  font: inherit;
+  font-size: 14px;
+} */
+
+.draftList li img {
+  flex: none;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.addButton {
+  display: flex;
+  flex: none;
+  grid-column: 1 / -1;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 320px);
+  height: 40px;
+  margin: 0 auto;
+  padding: 0;
+  border: 1px solid #99c08e;
+  border-radius: 10px;
+  background: #fff;
+  color: #578246;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.addButton:hover:not(:disabled) {
+  background: #f2f8f0;
+}
+
+.addButton:disabled {
+  border-color: #ddd;
+  color: #bbb;
+  cursor: default;
+}
+
+.habitEditModal > button {
+  width: 100%;
+  height: 50px;
+  padding: 0;
+  border-radius: 16px;
+  font-size: 16px;
+}
+
+.habitEditModal > button:nth-last-child(2) {
+  border: 1px solid #818181;
+  background: #818181;
+  color: #fff;
+  text-shadow: none;
+}
+
+.cancelButton {
+  background: #818181;
+  cursor: pointer;
+}
+
+.errorText,
+.noticeText {
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  text-align: center;
+}
+
+.errorText {
+  padding: 0;
+  color: #c41013;
+}
+
+.noticeText {
+  color: #818181;
+}
+
+:global(#modal-root) h3 {
+  margin: 0 0 20px;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .shell {
+    width: min(100% - 48px, 696px);
+    margin-top: 24px;
+  }
+
+  .panel {
+    padding: 32px 24px;
+  }
+
+  .habitList {
+    width: min(100%, 520px);
+    padding: 24px;
+  }
+}
+
+@media (max-width: 375px) {
+  .shell {
+    width: calc(100% - 32px);
+    margin-top: 20px;
+    padding-bottom: 40px;
+  }
+
+  .panel {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .headingRow {
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+
+  .headingRow h1 {
+    font-size: 24px;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .actions a {
+    padding: 8px 10px;
+  }
+
+  .timeWrap {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+
+  .habitList {
+    margin-top: 24px;
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .listHeadingRow h2 {
+    font-size: 16px;
+  }
+
+  .habitList > ul {
+    width: 100%;
+  }
+
+  .habitEditModal {
+    width: 100%;
+    min-width: 0;
+    gap: 12px;
+  }
+
+  :global(#modal-root) div:has(> .habitEditModal) {
+    padding: 12px 4px;
+  }
+
+  .draftList {
+    width: min(100%, 360px);
+    max-height: 352px;
+  }
+
+  .addButton {
+    width: min(100%, 280px);
+  }
 }

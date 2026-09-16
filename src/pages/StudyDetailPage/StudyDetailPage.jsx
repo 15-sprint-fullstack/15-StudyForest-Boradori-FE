@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { StudyEmojiReactions } from '../../components/StudyDetailPage/StudyEmojiReactions.jsx';
 import { StudyInfo } from '../../components/StudyDetailPage/StudyInfo.jsx';
 import { StudyPasswordModal } from '../../components/StudyDetailPage/StudyPasswordModal.jsx';
+import { useEmojis } from '../../hooks/useEmojis.js';
 import { useHabitRecords } from '../../hooks/useHabitRecords.js';
 import { useStudy } from '../../hooks/useStudy.js';
 import { HabitRecordTable } from './HabitRecordTable.jsx';
@@ -30,46 +31,17 @@ export function StudyDetailPage() {
     error: habitError,
   } = useHabitRecords(studyId);
 
-  //연습용 이모지 조회 샘플
-  const [emojis, setEmojis] = useState([
-    { id: 1, emoji: '👍', count: 3, isSelected: false }, // 아직 선택하지 않은 상태
-    { id: 2, emoji: '❤️', count: 2, isSelected: false }, // 아직 선택하지 않은 상태
-  ]);
-  
-  //이모지가 있으면 횟수 증가, 없으면 새로추가
+  //이모지 : 훅에서 목록과 서버 요청 함수 가져옴
+  const {
+    emojis,
+    isLoading: isEmojiLoading,
+    error: emojiError,
+    toggleEmoji,
+  } = useEmojis(studyId);
+
+  // 클릭한 이모지를 서버 요청 함수에 전달
   function handleEmojiSelect(emojiData) {
-    const selectedEmoji = emojiData.emoji;
-
-    setEmojis((currentEmojis) => {
-      const exists = currentEmojis.some((item) => item.emoji === selectedEmoji);
-
-      if (!exists) {
-        return [
-          ...currentEmojis,
-          {
-            id: selectedEmoji,
-            emoji: selectedEmoji,
-            count: 1,
-            isSelected: true,
-          },
-        ];
-      }
-
-      return currentEmojis
-        .map((item) => {
-          if (item.emoji !== selectedEmoji) return item;
-
-          const nextSelected = !item.isSelected;
-
-          return {
-            ...item,
-            isSelected: nextSelected,
-            count: Math.max(0, item.count + (nextSelected ? 1 : -1)),
-          };
-        })
-        .filter((item) => item.count > 0);
-    });
-
+    toggleEmoji(emojiData.emoji);
   }
 
   async function handleShare() {
@@ -97,10 +69,25 @@ export function StudyDetailPage() {
       <main className={styles.shell}>
         <article className={styles.panel}>
           <div className={styles.topRow}>
-            <StudyEmojiReactions
-              emojis={emojis}
-              onEmojiSelect={handleEmojiSelect} // 기존 선택·취소 함수
-            />
+            {/* 목록과 오류 안내를 함께 표시 */}
+            <div className={styles.emojiArea}>
+              {isEmojiLoading ? (
+                <p role="status">이모지를 불러오는 중이에요.</p>
+              ) : (
+                <StudyEmojiReactions
+                  emojis={emojis} // 요청 실패 시에도 기존 목록 유지
+                  onEmojiSelect={handleEmojiSelect} // 기존 선택·취소 함수
+                />
+              )}
+
+              {/* 오류가 생겨도 목록을 숨기지 않고 안내만 추가 */}
+              {emojiError && (
+                <p className={styles.emojiError} role="alert">
+                  {emojiError.response?.data?.message ??
+                    '이모지 요청을 처리하지 못했어요. 잠시 후 다시 시도해 주세요.'}
+                </p>
+              )}
+            </div>
 
             <div className={styles.actions}>
               <button type="button" onClick={handleShare}>
