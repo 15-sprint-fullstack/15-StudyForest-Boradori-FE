@@ -7,6 +7,7 @@ import { TimerDisplay } from '../../components/AttentionTimer/TimerDisplay/Timer
 import { useAttentionTimer } from '../../hooks/useAttentionTimer';
 import { usePoint } from '../../hooks/usePoint';
 import { useStudy } from '../../hooks/useStudy';
+import { useStudyActivity } from '../../hooks/useStudyActivity';
 import styles from './AttentionPage.module.css';
 import pointIcon from '/src/assets/ic_point.svg';
 import timerIcon from '/src/assets/ic_timer.svg';
@@ -14,7 +15,6 @@ import timerIcon from '/src/assets/ic_timer.svg';
 export function AttentionPage() {
   const { studyId } = useParams();
   const { study, isLoading, error } = useStudy(studyId);
-
   const [pagePoint, setPagePoint] = useState(null);
 
   const point = pagePoint ?? study?.point;
@@ -28,6 +28,8 @@ export function AttentionPage() {
     useAttentionTimer({
       onStop: awardPoint,
     });
+
+  const activityError = useStudyActivity(studyId, timer.isRunning);
 
   if (error) {
     return <div>스터디 정보를 불러오지 못했습니다.</div>;
@@ -50,7 +52,7 @@ export function AttentionPage() {
                 <MoveButton route={`/studies/${studyId}/habits`}>
                   오늘의 습관
                 </MoveButton>
-                <MoveButton route={`/studies/${studyId}`}>홈</MoveButton>
+                <MoveButton route={`/`}>홈</MoveButton>
               </div>
             </div>
             <div className={styles.headerContent}>
@@ -78,6 +80,9 @@ export function AttentionPage() {
               <TimerDisplay duration={timer.duration} isOvertime={isOvertime} />
             )}
 
+            {activityError && timer.hasStarted && (
+              <p role="status">{activityError}</p>
+            )}
             <TimerControl
               {...controls}
               hasStarted={timer.hasStarted}

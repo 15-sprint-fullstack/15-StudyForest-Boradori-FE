@@ -12,7 +12,7 @@ const Edit = () => {
   useEffect(() => {
     const fetchStudy = async () => {
       try {
-        const study = await getStudy(params.id);
+        const study = await getStudy(params.studyId);
         setCurStudyItem(study);
       } catch {
         window.alert('존재하지 않는 스터디입니다.');
@@ -21,11 +21,11 @@ const Edit = () => {
     };
 
     fetchStudy();
-  }, [params.id]);
+  }, [params.studyId, nav]);
 
   const onSubmit = async (input) => {
     if (window.confirm('스터디를 정말 수정할까요?')) {
-      await updateStudy(params.id, {
+      await updateStudy(params.studyId, {
         nickname: input.nickname,
         name: input.name,
         description: input.description,
@@ -38,7 +38,6 @@ const Edit = () => {
 
   return (
     <div>
-      <Navigation />
       {curStudyItem && <Editor initData={curStudyItem} onSubmit={onSubmit} />}
     </div>
   );
