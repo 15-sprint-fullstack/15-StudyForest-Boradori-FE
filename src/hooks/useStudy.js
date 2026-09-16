@@ -1,6 +1,6 @@
-//임시 훅 입니다.
 import { useState, useEffect } from 'react';
 import { getStudy } from '../api/studies.js';
+import { addRecentStudyId } from '../utils/recent-studies.js';
 
 export function useStudy(studyId) {
   const [study, setStudy] = useState(null);
@@ -22,6 +22,7 @@ export function useStudy(studyId) {
 
         if (!ignore) {
           setStudy(result);
+          addRecentStudyId(studyId);
         }
       } catch (error) {
         if (!ignore) {

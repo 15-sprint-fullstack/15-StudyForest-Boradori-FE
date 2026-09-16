@@ -6,12 +6,17 @@ import { StudyDetailPage } from './pages/StudyDetailPage/StudyDetailPage';
 import { TestPage } from './pages/TestPage';
 import { TodayHabitPage } from './pages/TodayHabitPage/TodayHabitPage';
 
+import Home from './pages/StudiesPage/Home';
+import New from './pages/StudiesPage/New';
+import Edit from './pages/StudiesPage/Edit';
+
 function App() {
   return (
     <div>
-      <Navigation />
       <Routes>
-        <Route path="/" element={<div>홈페이지 예시</div>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/makestudy" element={<New />} />
+        <Route path="/studies/:id/edit" element={<Edit />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/studies/:studyId" element={<StudyDetailPage />} />
 

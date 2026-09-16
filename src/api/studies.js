@@ -45,6 +45,7 @@ export async function getStudy(studyId) {
       description: study.description,
       background: study.background,
       point: study.point,
+      createdAt: study.createdAt, // N일째 진행 중 << 표시를 위해서 추가했습니다.
       password: study.password,
     };
   } catch (error) {
