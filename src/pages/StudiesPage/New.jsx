@@ -19,7 +19,6 @@ const New = () => {
 
   return (
     <div>
-      <Navigation />
       <Editor onSubmit={onSubmit} />
     </div>
   );
