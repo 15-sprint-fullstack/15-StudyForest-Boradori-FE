@@ -1,0 +1,172 @@
+/* 페이지 전체 배경과 기본 글꼴 */
+.page {
+  display: flow-root;
+  min-height: 100vh;
+  background: #f6f4ef;
+  color: #414141;
+  font-family: Pretendard, Arial, sans-serif;
+  line-height: 1.4;
+}
+
+/* 본문 너비와 바깥 여백 */
+.shell {
+  width: calc(100% - 48px);
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-bottom: 73px;
+}
+
+/* 상세 정보를 담는 흰색 패널 */
+.panel {
+  padding: 40px;
+  border-radius: 20px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 패널 안의 스터디 제목 */
+.panel h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* 페이지 안의 모든 버튼 기본 스타일 */
+.page button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* 키보드로 선택한 버튼의 테두리 */
+.page button:focus-visible {
+  outline: 3px solid #578246;
+  outline-offset: 3px;
+}
+
+/* 비활성화된 버튼 */
+.page button:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+/* 이모지·관리 버튼 줄과 제목·이동 버튼 줄 */
+.topRow,
+.headingRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* 공유·수정 등 관리 버튼 묶음 */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.actions > button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #578246;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+}
+
+/* 관리 버튼 사이의 구분선 */
+.actions > span {
+  color: var(--gray-gray_818181, #818181);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.actions > span:first-of-type {
+  color: #578246;
+}
+
+.actions > button:last-child {
+  color: #818181;
+}
+
+/* 오늘의 습관·집중 이동 버튼 묶음 */
+.moveActions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  /* 태블릿 본문 위쪽 여백 */
+  .shell {
+    margin-top: 16px;
+  }
+
+  /* 태블릿 패널 안쪽 여백 */
+  .panel {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 375.98px) {
+  .shell {
+    width: calc(100% - 32px);
+    margin-top: 20px;
+  }
+
+  .panel {
+    min-height: 866px; /* Figma 모바일 패널 높이 */
+    padding: 16px;
+  }
+
+  /* 이모지와 관리 버튼의 세로 배치 */
+  .topRow {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* 관리 버튼의 순서와 오른쪽 정렬 */
+  .actions {
+    order: -1;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+
+  /* 관리 버튼 글자 크기 */
+  .actions button {
+    font-size: 12px;
+  }
+
+  /* 제목과 이동 버튼의 세로 배치 */
+  .headingRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 집중 버튼을 습관 버튼보다 앞에 배치 */
+  .focusButton {
+    order: -1;
+  }
+}
+
+/* 이모지 목록과 안내 문구를 위아래로 배치 */
+.emojiArea {
+  display: flex; 
+  flex-direction: column; /* 목록 아래에 안내 표시 */
+  gap: 8px; 
+  min-width: 0; /* 좁은 화면에서 너비가 줄어들 수 있도록 설정 */
+}
+
+/* 이모지 영역에만 적용되는 오류 안ㄴ */
+.emojiError {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #b42318; /* 오류 안내 색상 */
+}

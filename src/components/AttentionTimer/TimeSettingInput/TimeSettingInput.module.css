@@ -1,0 +1,46 @@
+.timerContainer {
+  display: flex;
+
+  justify-content: center;
+  width: 100%;
+
+  font-size: 150px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+  height: 1em;
+  font-variant-numeric: tabular-nums;
+
+  color: #414141;
+
+  & span {
+    line-height: 1;
+    vertical-align: middle;
+  }
+
+  & input {
+    width: 2ch;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    background: transparent;
+    outline: none;
+    border: none;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .timerContainer {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 375px) {
+  .timerContainer {
+    font-size: 80px;
+  }
+}

@@ -1,0 +1,42 @@
+.section {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 32px;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #414141;
+}
+
+.empty {
+  padding: 40px 0px;
+  text-align: center;
+  color: #818181;
+}
+
+.list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+}
+
+.list > * {
+  flex: 0 0 calc((100% - 40px) / 3);
+}
+
+@media (max-width: 768px) {
+  .list > * {
+    flex: 0 0 calc((100% - 20px) / 2);
+  }
+}
+
+@media (max-width: 375px) {
+  .list > * {
+    flex: 0 0 100%;
+  }
+}

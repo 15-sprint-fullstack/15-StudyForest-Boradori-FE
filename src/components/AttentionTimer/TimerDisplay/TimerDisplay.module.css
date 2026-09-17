@@ -1,0 +1,33 @@
+.timerDisplay {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  font-size: 150px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+  height: 1em;
+  font-variant-numeric: tabular-nums;
+  color: #414141;
+}
+
+.isTimeRunningOut {
+  color: #f50e0e;
+}
+
+.isOvertime {
+  color: #818181;
+}
+
+@media (max-width: 768px) {
+  .timerDisplay {
+    font-size: 120px;
+  }
+}
+
+@media (max-width: 375px) {
+  .timerDisplay {
+    font-size: 80px;
+  }
+}

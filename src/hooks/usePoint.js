@@ -1,0 +1,36 @@
+import { useState, useEffect } from 'react';
+import { updateStudy } from '../api/studies';
+import {
+  LEAST_ACCUMLATED_TIME,
+  POINT_TARGET_DURATION,
+} from '../constants/AttentionTimer';
+
+export function usePoint(studyId, currentPoint, onPointChange) {
+  const [gainPoint, setGainPoint] = useState(0);
+  const [showGainPoint, setShowGainPoint] = useState(false);
+
+  const awardPoint = async (finalAccumlated) => {
+    if (finalAccumlated < LEAST_ACCUMLATED_TIME) {
+      return;
+    }
+    const gained = 3 + Math.floor(finalAccumlated / POINT_TARGET_DURATION);
+    const newPoint = currentPoint + gained;
+
+    try {
+      await updateStudy(studyId, { point: newPoint });
+      onPointChange(newPoint);
+      setGainPoint(gained);
+      setShowGainPoint(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    if (!showGainPoint) return;
+    const timer = setTimeout(() => setShowGainPoint(false), 3000);
+    return () => clearTimeout(timer);
+  }, [showGainPoint]);
+
+  return { awardPoint, gainPoint, showGainPoint };
+}
