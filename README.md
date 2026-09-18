@@ -1,6 +1,6 @@
 # **{4팀}**
 
-(팀 협업 문서 링크 게시)
+[팀 노션](https://app.notion.com/p/2052b190d85f83778c068111c5a61acb?v=2002b190d85f83669bf18800196ec423&source=copy_link)
 
 ## **팀원 구성**
 
@@ -10,7 +10,7 @@
 
 이승현 (개인 Github 링크)
 
-이지우 (개인 Github 링크)
+이지우 [깃허브 링크](https://github.com/Rasol07)
 
 정호영 (개인 Github 링크)
 
@@ -27,7 +27,7 @@
 
 - Frontend: JavaScript, React.js ...
 - Backend: Express.js, PrismaORM ...
-- Database: PostgreSQL, DBeaver
+- Database: PostgreSQL
 - 배포, 협업: Git & Github, Discord, zep, Notion, Swagger, Render, Netlify
 
 ---
@@ -35,9 +35,6 @@
 ## **팀원별 구현 기능 상세**
 
 ### 권다운(팀장)
-
-(자신이 개발한 기능에 대한 사진이나 gif 파일 첨부)
-
 #### 홈
 <img width="1561" height="1053" alt="image" src="https://github.com/user-attachments/assets/88b2d3c1-2a23-44e8-b5db-8d190f541d62" />
 
@@ -145,11 +142,9 @@
 
 
 
-### 이지우
+## 이지우
 
-(자신이 개발한 기능에 대한 사진이나 gif 파일 첨부)
-
-## 공통 컴포넌트
+### 공통 컴포넌트
 
 - 입력 부분
 - 모달창
@@ -163,7 +158,7 @@
 
 오늘의 집중 페이지 전체 담당
 
-### DB 아닌 session storage
+- DB 아닌 session storage
 
 집중 페이지의 시간에 대해 굳이 DB가 저장하고 있을 필요성이 없다 판단
 
@@ -193,11 +188,9 @@
 ## 인증 관련 훅 제작 - useStudyAccess.js / checkAccess.js
 
 ### checkAccess
-
 - get으로 인증 여부 불러와 인증이 필요한 경우 / 인증이 이미 된 경우를 확인
 
 ### verifyPassword
-
 - post를 통해 password 입력한 값 받아서 서로 비교한 다음에 비밀번호 확인했다 하면 session Id 발급되는 것이고, 만약에 비밀번호 틀렸다 하면 오류 띄움.
 
 ## **파일 구조**
@@ -300,9 +293,6 @@ src
 ---
 
 ## **구현 홈페이지**
-
-(개발한 홈페이지에 대한 링크 게시)
-
 실제 웹 배포 : https://15-boradori-study-forest.netlify.app/
 
 ---
