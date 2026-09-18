@@ -4,11 +4,11 @@
 
 ## **팀원 구성**
 
-권다운 (개인 Github 링크)
+권다운 [깃허브 링크](https://github.com/sswapbot)
 
-김숙연 (개인 Github 링크)
+김숙연 [깃허브 링크](https://github.com/T-Lime)
 
-이승현 (개인 Github 링크)
+이승현 [깃허브 링크](https://github.com/MonsteraforCoding)
 
 이지우 [깃허브 링크](https://github.com/Rasol07)
 
@@ -293,7 +293,8 @@ src
 ---
 
 ## **구현 홈페이지**
-실제 웹 배포 : https://15-boradori-study-forest.netlify.app/
+[실제 웹 배포](https://15-boradori-study-forest.netlify.app/)
+[테스트용 웹 배포](https://boradori-study-forest.netlify.app/)
 
 ---
 
