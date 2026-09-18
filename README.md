@@ -4,9 +4,9 @@
 
 ## **팀원 구성**
 
-권다운 [깃허브 링크](https://github.com/sswapbot)
+권다운 [깃허브 링크](https://github.com/T-Lime)
 
-김숙연 [깃허브 링크](https://github.com/T-Lime)
+김숙연 [깃허브 링크](https://github.com/sswapbot)
 
 이승현 [깃허브 링크](https://github.com/MonsteraforCoding)
 
@@ -70,7 +70,9 @@
 #### 스터디 상세페이지
 
 - 스터디 및 포인트 조회
+ <img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/71a66ff6-6bba-458b-9e0a-a0563b9b5978" />
 - url 복사
+  <img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/80bd4bcd-965e-4b42-bb1c-2a6c510718a4" />
 - 비밀번호 모달
 - 이모지
     - 태그
